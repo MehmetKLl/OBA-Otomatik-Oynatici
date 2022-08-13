@@ -1,8 +1,6 @@
 from os import environ, path, mkdir
 from time import strftime
-
-class InvalidMessageType(Exception):
-    pass
+from utils.exceptions import InvalidMessageType
 
 class Log:
     def __init__(self,name=None):
