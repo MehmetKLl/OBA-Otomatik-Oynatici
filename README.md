@@ -10,7 +10,7 @@
 ---------------------------------
 <img src="img/pic1.png">
 </img>
-<i color="red">İlk oba_otomatik_oynatma.exe çalıştırılır.</i>
+<i>İlk oba_otomatik_oynatma.exe çalıştırılır.</i>
 
 ---------------------------------
 <img src="img/pic2.png">
@@ -55,3 +55,6 @@
 |-|-|
 |1.3.0|Sürüm denetleyicisi eklendi. Bazı hatalar giderildi.|
 |1.2.2|Hata yakalama geliştirildi. Bazı hatalar giderildi. Programın stabilitesi arttırıldı.|
+|1.2.1|Arayüz eklendi. Programı durdurma kısayolunu değiştirme seçeneği eklendi.|
+|1.1.0|Programın mekanizması geliştirildi.|
+|1.0.0|Programın stabil olmayan ve yayınlanmayan ilk sürümü.|
