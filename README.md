@@ -46,3 +46,11 @@
 - Program "Eğitime başla/Eğitime devam et" tuşuna basılıp yeni ekran açıldığı zaman en önde tarayıcı gözükecek şekilde çalıştırılmalıdır.
 - Program çalışırken fare ile oynanmamalıdır, eğer oynarsanız büyük ihtimalle programın videoyu kontrol etme mekanizması bozulacaktır.
 - Program çalışırken bilgisayarın kapanmaması için bilgisayarın uyku moduna girme süresi kapatılmalıdır. 
+
+---------------------------------
+
+<h4>Sürüm Notları</h4>
+
+|Sürüm|Notlar|
+|-|-|
+|1.3.0|Sürüm denetleyicisi eklendi. Bazı hatalar giderildi.|
