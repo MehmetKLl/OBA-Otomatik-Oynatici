@@ -54,3 +54,4 @@
 |Sürüm|Notlar|
 |-|-|
 |1.3.0|Sürüm denetleyicisi eklendi. Bazı hatalar giderildi.|
+|1.2.2|Hata yakalama geliştirildi. Bazı hatalar giderildi. Programın stabilitesi arttırıldı.|
