@@ -2,6 +2,7 @@
 <h3> Sürüm 1.3.0 </h3>
 
 <h4>Kullanım</h4>
+
 - Program ilk çalıştırıldığı vakit gereken dosyaları kurmakta ve programı öyle çalıştırmaktadır. Bundan dolayı program ilk seferde biraz geç açılabilir.
 - Program ilk çalıştırıldığı vakit kurulması gereken dosyaları internetten indirdiğinden program ilk çalıştırıldığı vakit internet gerektirmektedir.
 - Arayüz ekrana gelmeden önce sürüm denetleyicisi çalıştırıldığından arayüzün ekrana gelmesi bazı etkenlere bağlı olarak değişebilir.
