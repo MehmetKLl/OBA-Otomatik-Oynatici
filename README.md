@@ -1,5 +1,5 @@
 <h2> ÖBA Otomatik Oynatıcı </h2>
-<h4> Versiyon = 1.2.2 </h4>
+<h4> Versiyon = 1.3.0 </h4>
 
 
 <b>Program Hakkında Bilgiler</b>
