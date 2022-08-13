@@ -19,7 +19,7 @@
 <b>Uyarılar</b>
 - Programın düzgün bir şekilde kullanılabilmesi için yönetici yetkisi ile çalıştırılmalıdır. Programın yönetici yetkisi ile çalıştırılması gerekmesinin sebebi dosya işlemleri sırasında yönetici yetkisinin gerekmesidir.
 - Program Chrome tarayıcısında %100 site büyütme boyutunda farklı ekran boyutlarında çalışabilmektedir. 
-- Program 32 bit pyinstaller ile bundle edilmiştir, 64 bit sistemlerde de çalışmaktadır. 
+- Tüm çalıştırılabilir dosyalar 32 bit pyinstaller ile bundle edilmiştir, 64 bit sistemlerde de çalışmaktadır. 
 - Program Windows 10 64 bit sistemde kusursuz çalışmaktadır, program diğer sistemlerde denenmemiştir.
 - Program "Eğitime başla/Eğitime devam et" tuşuna basılıp yeni ekran açıldığı zaman en önde tarayıcı gözükecek şekilde çalıştırılmalıdır.
 - Program çalışırken fare ile oynanmamalıdır, eğer oynarsanız büyük ihtimalle programın videoyu kontrol etme mekanizması bozulacaktır.
