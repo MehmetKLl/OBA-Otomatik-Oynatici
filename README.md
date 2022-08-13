@@ -7,7 +7,26 @@
 - Program ilk çalıştırıldığı vakit kurulması gereken dosyaları internetten indirdiğinden program ilk çalıştırıldığı vakit internet gerektirmektedir.
 - Arayüz ekrana gelmeden önce sürüm denetleyicisi çalıştırıldığından arayüzün ekrana gelmesi bazı etkenlere bağlı olarak değişebilir.
 - Program kurulduktan sonra aynı dosyayla kuruluma gerek olmadan program çalıştırılabilir.
+---------------------------------
+<img src="img/pic1.png">
+</img>
+<i color="red">İlk oba_otomatik_oynatma.exe çalıştırılır.</i>
 
+---------------------------------
+<img src="img/pic2.png">
+</img>
+
+---------------------------------
+<img src="img/pic3.png">
+</img>
+<i>Ayarlar kısmından gerekli düzenlemeler yapılabilir.</i>
+
+---------------------------------
+<img src="img/pic2.png">
+</img>
+<i>"Başlat" tuşuna basarak program çalıştırılır.</i>
+
+---------------------------------
 
 <h4>Program Hakkında Bilgiler</h4>
 
@@ -16,7 +35,10 @@
 - Programda pyautogui, tkinter, keyboard, os, multiprocessing ve time modülleri kullanılmıştır.
 - Programı kendi atadığınız kısayol ile kapatabilirsiniz. 
 
-<b>Uyarılar</b>
+---------------------------------
+
+<h4>Uyarılar</h4>
+
 - Programın düzgün bir şekilde kullanılabilmesi için yönetici yetkisi ile çalıştırılmalıdır. Programın yönetici yetkisi ile çalıştırılması gerekmesinin sebebi dosya işlemleri sırasında yönetici yetkisinin gerekmesidir.
 - Program Chrome tarayıcısında %100 site büyütme boyutunda farklı ekran boyutlarında çalışabilmektedir. 
 - Tüm çalıştırılabilir dosyalar 32 bit pyinstaller ile bundle edilmiştir, 64 bit sistemlerde de çalışmaktadır. 
