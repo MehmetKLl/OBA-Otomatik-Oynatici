@@ -1,5 +1,4 @@
 from os import remove, rmdir, mkdir, listdir, path
-from json import loads
 from requests import Session
 from zipfile import ZipFile
 from utils.exceptions import *
