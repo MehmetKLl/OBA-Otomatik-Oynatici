@@ -3,11 +3,24 @@ from tkinter.ttk import Button, Checkbutton, Entry
 from multiprocessing import freeze_support
 from threading import Thread
 from keyboard import is_pressed
-from utils import Process, main, exceptions, version_controller, env_paths
-from os import environ
-from subprocess import call, CREATE_NO_WINDOW
-from json import loads
+from utils import Process, main, exceptions
+from requests import Session
+from winreg import OpenKeyEx, HKEY_CURRENT_USER, KEY_READ, QueryValueEx
 
+def get_version(timeout=3):
+        try:
+            with Session() as session:
+                request = session.get("https://raw.githubusercontent.com/MehmetKLl/OBA-Otomatik-Oynatici/main/VERSION",timeout=timeout)
+                version = request.text.replace("\n","")
+        except Exception as err:
+            raise FailedRequestError(err)
+        else:
+            return version
+
+def get_local_version():
+    with OpenKeyEx(HKEY_CURRENT_USER,"SOFTWARE\\OBA Otomatik Oynatici",0,KEY_READ) as key:
+        version = QueryValueEx(key,"version")
+    return version[0]
 
 class Root(Tk):
     def __init__(self):
@@ -19,7 +32,7 @@ class Root(Tk):
     def setup(self):
         self.geometry("450x400")
         self.resizable(False,False)
-        self.title("ÖBA Otomatik Oynatıcı v1.3.0")
+        self.title("ÖBA Otomatik Oynatıcı v1.3.1")
         self.iconbitmap("oba.ico")
         self.is_settings_opened = False
         self.shortcut, self.autoclose, self.devmode = StringVar(), BooleanVar(), BooleanVar()
@@ -99,8 +112,8 @@ class SettingsWidget(Toplevel):
     def setup(self,obj):
         obj.is_settings_opened = True
         self.transient(obj)
-        self.geometry("275x300")
-        self.title("ÖBA Otomatik Oynatıcı v1.3.0")
+        self.geometry("275x350")
+        self.title("ÖBA Otomatik Oynatıcı v1.3.1")
         self.iconbitmap("oba.ico")
         self.resizable(False,False) 
         self.protocol("WM_DELETE_WINDOW",lambda:self.settings_destroy(obj))
@@ -147,7 +160,7 @@ class SettingsWidget(Toplevel):
         version_label = Label(version_frame,text="Versiyon:",justify="left")
         version_label.grid(row=0,column=0,padx=(0,5))
         version_box = Entry(version_frame)
-        version_box.insert(0,version_controller.get_local_version())
+        version_box.insert(0,get_local_version())
         version_box.config(state="disabled")
         version_box.grid(row=0,column=1)
         check_version_button = Button(self,text="Güncelleştirmeleri denetle",command=self.check_version)
@@ -156,15 +169,12 @@ class SettingsWidget(Toplevel):
 
     def check_version(self):
         try:
-            local_version = version_controller.get_local_version()
-            version = version_controller.get_version()
+            local_version = get_local_version()
+            version = get_version()
             if local_version == version:
                 messagebox.showinfo("ÖBA Otomatik Oynatıcı v1.3.0",f"Programınız güncel.\n\nProgramın sürümü: v{local_version}\nEn son yayınlanan sürüm: v{version}")
             else:
-                ask_for_update = messagebox.askyesno("ÖBA Otomatik Oynatıcı v1.3.0",f"Programınızın yeni bir sürümü bulunuyor.\n\nProgramın sürümü: v{local_version}\nEn son yayınlanan sürüm: v{version}\n\nProgramınızı en son sürüme güncellemek ister misinz?")
-                if ask_for_update:
-                    # Yükseltme gerektirir.
-                    Thread(target=lambda:call(["{env_paths.PROGRAM_PATH}\\updater.exe"],creationflags=CREATE_NO_WINDOW),cwd=env_paths.PROGRAM_PATH).start()
+                ask_for_update = messagebox.showinfo("ÖBA Otomatik Oynatıcı v1.3.0",f"Programınızın yeni bir sürümü bulunuyor.\n\nProgramın sürümü: v{local_version}\nEn son yayınlanan sürüm: v{version}\n\nProgramınızı en son sürüme güncellemek ister misinz?")
         except exceptions.FailedRequestError:
             messagebox.showwarning("ÖBA Otomatik Oynatıcı v1.3.0","Sunucu ile bağlantı kurulamadı.Bunun birkaç sebebi olabilir.\n\n• İnternet bağlantınız yok veya zayıf.\n• Sunucu kapalı veya istekleri reddediyor.\n• Aranan sunucu geçersiz.")
 

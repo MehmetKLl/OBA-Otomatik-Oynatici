@@ -2,6 +2,7 @@ from pyautogui import locateOnScreen, FAILSAFE, click, moveTo, scroll, locateAll
 from time import sleep
 from utils.log import Log
 
+log = Log()
 
 def scroll_new_video():
     x, y, w, h = locateOnScreen("img/border.png")
@@ -57,7 +58,6 @@ def control_current_video():
 start = scroll_new_video
 
 def main():
-    log = Log()
     try:
         start()
     except Exception as err:

@@ -1,7 +1,8 @@
 from multiprocessing import Process as process
 from multiprocessing import Pipe
 from traceback import format_exc
-from subprocess import check_output, CREATE_NO_WINDOW
+from subprocess import check_output, CREATE_NO_WINDOW, Popen
+from threading import Thread
 
 class Process(process):
     def __init__(self, *args, **kwargs):
@@ -25,3 +26,9 @@ class Process(process):
 
 def process_list():
     return check_output(["tasklist"],shell=False,creationflags=CREATE_NO_WINDOW).decode("utf-8").split("\r\n")[3:]
+
+def run(path,executable):
+    return Popen([f"{path}\\{executable}"],shell=False,creationflags=CREATE_NO_WINDOW,cwd=path)
+
+def kill(process):
+    return Popen(["taskkill","-f","-im",process,"-t"],shell=False,creationflags=CREATE_NO_WINDOW)

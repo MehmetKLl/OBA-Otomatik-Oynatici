@@ -1,4 +1,4 @@
-class InvalidMessageType(Exception):
+class InvalidLogType(Exception):
     pass
 
 class FailedRequestError(Exception):
