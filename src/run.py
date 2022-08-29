@@ -126,7 +126,7 @@ if __name__ == "__main__":
             MessageBox(0,f"Beklenmedik hata: {err}","ÖBA Otomatik Oynatıcı", MB_OK | MB_ICONERROR)
             exit(1)
         else:
-            run(f"{PROGRAM_PATH}",f"oba_gui.exe")
+            run(PROGRAM_PATH,f"oba_gui.exe")
             exit(0)
     else:
         updater_log = Log(f"updater.exe {strftime('%d.%m.%Y %H.%M.%S')}")
@@ -136,7 +136,7 @@ if __name__ == "__main__":
         except FailedRequestError:
             updater_log.write("İnternet mevcut değil.","warning")
             if not any(["oba_gui.exe" in i for i in process_list()]):
-                run(f"\"{PROGRAM_PATH}\\oba_gui.exe\"",f"{PROGRAM_PATH}")
+                run(PROGRAM_PATH,"oba_gui.exe")
             exit(0)
         else:
             if user_version != main_version:
@@ -150,11 +150,11 @@ if __name__ == "__main__":
                 Updater.remove_packages(TEMP_PATH)
                 Updater.update_version()
                 updater_log.write("Güncelleme başarılı.","info")
-                run(f"{PROGRAM_PATH}",f"oba_gui.exe")
+                run(PROGRAM_PATH,f"oba_gui.exe")
             else:
                 updater_log.write("Uygulama güncel.","info")
                 if not any(["oba_gui.exe" in i for i in process_list()]):
-                    run(f"{PROGRAM_PATH}",f"oba_gui.exe")
+                    run(PROGRAM_PATH,f"oba_gui.exe")
             exit(0)
     
     
