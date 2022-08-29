@@ -1,5 +1,5 @@
 <h2> ÖBA Otomatik Oynatıcı </h2>
-<h3> Sürüm 1.3.0 </h3>
+<h3> Sürüm 1.3.1 </h3>
 
 <h4>Kullanım</h4>
 
@@ -53,6 +53,7 @@
 
 |Sürüm|Notlar|
 |-|-|
+|1.3.1|Sürüm denetleyicisi geliştirildi. Kodlar düzenlendi. |
 |1.3.0|Sürüm denetleyicisi eklendi. Bazı hatalar giderildi.|
 |1.2.2|Hata yakalama geliştirildi. Bazı hatalar giderildi. Programın stabilitesi arttırıldı.|
 |1.2.1|Arayüz eklendi. Programı durdurma kısayolunu değiştirme seçeneği eklendi.|
