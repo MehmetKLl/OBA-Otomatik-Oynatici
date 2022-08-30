@@ -80,17 +80,17 @@ class Root(Tk):
         while True:
             if self.test_key():
                 if process.exception:
-                    messagebox.showerror("ÖBA Otomatik Oynatıcı v1.3.0",f"Hata yakalandı:\n\n{process.exception[1]}" if self.devmode.get() else "Programda hata oluştu ve program sonlandırıldı.")
+                    messagebox.showerror("ÖBA Otomatik Oynatıcı v1.3.1",f"Hata yakalandı:\n\n{process.exception[1]}" if self.devmode.get() else "Programda hata oluştu ve program sonlandırıldı.")
                     process.terminate()
                     self.wm_attributes("-alpha",1)
                     break
                 if is_pressed(self.shortcut.get()):
-                    messagebox.showinfo("ÖBA Otomatik Oynatıcı v1.3.0","Program sonlandırıldı.")
+                    messagebox.showinfo("ÖBA Otomatik Oynatıcı v1.3.1","Program sonlandırıldı.")
                     process.terminate()
                     self.wm_attributes("-alpha",1)
                     break
             else:
-                messagebox.showinfo("ÖBA Otomatik Oynatıcı v1.3.0","Atadığınız kısayol geçersiz.")
+                messagebox.showinfo("ÖBA Otomatik Oynatıcı v1.3.1","Atadığınız kısayol geçersiz.")
                 break
         self.start_button.config(state="normal")
     
