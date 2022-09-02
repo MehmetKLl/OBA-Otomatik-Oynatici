@@ -39,7 +39,6 @@
 
 <h4>Uyarılar</h4>
 
-- Programın düzgün bir şekilde kullanılabilmesi için yönetici yetkisi ile çalıştırılmalıdır. Programın yönetici yetkisi ile çalıştırılması gerekmesinin sebebi dosya işlemleri sırasında yönetici yetkisinin gerekmesidir.
 - Program Chrome tarayıcısında %100 site büyütme boyutunda farklı ekran boyutlarında çalışabilmektedir. 
 - Tüm çalıştırılabilir dosyalar 32 bit pyinstaller ile bundle edilmiştir, 64 bit sistemlerde de çalışmaktadır. 
 - Program Windows 10 64 bit sistemde kusursuz çalışmaktadır, program diğer sistemlerde denenmemiştir.
