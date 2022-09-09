@@ -1,5 +1,6 @@
+
 <h2> ÖBA Otomatik Oynatıcı </h2>
-<h3> Sürüm 1.3.1 </h3>
+<h3> Sürüm 1.3.2 </h3>
 
 <h4>Kullanım</h4>
 
@@ -17,11 +18,13 @@
 </img>
 
 ---------------------------------
+
 <img src="img/pic3.png">
 </img>
 <i>Ayarlar kısmından gerekli düzenlemeler yapılabilir.</i>
 
 ---------------------------------
+
 <img src="img/pic2.png">
 </img>
 <i>"Başlat" tuşuna basarak program çalıştırılır.</i>
@@ -41,7 +44,7 @@
 
 - Program Chrome tarayıcısında %100 site büyütme boyutunda farklı ekran boyutlarında çalışabilmektedir. 
 - Tüm çalıştırılabilir dosyalar 32 bit pyinstaller ile bundle edilmiştir, 64 bit sistemlerde de çalışmaktadır. 
-- Program Windows 10 64 bit sistemde kusursuz çalışmaktadır, program diğer sistemlerde denenmemiştir.
+- Program Windows 10 x64/x32 ve Windows 8 x64/x86 sistemlerde kusursuz çalışmaktadır, program diğer sistemlerde denenmemiştir.
 - Program "Eğitime başla/Eğitime devam et" tuşuna basılıp yeni ekran açıldığı zaman en önde tarayıcı gözükecek şekilde çalıştırılmalıdır.
 - Program çalışırken fare ile oynanmamalıdır, eğer oynarsanız büyük ihtimalle programın videoyu kontrol etme mekanizması bozulacaktır.
 - Program çalışırken bilgisayarın kapanmaması için bilgisayarın uyku moduna girme süresi kapatılmalıdır. 
@@ -52,6 +55,7 @@
 
 |Sürüm|Notlar|
 |-|-|
+|1.3.2|Sürüm denetleyicisinin internet olmayınca oluşturduğu hatalar giderildi. Arayüz tasarımındaki hatalar giderildi. |
 |1.3.1|Sürüm denetleyicisi geliştirildi. Kodlar düzenlendi. |
 |1.3.0|Sürüm denetleyicisi eklendi. Bazı hatalar giderildi.|
 |1.2.2|Hata yakalama geliştirildi. Bazı hatalar giderildi. Programın stabilitesi arttırıldı.|
