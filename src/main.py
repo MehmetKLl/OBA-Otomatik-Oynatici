@@ -32,7 +32,7 @@ class Root(Tk):
     def setup(self):
         self.geometry("450x400")
         self.resizable(False,False)
-        self.title("ÖBA Otomatik Oynatıcı v1.3.1")
+        self.title("ÖBA Otomatik Oynatıcı v1.3.2")
         self.iconbitmap("oba.ico")
         self.is_settings_opened = False
         self.shortcut, self.autoclose, self.devmode = StringVar(), BooleanVar(), BooleanVar()
@@ -80,17 +80,17 @@ class Root(Tk):
         while True:
             if self.test_key():
                 if process.exception:
-                    messagebox.showerror("ÖBA Otomatik Oynatıcı v1.3.1",f"Hata yakalandı:\n\n{process.exception[1]}" if self.devmode.get() else "Programda hata oluştu ve program sonlandırıldı.")
+                    messagebox.showerror("ÖBA Otomatik Oynatıcı v1.3.2",f"Hata yakalandı:\n\n{process.exception[1]}" if self.devmode.get() else "Programda hata oluştu ve program sonlandırıldı.")
                     process.terminate()
                     self.wm_attributes("-alpha",1)
                     break
                 if is_pressed(self.shortcut.get()):
-                    messagebox.showinfo("ÖBA Otomatik Oynatıcı v1.3.1","Program sonlandırıldı.")
+                    messagebox.showinfo("ÖBA Otomatik Oynatıcı v1.3.2","Program sonlandırıldı.")
                     process.terminate()
                     self.wm_attributes("-alpha",1)
                     break
             else:
-                messagebox.showinfo("ÖBA Otomatik Oynatıcı v1.3.1","Atadığınız kısayol geçersiz.")
+                messagebox.showinfo("ÖBA Otomatik Oynatıcı v1.3.2","Atadığınız kısayol geçersiz.")
                 break
         self.start_button.config(state="normal")
     
@@ -113,7 +113,7 @@ class SettingsWidget(Toplevel):
         obj.is_settings_opened = True
         self.transient(obj)
         self.geometry("275x350")
-        self.title("ÖBA Otomatik Oynatıcı v1.3.1")
+        self.title("ÖBA Otomatik Oynatıcı v1.3.2")
         self.iconbitmap("oba.ico")
         self.resizable(False,False) 
         self.protocol("WM_DELETE_WINDOW",lambda:self.settings_destroy(obj))
@@ -163,20 +163,6 @@ class SettingsWidget(Toplevel):
         version_box.insert(0,get_local_version())
         version_box.config(state="disabled")
         version_box.grid(row=0,column=1)
-        check_version_button = Button(self,text="Güncelleştirmeleri denetle",command=self.check_version)
-        check_version_button.grid(row=4,column=0,pady=(5,0),padx=(10,0),sticky="w")
-
-
-    def check_version(self):
-        try:
-            local_version = get_local_version()
-            version = get_version()
-            if local_version == version:
-                messagebox.showinfo("ÖBA Otomatik Oynatıcı v1.3.0",f"Programınız güncel.\n\nProgramın sürümü: v{local_version}\nEn son yayınlanan sürüm: v{version}")
-            else:
-                ask_for_update = messagebox.showinfo("ÖBA Otomatik Oynatıcı v1.3.0",f"Programınızın yeni bir sürümü bulunuyor.\n\nProgramın sürümü: v{local_version}\nEn son yayınlanan sürüm: v{version}\n\nProgramınızı en son sürüme güncellemek ister misinz?")
-        except exceptions.FailedRequestError:
-            messagebox.showwarning("ÖBA Otomatik Oynatıcı v1.3.0","Sunucu ile bağlantı kurulamadı.Bunun birkaç sebebi olabilir.\n\n• İnternet bağlantınız yok veya zayıf.\n• Sunucu kapalı veya istekleri reddediyor.\n• Aranan sunucu geçersiz.")
 
         
 
