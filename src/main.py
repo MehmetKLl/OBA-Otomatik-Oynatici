@@ -1,5 +1,5 @@
-from tkinter import messagebox, Tk, Label, Frame, StringVar, BooleanVar, Toplevel, Menu
-from tkinter.ttk import Button, Checkbutton, Entry, Menubutton
+from tkinter import messagebox, Tk, Label, Frame, StringVar, BooleanVar, Toplevel
+from tkinter.ttk import Button, Checkbutton, Entry
 from multiprocessing import freeze_support
 from threading import Thread
 from keyboard import is_pressed
