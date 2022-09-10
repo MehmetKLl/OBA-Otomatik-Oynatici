@@ -7,21 +7,6 @@ from utils import Process, main, exceptions
 from requests import Session
 from winreg import OpenKeyEx, HKEY_CURRENT_USER, KEY_READ, QueryValueEx
 
-def get_version(timeout=3):
-        try:
-            with Session() as session:
-                request = session.get("https://raw.githubusercontent.com/MehmetKLl/OBA-Otomatik-Oynatici/main/VERSION",timeout=timeout)
-                version = request.text.replace("\n","")
-        except Exception as err:
-            raise FailedRequestError(err)
-        else:
-            return version
-
-def get_local_version():
-    with OpenKeyEx(HKEY_CURRENT_USER,"SOFTWARE\\OBA Otomatik Oynatici",0,KEY_READ) as key:
-        version = QueryValueEx(key,"version")
-    return version[0]
-
 class Root(Tk):
     def __init__(self):
         super().__init__()
