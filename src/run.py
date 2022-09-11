@@ -125,7 +125,7 @@ if __name__ == "__main__":
             MessageBox(0,f"Beklenmedik hata: {err}","ÖBA Otomatik Oynatıcı", MB_OK | MB_ICONERROR)
             exit(1)
         else:
-            run(PROGRAM_PATH,f"oba_gui.exe")
+            start(f"{PROGRAM_PATH}\\oba_gui.exe")
             exit(0)
     else:
         try:
@@ -144,10 +144,10 @@ if __name__ == "__main__":
                 Updater.remove_packages(TEMP_PATH)
                 Updater.update_version()
                 updater_log.write("Güncelleme başarılı.","info")
-                run(PROGRAM_PATH,f"oba_gui.exe")
+                start(f"{PROGRAM_PATH}\\oba_gui.exe")
             else:
                 if not any(["oba_gui.exe" in i for i in process_list()]):
-                    run(PROGRAM_PATH,f"oba_gui.exe")
+                    start(f"{PROGRAM_PATH}\\oba_gui.exe")
             exit(0)
     
     
