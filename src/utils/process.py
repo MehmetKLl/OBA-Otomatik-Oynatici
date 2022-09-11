@@ -2,6 +2,7 @@ from multiprocessing import Process as process
 from multiprocessing import Pipe
 from traceback import format_exc
 from subprocess import check_output, CREATE_NO_WINDOW, Popen
+from os import path
 
 class Process(process):
     def __init__(self, *args, **kwargs):
