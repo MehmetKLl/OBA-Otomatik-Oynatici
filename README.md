@@ -55,7 +55,7 @@
 
 |Sürüm|Notlar|
 |-|-|
-|1.3.4|Programın mekanizması geliştirildi. Kod yapısı düzenlendi.|
+|1.3.4|Programın mekanizması geliştirildi. Log sistemi kaldırıldı. Kod yapısı düzenlendi.|
 |1.3.3|Arayüz tasarımı geliştirildi.|
 |1.3.2|Sürüm denetleyicisinin internet olmayınca oluşturduğu hatalar giderildi. Arayüz tasarımındaki hatalar giderildi. |
 |1.3.1|Sürüm denetleyicisi geliştirildi. Kodlar düzenlendi. |
