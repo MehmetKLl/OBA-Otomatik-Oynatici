@@ -20,7 +20,7 @@ class Root(Tk):
         self.geometry("450x400")
         self.resizable(False,False)
         self.wm_attributes("-topmost",True)
-        self.title("ÖBA Otomatik Oynatıcı v1.3.3")
+        self.title("ÖBA Otomatik Oynatıcı v1.3.4")
         self.iconbitmap("oba.ico")
         self.is_settings_opened = False
         self.shortcut, self.autoclose, self.devmode, self.after_completed = StringVar(), BooleanVar(), BooleanVar(), StringVar()
@@ -69,17 +69,17 @@ class Root(Tk):
         while True:
             if self.test_key():
                 if process.exception:
-                    messagebox.showerror("ÖBA Otomatik Oynatıcı v1.3.3",f"Hata yakalandı:\n\n{process.exception[1]}" if self.devmode.get() else "Programda hata oluştu ve program sonlandırıldı.")
+                    messagebox.showerror("ÖBA Otomatik Oynatıcı v1.3.4",f"Hata yakalandı:\n\n{process.exception[1]}" if self.devmode.get() else "Programda hata oluştu ve program sonlandırıldı.")
                     process.terminate()
                     self.wm_attributes("-alpha",1)
                     break
                 if is_pressed(self.shortcut.get()):
-                    messagebox.showinfo("ÖBA Otomatik Oynatıcı v1.3.3","Program sonlandırıldı.")
+                    messagebox.showinfo("ÖBA Otomatik Oynatıcı v1.3.4","Program sonlandırıldı.")
                     process.terminate()
                     self.wm_attributes("-alpha",1)
                     break
             else:
-                messagebox.showinfo("ÖBA Otomatik Oynatıcı v1.3.3","Atadığınız kısayol geçersiz.")
+                messagebox.showinfo("ÖBA Otomatik Oynatıcı v1.3.4","Atadığınız kısayol geçersiz.")
                 break
         self.start_button.config(state="normal")
     
@@ -102,7 +102,7 @@ class SettingsWidget(Toplevel):
         obj.is_settings_opened = True
         self.transient(obj)
         self.geometry("275x350")
-        self.title("ÖBA Otomatik Oynatıcı v1.3.3")
+        self.title("ÖBA Otomatik Oynatıcı v1.3.4")
         self.iconbitmap("oba.ico")
         self.resizable(False,False) 
         self.protocol("WM_DELETE_WINDOW",lambda:self.settings_destroy(obj))
