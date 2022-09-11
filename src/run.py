@@ -143,7 +143,6 @@ if __name__ == "__main__":
                 Updater.install_packages(PROGRAM_PATH,TEMP_PATH)
                 Updater.remove_packages(TEMP_PATH)
                 Updater.update_version()
-                updater_log.write("Güncelleme başarılı.","info")
                 start(f"{PROGRAM_PATH}\\oba_gui.exe")
             else:
                 if not any(["oba_gui.exe" in i for i in process_list()]):
