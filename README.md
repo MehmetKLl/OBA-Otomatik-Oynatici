@@ -35,7 +35,7 @@
 
 - Program Python ile yazılmıştır, arayüzlü basit bir makro uygulamasıdır.
 - Program çalışırken ekran görüntüsünü işleyerek çalışmaktadır, bu yüzden bir yere gideceğiniz zaman programı açık bırakabilirsiniz.
-- Programda requests, pywin32, pyautogui, tkinter, keyboard, os, multiprocessing ve time modülleri kullanılmıştır.
+- Programda requests, pywin32, pyautogui, tkinter ve keyboard modülleri/kütüphaneleri kullanılmıştır.
 - Programı kendi atadığınız kısayol ile kapatabilirsiniz. 
 
 ---------------------------------
