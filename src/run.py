@@ -5,7 +5,6 @@ from requests import Session
 from utils.exceptions import FailedRequestError
 from utils.process import *
 from utils.env_paths import *
-from utils import Log
 from zipfile import ZipFile
 from threading import Thread
 from winreg import CreateKeyEx, SetValueEx, QueryValueEx, OpenKeyEx, HKEY_CURRENT_USER, KEY_WRITE, KEY_READ, REG_SZ
@@ -129,22 +128,17 @@ if __name__ == "__main__":
             run(PROGRAM_PATH,f"oba_gui.exe")
             exit(0)
     else:
-        updater_log = Log(f"updater.exe {strftime('%d.%m.%Y %H.%M.%S')}")
         try:
             main_version = Updater.get_version()
             user_version = Updater.get_local_version()
         except FailedRequestError:
-            updater_log.write("İnternet mevcut değil.","warning")
             if not any(["oba_gui.exe" in i for i in process_list()]):
                 run(PROGRAM_PATH,"oba_gui.exe")
             exit(0)
         else:
             if user_version != main_version:
                 kill("oba_gui.exe")
-                updater_log.write("Güncelleme başlatılıyor...","info")
                 Updater.download_packages(TEMP_PATH)
-                updater_log.write("Dosyalar yüklendi!","info")
-                updater_log.write("Dosyalar çıkartılıyor...","info")
                 Updater.delete_files(PROGRAM_PATH)
                 Updater.install_packages(PROGRAM_PATH,TEMP_PATH)
                 Updater.remove_packages(TEMP_PATH)
@@ -152,7 +146,6 @@ if __name__ == "__main__":
                 updater_log.write("Güncelleme başarılı.","info")
                 run(PROGRAM_PATH,f"oba_gui.exe")
             else:
-                updater_log.write("Uygulama güncel.","info")
                 if not any(["oba_gui.exe" in i for i in process_list()]):
                     run(PROGRAM_PATH,f"oba_gui.exe")
             exit(0)
