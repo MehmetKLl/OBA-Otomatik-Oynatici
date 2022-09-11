@@ -3,7 +3,8 @@ from tkinter.ttk import Button, Checkbutton, Entry
 from multiprocessing import freeze_support
 from threading import Thread
 from keyboard import is_pressed
-from utils import Process, main, exceptions
+from utils import Process, exceptions
+from autoplayer import main
 from requests import Session
 from winreg import OpenKeyEx, HKEY_CURRENT_USER, KEY_READ, QueryValueEx
 
