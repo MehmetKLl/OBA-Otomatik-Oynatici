@@ -133,7 +133,7 @@ if __name__ == "__main__":
             user_version = Updater.get_local_version()
         except FailedRequestError:
             if not any(["oba_gui.exe" in i for i in process_list()]):
-                run(PROGRAM_PATH,"oba_gui.exe")
+                start(f"{PROGRAM_PATH}\\oba_gui.exe")
             exit(0)
         else:
             if user_version != main_version:
