@@ -6,7 +6,6 @@ from utils.exceptions import FailedRequestError
 from utils.process import *
 from utils.env_paths import *
 from zipfile import ZipFile
-from threading import Thread
 from winreg import CreateKeyEx, SetValueEx, QueryValueEx, OpenKeyEx, HKEY_CURRENT_USER, KEY_WRITE, KEY_READ, REG_SZ
 from win32api import MessageBox
 from win32con import MB_ICONERROR, MB_OK
