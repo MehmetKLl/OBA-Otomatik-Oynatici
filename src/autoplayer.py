@@ -33,9 +33,16 @@ def scroll_current_video():
     moveTo(x,y)
     scroll(-100)
     while True:
-        if locateOnScreen("img/open_button.png") or locateOnScreen("img/open_button2.png"):
-            x, y, w, h = locateOnScreen("img/open_button.png") if locateOnScreen("img/open_button.png") else locateOnScreen("img/open_button2.png")
+        if locateOnScreen("img/open_button.png"):
+            x, y, w, h = locateOnScreen("img/open_button.png")
             click(x=x,y=y,button="left")
+        elif locateOnScreen("img/open_button2.png"):
+            x, y, w, h = locateOnScreen("img/open_button2.png")
+            click(x=x,y=y,button="left")
+        elif locateOnScreen("img/open_button3.png"):
+            x, y, w, h = locateOnScreen("img/open_button3.png")
+            click(x=x,y=y,button="left")
+
         if locateOnScreen("img/current_icon.png"):
             break
         else:
