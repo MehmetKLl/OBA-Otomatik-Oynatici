@@ -20,10 +20,10 @@ class Root(Tk):
         self.geometry("450x400")
         self.resizable(False,False)
         self.wm_attributes("-topmost",True)
-        self.title("ÖBA Otomatik Oynatıcı v1.3.4")
+        self.title("ÖBA Otomatik Oynatıcı v1.3.5")
         self.iconbitmap("oba.ico")
         self.is_settings_opened = False
-        self.shortcut, self.autoclose, self.devmode, self.after_completed = StringVar(), BooleanVar(), BooleanVar(), StringVar()
+        self.shortcut, self.autoclose, self.devmode = StringVar(), BooleanVar(), BooleanVar()
         self.shortcut.set("CTRL+ESC")
         self.autoclose.set(True) 
         self.devmode.set(False)
@@ -66,21 +66,19 @@ class Root(Tk):
         process = Process(target=main)
         process.start()
         self.start_button.config(state="disabled")
-        while True:
-            if self.test_key():
+        if not self.test_key():
+            messagebox.showinfo("ÖBA Otomatik Oynatıcı v1.3.5","Atadığınız kısayol geçersiz.")
+        else:
+            while True:
                 if process.exception:
-                    messagebox.showerror("ÖBA Otomatik Oynatıcı v1.3.4",f"Hata yakalandı:\n\n{process.exception[1]}" if self.devmode.get() else "Programda hata oluştu ve program sonlandırıldı.")
+                    messagebox.showerror("ÖBA Otomatik Oynatıcı v1.3.5",f"Hata yakalandı:\n\n{process.exception[1]}" if self.devmode.get() else "Programda hata oluştu ve program sonlandırıldı.")
                     process.terminate()
-                    self.wm_attributes("-alpha",1)
                     break
                 if is_pressed(self.shortcut.get()):
-                    messagebox.showinfo("ÖBA Otomatik Oynatıcı v1.3.4","Program sonlandırıldı.")
+                    messagebox.showinfo("ÖBA Otomatik Oynatıcı v1.3.5","Program sonlandırıldı.")
                     process.terminate()
-                    self.wm_attributes("-alpha",1)
                     break
-            else:
-                messagebox.showinfo("ÖBA Otomatik Oynatıcı v1.3.4","Atadığınız kısayol geçersiz.")
-                break
+        self.wm_attributes("-alpha",1)
         self.start_button.config(state="normal")
     
     def test_key(self):
@@ -102,7 +100,7 @@ class SettingsWidget(Toplevel):
         obj.is_settings_opened = True
         self.transient(obj)
         self.geometry("275x350")
-        self.title("ÖBA Otomatik Oynatıcı v1.3.4")
+        self.title("ÖBA Otomatik Oynatıcı v1.3.5")
         self.iconbitmap("oba.ico")
         self.resizable(False,False) 
         self.protocol("WM_DELETE_WINDOW",lambda:self.settings_destroy(obj))

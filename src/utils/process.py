@@ -25,10 +25,10 @@ class Process(process):
         return self._exception
 
 def process_list():
-    return check_output(["tasklist"],shell=False,creationflags=CREATE_NO_WINDOW).decode("utf-8").split("\r\n")[3:]
+    return check_output(["tasklist"],shell=False,creationflags=CREATE_NO_WINDOW).split(b"\r\n")[3:]
 
 def start(executable):
-    return Popen([path.basename(executable)],shell=False,creationflags=CREATE_NO_WINDOW,cwd=path.dirname(executable))
+    return Popen([path.basename(executable)],shell=True,creationflags=CREATE_NO_WINDOW,cwd=path.dirname(executable))
 
 def run(cmd):
     return Popen(cmd,shell=False,creationflags=CREATE_NO_WINDOW)
