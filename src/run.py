@@ -1,6 +1,5 @@
 from os import path, environ, mkdir, remove, rmdir, listdir
 from traceback import format_exc
-from base64 import b64encode
 from sys import exit
 from time import strftime
 from requests import Session
