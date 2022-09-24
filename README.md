@@ -55,7 +55,7 @@
 
 |Sürüm|Notlar|
 |-|-|
-|1.3.5|Windows 7 desteği eklendi. Yeni log sistemi eklendi.|
+|1.3.5|Windows 7 desteği eklendi. Yeni log sistemi eklendi. Otomatik oynatma mekanizmasının kaynak kodları düzenlendi. Kurulum programının kodları düzenlendi. Arayüzün performansı arttırıldı.|
 |1.3.4|Programın mekanizması geliştirildi. Log sistemi kaldırıldı. Kod yapısı düzenlendi.|
 |1.3.3|Arayüz tasarımı geliştirildi.|
 |1.3.2|Sürüm denetleyicisinin internet olmayınca oluşturduğu hatalar giderildi. Arayüz tasarımındaki hatalar giderildi. |
