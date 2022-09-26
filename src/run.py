@@ -1,7 +1,6 @@
-from os import path, environ, mkdir, remove, rmdir, listdir
+from os import path, mkdir, remove, rmdir, listdir
 from traceback import format_exc
 from sys import exit
-from time import strftime
 from requests import Session
 from utils.exceptions import FailedRequestError
 from utils.process import *
