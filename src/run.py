@@ -27,13 +27,13 @@ class Installer:
         except Exception as err:
             exc = format_exc()
             self.log.write(f"An error occured while getting version data from Github: \"\"\"{exc}\"\"\"")
-            
+
             raise FailedRequestError(err)
         else:
             self.log.write("Successfully got version data from Github.")
-            
+
             return version
-    
+
     def check_registry(self):
         with OpenKeyEx(HKEY_CURRENT_USER,"SOFTWARE\\OBA Otomatik Oynatici",0,KEY_READ) as key:
             version = QueryValueEx(key,"version")
@@ -52,14 +52,14 @@ class Installer:
             self.log.write("Registry key found: \"HKEY_CURRENT_USER\\SOFTWARE\\OBA Otomatik Oynatici\"")
             self.log.write("Application is already installed on this system.")
             return True
-   
+
     def download_packages(self,folder_path):
         self.log.write("Downloading the application from \"https://github.com/MehmetKLl/OBA-Otomatik-Oynatici/raw/main/dist/executable.zip\"")
         try:
             with Session() as session:
                 executable_request = session.get("https://github.com/MehmetKLl/OBA-Otomatik-Oynatici/raw/main/dist/executable.zip")
                 executable_filebytes = executable_request.content
-                
+
         except Exception as err:
             exc = format_exc()
             self.log.write(f"An error occured while downloading the package from Github: \n\"\"\"\n{exc}\n\"\"\"")
@@ -74,9 +74,9 @@ class Installer:
             self.log.write("Writing file bytes to files...")
             with open(f"{folder_path}\\executable.zip","wb") as file_event:
                 file_event.write(executable_filebytes)
-                
+
             self.log.write("File bytes have been successfully written to files.")
-                
+
 
     def install_packages(self,folder_path,zip_path):
         if not path.exists(folder_path):
@@ -92,7 +92,7 @@ class Installer:
         self.log.write("Adding registry value to: \"HKEY_CURRENT_USER\\SOFTWARE\\OBA Otomatik Oynatici\\version\"")
         with CreateKeyEx(HKEY_CURRENT_USER,"SOFTWARE\\OBA Otomatik Oynatici",0,KEY_WRITE) as key:
             SetValueEx(key,"version",0,REG_SZ,f"{self.get_version()}")
-            
+
         self.log.write("Registry value has been added.")
 
     def delete_packages(self,folder_path):
@@ -119,11 +119,11 @@ class Updater:
         except Exception as err:
             exc = format_exc()
             self.log.write(f"An error occured while getting version data from Github: \"\"\"{exc}\"\"\"")
-            
+
             raise FailedRequestError(err)
         else:
             self.log.write("Successfully got version data from Github.")
-            
+
             return version
 
     def get_local_version(self):
@@ -133,7 +133,7 @@ class Updater:
         self.log.write("Successfully read local version from: \"HKEY_CURRENT_USER\\SOFTWARE\\OBA Otomatik Oynatici\\version\"")
         return version[0]
 
-    
+
     def delete_files(self,folder_path):
         absolute_path = path.abspath(folder_path)
         folder_contents = listdir(absolute_path)
@@ -157,11 +157,11 @@ class Updater:
         except Exception as err:
             exc = format_exc()
             self.log.write(f"An error occured while downloading the package from Github: \n\"\"\"\n{exc}\n\"\"\"")
-            
+
             raise FailedRequestError(err)
         else:
             self.log.write("File bytes successfully extracted from Github.")
-            
+
             if not path.exists(f"{folder_path}"):
                 mkdir(f"{folder_path}")
                 self.log.write(f"Folder created: \"{folder_path}\"")
@@ -242,6 +242,6 @@ if __name__ == "__main__":
                     start(f"{PROGRAM_PATH}\\oba_gui.exe")
             updater.finish()
             exit(0)
-    
-    
-    
+
+
+
