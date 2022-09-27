@@ -23,16 +23,15 @@ def scroll_new_video():
             scroll_current_video()
             control_current_video()
             break
-        elif locateOnScreen("img/current_icon.png"):
+        if locateOnScreen("img/current_icon.png"):
             x, y, w, h = locateOnScreen("img/current_icon.png")
             start_new_video(x,y)
             scroll_current_video()
             control_current_video()
             break
-        else:
-            x, y, w, h = locateOnScreen("img/finished_icon.png") if locateOnScreen("img/finished_icon.png") else locateOnScreen("img/non_clickable_icon.png")
-            moveTo(x,y)
-            scroll(-50)
+        x, y, w, h = locateOnScreen("img/finished_icon.png") if locateOnScreen("img/finished_icon.png") else locateOnScreen("img/non_clickable_icon.png")
+        moveTo(x,y)
+        scroll(-50)
 
 def scroll_current_video():
     x, y, w, h = locateOnScreen("img/border.png")
@@ -51,7 +50,7 @@ def scroll_current_video():
             
         if locateOnScreen("img/current_icon.png"):
             break
-        elif locateOnScreen("img/finished_icon.png"):
+        if locateOnScreen("img/finished_icon.png"):
             x, y, w, h = locateOnScreen("img/finished_icon.png")
             moveTo(x,y)
             scroll(-50)
