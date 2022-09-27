@@ -224,7 +224,7 @@ if __name__ == "__main__":
             main_version = updater.get_version()
             user_version = updater.get_local_version()
         except FailedRequestError:
-            if not any([b"oba_gui.exe" in i for i in process_list()]):
+            if not any(b"oba_gui.exe" in i for i in process_list()):
                 start(f"{PROGRAM_PATH}\\oba_gui.exe")
             updater.finish()
             exit(0)
@@ -238,7 +238,7 @@ if __name__ == "__main__":
                 updater.update_version()
                 start(f"{PROGRAM_PATH}\\oba_gui.exe")
             else:
-                if not any([b"oba_gui.exe" in i for i in process_list()]):
+                if not any(b"oba_gui.exe" in i for i in process_list()):
                     start(f"{PROGRAM_PATH}\\oba_gui.exe")
             updater.finish()
             exit(0)
