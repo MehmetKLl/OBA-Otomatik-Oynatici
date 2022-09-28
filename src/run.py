@@ -3,9 +3,9 @@ from traceback import format_exc
 from sys import exit
 from requests import Session
 from utils.exceptions import FailedRequestError
-from utils.process import *
-from utils.env_paths import *
-from utils.log import *
+from utils.process import process_list, kill, start
+from utils.env_paths import PROGRAM_PATH, TEMP_PATH 
+from utils.log import Log
 from zipfile import ZipFile
 from winreg import CreateKeyEx, SetValueEx, QueryValueEx, OpenKeyEx, HKEY_CURRENT_USER, KEY_WRITE, KEY_READ, REG_SZ
 from win32api import MessageBox
