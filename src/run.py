@@ -1,6 +1,5 @@
 from traceback import format_exc
 from sys import exit
-from requests import Session
 from utils.process import kill, start, process_list
 from utils.env_paths import *
 from utils.log import Log
