@@ -17,7 +17,7 @@ class Process(process):
         except Exception as e:
             tb = format_exc()
             self._cconn.send((e, tb))
-
+            
     @property
     def exception(self):
         if self._pconn.poll():

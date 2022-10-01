@@ -1,247 +1,177 @@
-from os import path, mkdir, remove, rmdir, listdir
 from traceback import format_exc
 from sys import exit
 from requests import Session
-from utils.exceptions import FailedRequestError
-from utils.process import process_list, kill, start
-from utils.env_paths import PROGRAM_PATH, TEMP_PATH, SETUP_PATH
+from utils.process import kill, start, process_list
+from utils.env_paths import *
 from utils.log import Log
-from zipfile import ZipFile
-from winreg import CreateKeyEx, SetValueEx, QueryValueEx, OpenKeyEx, HKEY_CURRENT_USER, KEY_WRITE, KEY_READ, REG_SZ
+from runtools.registry import *
+from runtools.server import *
+from runtools.file import *
+from winreg import HKEY_CURRENT_USER
 from win32api import MessageBox
-from win32con import MB_ICONERROR, MB_OK
-
-class Installer:
-    def __init__(self):
-        self.log = Log("Installer")
-
-    def finish(self):
-        self.log.close()
-
-    def get_version(self,timeout=3):
-        self.log.write("Getting version info from Github...")
-        try:
-            with Session() as session:
-                request = session.get("https://raw.githubusercontent.com/MehmetKLl/OBA-Otomatik-Oynatici/main/VERSION",timeout=timeout)
-                version = request.text.replace("\n","")
-        except Exception as err:
-            exc = format_exc()
-            self.log.write(f"An error occured while getting version data from Github: \"\"\"{exc}\"\"\"")
-
-            raise FailedRequestError(err)
-        else:
-            self.log.write("Successfully got version data from Github.")
-
-            return version
-
-    def check_registry(self):
-        with OpenKeyEx(HKEY_CURRENT_USER,"SOFTWARE\\OBA Otomatik Oynatici",0,KEY_READ) as key:
-            version = QueryValueEx(key,"version")
-        return version[0]
-
-    def is_installed(self):
-        self.log.write(f"Checking if the application is installed on the system...")
-        self.log.write(f"Checking registry key: \"HKEY_CURRENT_USER\\SOFTWARE\\OBA Otomatik Oynatici\"")
-        try:
-            self.check_registry()
-        except FileNotFoundError:
-            self.log.write("Couldn't find registry key: \"HKEY_CURRENT_USER\\SOFTWARE\\OBA Otomatik Oynatici\"")
-            self.log.write("Application isn't installed on this system.")
-            return False
-        else:
-            self.log.write("Registry key found: \"HKEY_CURRENT_USER\\SOFTWARE\\OBA Otomatik Oynatici\"")
-            self.log.write("Application is already installed on this system.")
-            return True
-
-    def download_packages(self,folder_path):
-        self.log.write("Downloading the application from \"https://github.com/MehmetKLl/OBA-Otomatik-Oynatici/raw/main/dist/executable.zip\"")
-        try:
-            with Session() as session:
-                executable_request = session.get("https://github.com/MehmetKLl/OBA-Otomatik-Oynatici/raw/main/dist/executable.zip")
-                executable_filebytes = executable_request.content
-
-        except Exception as err:
-            exc = format_exc()
-            self.log.write(f"An error occured while downloading the package from Github: \n\"\"\"\n{exc}\n\"\"\"")
-            raise FailedRequestError(err)
-        else:
-            self.log.write("File bytes successfully extracted from Github.")
-
-            if not path.exists(folder_path):
-                mkdir(folder_path)
-                self.log.write(f"Folder created: \"{folder_path}\"")
-
-            self.log.write("Writing file bytes to files...")
-            with open(f"{folder_path}\\executable.zip","wb") as file_event:
-                file_event.write(executable_filebytes)
-
-            self.log.write("File bytes have been successfully written to files.")
-
-
-    def install_packages(self,folder_path,zip_path):
-        if not path.exists(folder_path):
-            mkdir(folder_path)
-            self.log.write(f"Folder created: \"{folder_path}\"")
-
-        self.log.write("Extracting files from temporary zip file...")
-        with ZipFile(f"{zip_path}\\executable.zip","r") as file_event:
-            file_event.extractall(f"{folder_path}")
-
-        self.log.write("Files have been successfully extracted from zip file.")
-
-        self.log.write("Adding registry value to: \"HKEY_CURRENT_USER\\SOFTWARE\\OBA Otomatik Oynatici\\version\"")
-        with CreateKeyEx(HKEY_CURRENT_USER,"SOFTWARE\\OBA Otomatik Oynatici",0,KEY_WRITE) as key:
-            SetValueEx(key,"version",0,REG_SZ,f"{self.get_version()}")
-
-        self.log.write("Registry value has been added.")
-
-    def delete_packages(self,folder_path):
-        self.log.write("Deleting temporary files...")
-        remove(f"{folder_path}\\executable.zip")
-        self.log.write("Temporary files been deleted.")
-        self.log.write("Removing temporary folder...")
-        rmdir(f"{folder_path}")
-        self.log.write("Temporary folder been removed.")
-
-class Updater:
-    def __init__(self):
-        self.log = Log("Updater")
-
-    def finish(self):
-        self.log.close()
-
-    def get_version(self, timeout=3):
-        self.log.write("Getting version info from Github...")
-        try:
-            with Session() as session:
-                request = session.get("https://raw.githubusercontent.com/MehmetKLl/OBA-Otomatik-Oynatici/main/VERSION",timeout=timeout)
-                version = request.text.replace("\n","")
-        except Exception as err:
-            exc = format_exc()
-            self.log.write(f"An error occured while getting version data from Github: \"\"\"{exc}\"\"\"")
-
-            raise FailedRequestError(err)
-        else:
-            self.log.write("Successfully got version data from Github.")
-
-            return version
-
-    def get_local_version(self):
-        self.log.write(f"Reading registry value at: \"HKEY_CURRENT_USER\\SOFTWARE\\OBA Otomatik Oynatici\\version\"")
-        with OpenKeyEx(HKEY_CURRENT_USER,"SOFTWARE\\OBA Otomatik Oynatici",0,KEY_READ) as key:
-            version = QueryValueEx(key,"version")
-        self.log.write("Successfully read local version from: \"HKEY_CURRENT_USER\\SOFTWARE\\OBA Otomatik Oynatici\\version\"")
-        return version[0]
-
-
-    def delete_files(self,folder_path):
-        absolute_path = path.abspath(folder_path)
-        folder_contents = listdir(absolute_path)
-        for folder_content in folder_contents:
-            if path.isdir(f"{absolute_path}\\{folder_content}"):
-                self.delete_files(f"{absolute_path}\\{folder_content}")
-                self.log.write(f"Removing \"{absolute_path}\\{folder_content}\"")
-                rmdir(f"{absolute_path}\\{folder_content}")
-                self.log.write(f"Successfully removed \"{absolute_path}\\{folder_content}\"")
-            else:
-                self.log.write(f"Deleting \"{absolute_path}\\{folder_content}\"")
-                remove(f"{absolute_path}\\{folder_content}")
-                self.log.write(f"Successfully deleted \"{absolute_path}\\{folder_content}\"")
-
-    def download_packages(self, folder_path):
-        self.log.write("Downloading the new version from \"https://github.com/MehmetKLl/OBA-Otomatik-Oynatici/raw/main/dist/executable.zip\"")
-        try:
-            with Session() as session:
-                request = session.get("https://github.com/MehmetKLl/OBA-Otomatik-Oynatici/raw/main/dist/executable.zip")
-                package_bytes = request.content
-        except Exception as err:
-            exc = format_exc()
-            self.log.write(f"An error occured while downloading the package from Github: \n\"\"\"\n{exc}\n\"\"\"")
-
-            raise FailedRequestError(err)
-        else:
-            self.log.write("File bytes successfully extracted from Github.")
-
-            if not path.exists(f"{folder_path}"):
-                mkdir(f"{folder_path}")
-                self.log.write(f"Folder created: \"{folder_path}\"")
-
-            self.log.write("Writing file bytes to files...")
-            with open(f"{folder_path}\\update_package.zip","wb") as file_event:
-                file_event.write(package_bytes)
-
-            self.log.write("File bytes have been successfully written to files.")
-
-    def install_packages(self, folder_path,zip_path):
-        self.log.write("Extracting files from temporary zip file...")
-        with ZipFile(f"{zip_path}\\update_package.zip","r") as file_event:
-            file_event.extractall(f"{folder_path}")
-
-        self.log.write("Files have been successfully extracted from zip file.")
-
-    def remove_packages(self, folder_path):
-        self.log.write("Deleting temporary files...")
-        remove(f"{folder_path}\\update_package.zip")
-        self.log.write("Temporary files been deleted.")
-
-    def update_version(self):
-        self.log.write("Updating version info at: \"HKEY_CURRENT_USER\\SOFTWARE\\OBA Otomatik Oynatici\\version\"")
-        with CreateKeyEx(HKEY_CURRENT_USER,"SOFTWARE\\OBA Otomatik Oynatici",0,KEY_WRITE) as key:
-            version = self.get_version()
-            SetValueEx(key,"version",0,REG_SZ,f"{version}")
-        self.log.write(f"Version info successfully updated to: \"{version}\"")
+from win32con import MB_OK, MB_YESNO, MB_ICONERROR
 
 if __name__ == "__main__":
-    installer = Installer()
-    if not installer.is_installed():
+    
+    VERIFICATE_SSL = True
+    
+    if not check_key(HKEY_CURRENT_USER,"SOFTWARE\\OBA Otomatik Oynatici","version"):
+        
+        install_log = Log("Installer")
+        install_log.write("Getting app contents from Github...")
         try:
-            installer.download_packages(SETUP_PATH)
-            installer.install_packages(PROGRAM_PATH,SETUP_PATH)
-            installer.delete_packages(SETUP_PATH)
-        except FailedRequestError:
-            MessageBox(0,"İnternet bağlantınız yavaş veya mevcut olmadığından program kurulamadı.","ÖBA Otomatik Oynatıcı", MB_OK | MB_ICONERROR)
-            installer.finish()
-            exit(1)
-        except PermissionError:
-            exc = format_exc()
-            MessageBox(0,"Yetki hatası. Programı yönetici olarak çalıştırmayı deneyin.","ÖBA Otomatik Oynatıcı", MB_OK | MB_ICONERROR)
-            installer.log.write("An error occured due to system permissions: \n\"\"\"\n{exc}\n\"\"\"")
-            installer.finish()
-            exit(1)
-        except Exception as err:
-            exc = format_exc()
-            MessageBox(0,f"Beklenmedik hata:\n\n{exc}","ÖBA Otomatik Oynatıcı", MB_OK | MB_ICONERROR)
-            installer.log.write("An unexpected error occured: \n\"\"\"\n{exc}\n\"\"\"")
-            installer.finish()
-            exit(1)
-        else:
-            start(f"{PROGRAM_PATH}\\oba_gui.exe")
-            installer.finish()
-            exit(0)
-    else:
-        updater = Updater()
+            content_bytes = get_program_contents(timeout=3,verify=VERIFICATE_SSL)
+        except Exception as exc:
+            exc_type = exc.__class__.__name__.lower()
+            install_log.write(f"An error occured while getting app contents from Github:\n{format_exc()}\n")
+            
+            if exc_type == "connectionerror":
+                MessageBox(0,"İnternet bağlantısı mevcut olmadığından program karşıdan yüklenemedi.", "ÖBA Otomatik Oynatıcı | Kurulum", MB_OK | MB_ICONERROR)
+                exit(1)
+                
+            elif exc_type == "connecttimeout":
+                MessageBox(0,"İnternet bağlantınız yavaş olduğundan sunucu ile iletişim zaman aşımına uğradı.", "ÖBA Otomatik Oynatıcı | Kurulum", MB_OK | MB_ICONERROR)
+                exit(1)
+                
+            elif exc_type == "sslerror":
+                req_without_verify = MessageBox(0,"Sunucu ile SSL sertifikası doğrulaması başarısız oldu. SSL sertifika doğrulamasını pas geçip gene de devam etmek istiyor musunuz?\n\n(Bu durum güvenlik açıklarına sebep olabileceğinden tavsiye edilmez.)", "ÖBA Otomatik Oynatıcı | Kurulum", MB_YESNO | MB_ICONERROR)
+
+                if req_without_verify == 6:
+                    VERIFICATE_SSL = False
+                    install_log.write("Attempting again to get version information from Github...")
+                    try:
+                        content_bytes = get_program_contents(timeout=3, verify=VERIFICATE_SSL)
+                    except Exception as exc:
+                        install_log.write(f"Attempt failed:\n{format_exc()}\n")
+                        MessageBox(0,"Sunucu ile bağlantı kurulurken hata oluştu. Programı kişisel ağ üzerinde kurmayı deneyin.", "ÖBA Otomatik Oynatıcı | Kurulum", MB_OK | MB_ICONERROR)    
+                        exit(1)
+                else:
+                    exit(1)
+            
         try:
-            main_version = updater.get_version()
-            user_version = updater.get_local_version()
-        except FailedRequestError:
-            if not any(b"oba_gui.exe" in i for i in process_list()):
-                start(f"{PROGRAM_PATH}\\oba_gui.exe")
-            updater.finish()
-            exit(0)
+            install_log.write(f"Creating temporary folder: \"{SETUP_PATH}\"")
+            create_dir(SETUP_PATH)
+
+            install_log.write(f"Downloading app contents...")
+            write_byte(f"{SETUP_PATH}\\executable.zip","wb",content_bytes)
+            install_log.write(f"App contents have downloaded.")
+
+            install_log.write(f"Creating contents' folder: \"{PROGRAM_PATH}\"")
+            create_dir(PROGRAM_PATH)
+            install_log.write(f"Contents' folder created: \"{PROGRAM_PATH}\"")
+
+            install_log.write("Extracting contents from temporary zip file...")
+            extract(f"{SETUP_PATH}\\executable.zip",PROGRAM_PATH)
+            install_log.write("Contents have extracted from zip file.")
+
+            install_log.write("Deleting temporary setup folder...")
+            removeall(SETUP_PATH)
+            install_log.write("Temporary setup folder been deleted.")
+            
+            install_log.write("Creating registry value at: \"HKEY_CURRENT_USER\\SOFTWARE\\OBA Otomatik Oynatici\\version\"")
+            create_key(HKEY_CURRENT_USER,"SOFTWARE\\OBA Otomatik Oynatici","version",get_version())
+            install_log.write("Created registry value at: \"HKEY_CURRENT_USER\\SOFTWARE\\OBA Otomatik Oynatici\\version\"")
+
+        except PermissionError as exc:
+            install_log.write(f"An error occured due to system permissions:\n{format_exc()}\n")
+            MessageBox(0,"Yetki hatası. Uygulamayı yönetici olarak çalıştırmayı deneyin.", "ÖBA Otomatik Oynatıcı | Kurulum", MB_OK | MB_ICONERROR)
+            exit(1)
+
+        except Exception as exc:
+            exc_tb = format_exc()
+            install_log.write(f"An unexpected error occured:\n{exc_tb}\n")
+            MessageBox(0,f"Beklenmedik bir hata oluştu:\n\n{exc_tb}", "ÖBA Otomatik Oynatıcı | Kurulum", MB_OK | MB_ICONERROR)
+            exit(1)
+
         else:
-            if user_version != main_version:
-                kill("oba_gui.exe")
-                updater.download_packages(TEMP_PATH)
-                updater.delete_files(PROGRAM_PATH)
-                updater.install_packages(PROGRAM_PATH,TEMP_PATH)
-                updater.remove_packages(TEMP_PATH)
-                updater.update_version()
-                start(f"{PROGRAM_PATH}\\oba_gui.exe")
-            else:
-                if not any(b"oba_gui.exe" in i for i in process_list()):
-                    start(f"{PROGRAM_PATH}\\oba_gui.exe")
-            updater.finish()
-            exit(0)
+            install_log.write("Installation completed without any issues.")
+
+    else:  
+        
+        updater_log = Log("Updater")
+        updater_log.write("Getting version information from Github...")
+
+        CONTINUE_UPDATE = False
+        try:
+            local_version = read_key(HKEY_CURRENT_USER,"SOFTWARE\\OBA Otomatik Oynatici","version")
+            main_version = get_version()
+        except Exception as exc:
+            exc_type = exc.__class__.__name__.lower()
+            updater_log.write(f"An error occured while getting version information:\n{format_exc()}\n")
+
+            if exc_type == "sslerror":
+                req_without_verify = MessageBox(0,"Sunucu ile SSL sertifikası doğrulaması başarısız oldu. SSL sertifika doğrulamasını pas geçip gene de güncellemeye devam etmek istiyor musunuz?\n\n(Bu durum güvenlik açıklarına sebep olabileceğinden tavsiye edilmez.)", "ÖBA Otomatik Oynatıcı | Güncelleme Sistemi", MB_YESNO | MB_ICONERROR)
+
+                if req_without_verify == 6:
+                    VERIFICATE_SSL = False
+                    updater_log.write("Attempting again to get version information from Github...")
+                    try:
+                        content_bytes = get_program_contents(timeout=3, verify=VERIFICATE_SSL)
+                    except Exception as exc:
+                        updater_log.write(f"Attempt failed:\n{format_exc()}\n")
+                    else:
+                        CONTINUE_UPDATE = True
+        else:
+            CONTINUE_UPDATE = True
 
 
+        if CONTINUE_UPDATE:
+            if local_version != main_version:
+                updater_log.write("Application isn't up to date.")
+                try:
+                    if any(b"oba_gui" in i for i in process_list()):
+                        kill("oba_gui.exe")
+                        updater_log.write("Killed 'oba_gui.exe'")
 
+                    updater_log.write("Getting app contents from Github...")
+                    content_bytes = get_program_contents(timeout=3,verify=VERIFICATE_SSL)
+                    
+                    updater_log.write(f"Creating temporary folder: \"{TEMP_PATH}\"")
+                    create_dir(TEMP_PATH)
+
+                    updater_log.write(f"Downloading app contents...")
+                    write_byte(f"{TEMP_PATH}\\executable.zip","wb",content_bytes)
+                    updater_log.write(f"App contents have downloaded.")
+
+                    updater_log.write("App folder is cleaning...")
+                    removeall(PROGRAM_PATH)
+                    create_dir(PROGRAM_PATH)
+                    updater_log.write("App folder been cleaned.")
+                     
+                    updater_log.write("Extracting contents from temporary zip file...")
+                    extract(f"{TEMP_PATH}\\executable.zip",PROGRAM_PATH)
+                    updater_log.write("Contents have extracted from zip file.")
+
+                    updater_log.write("Deleting temporary folder...")
+                    removeall(TEMP_PATH)
+                    updater_log.write("Temporary folder been deleted.")
+                    
+                    updater_log.write("Updating registry value at: \"HKEY_CURRENT_USER\\SOFTWARE\\OBA Otomatik Oynatici\\version\"")
+                    create_key(HKEY_CURRENT_USER,"SOFTWARE\\OBA Otomatik Oynatici","version",get_version())
+                    updater_log.write("Updated registry value at: \"HKEY_CURRENT_USER\\SOFTWARE\\OBA Otomatik Oynatici\\version\"")
+
+                except PermissionError as exc:
+                    MessageBox(0,"Yetki hatası. Uygulamayı yönetici olarak çalıştırmayı deneyin.", "ÖBA Otomatik Oynatıcı | Güncelleme Sistemi", MB_OK | MB_ICONERROR)
+                    exit(1)
+
+                except Exception as exc:
+                    exc_tb = format_exc()
+                    MessageBox(0,f"Beklenmedik bir hata oluştu:\n\n{exc_tb}", "ÖBA Otomatik Oynatıcı | Güncelleme Sistemi", MB_OK | MB_ICONERROR)
+                    exit(1)
+
+                else:
+                    updater_log.write("Update completed without any issues.")
+                    
+            elif local_version == main_version:
+                updater_log.write("Application is already up to date.")
+                updater_log.open()
+                
+
+    if not any(b"oba_gui" in i for i in process_list()):
+        start(f"{PROGRAM_PATH}\\oba_gui.exe")
+
+    exit(0)
+        
+
+    
+    
