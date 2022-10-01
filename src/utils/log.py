@@ -5,7 +5,7 @@ from utils.process import start
 
 
 class Log:
-    def __init__(self,filename,flush=True):
+    def __init__(self,filename):
         if not path.exists(LOG_PATH):
             mkdir(LOG_PATH)
             
