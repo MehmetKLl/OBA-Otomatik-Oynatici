@@ -47,7 +47,6 @@
 - Program Windows 10 x64/x86, Windows 8 x64/x86 ve Windows 7 x64/x86 sistemlerde kusursuz çalışmaktadır, program diğer sistemlerde denenmemiştir.
 - Program "Eğitime başla/Eğitime devam et" tuşuna basılıp yeni ekran açıldığı zaman en önde tarayıcı gözükecek şekilde çalıştırılmalıdır.
 - Program çalışırken fare ile oynanmamalıdır, eğer oynarsanız büyük ihtimalle programın videoyu kontrol etme mekanizması bozulacaktır.
-- Program çalışırken bilgisayarın kapanmaması için bilgisayarın uyku moduna girme süresi kapatılmalıdır. 
 
 ---------------------------------
 
