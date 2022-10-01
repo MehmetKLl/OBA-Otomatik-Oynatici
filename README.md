@@ -1,6 +1,6 @@
 
 <h2> ÖBA Otomatik Oynatıcı </h2>
-<h3> Sürüm 1.3.5 </h3>
+<h3> Sürüm 1.3.6 </h3>
 
 <h4>Kullanım</h4>
 
@@ -55,6 +55,7 @@
 
 |Sürüm|Notlar|
 |-|-|
+|1.3.6|Programın mekanizması bilgisayarın uyku moduna girmesini engelleyecek biçimde geliştirildi. Optimizasyon sorunları, kod hataları giderildi.|
 |1.3.5|Windows 7 desteği eklendi. Yeni log sistemi eklendi. Otomatik oynatma mekanizmasının kaynak kodları düzenlendi. Kurulum programının kodları düzenlendi. Arayüzün performansı arttırıldı.|
 |1.3.4|Programın mekanizması geliştirildi. Log sistemi kaldırıldı. Kod yapısı düzenlendi.|
 |1.3.3|Arayüz tasarımı geliştirildi.|
