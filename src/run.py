@@ -52,9 +52,9 @@ if __name__ == "__main__":
             install_log.write(f"Creating temporary folder: \"{SETUP_PATH}\"")
             create_dir(SETUP_PATH)
 
-            install_log.write(f"Downloading app contents...")
+            install_log.write("Downloading app contents...")
             write_byte(f"{SETUP_PATH}\\executable.zip","wb",content_bytes)
-            install_log.write(f"App contents have downloaded.")
+            install_log.write("App contents have downloaded.")
 
             install_log.write(f"Creating contents' folder: \"{PROGRAM_PATH}\"")
             create_dir(PROGRAM_PATH)
@@ -129,9 +129,9 @@ if __name__ == "__main__":
                     updater_log.write(f"Creating temporary folder: \"{TEMP_PATH}\"")
                     create_dir(TEMP_PATH)
 
-                    updater_log.write(f"Downloading app contents...")
+                    updater_log.write("Downloading app contents...")
                     write_byte(f"{TEMP_PATH}\\executable.zip","wb",content_bytes)
-                    updater_log.write(f"App contents have downloaded.")
+                    updater_log.write("App contents have downloaded.")
 
                     updater_log.write("App folder is cleaning...")
                     removeall(PROGRAM_PATH)
