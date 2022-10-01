@@ -1,5 +1,4 @@
 from requests import Session
-from utils.exceptions import FailedRequestError
 
 def get_version(timeout=3,verify=True):
     with Session() as session:

@@ -5,7 +5,6 @@ from threading import Thread
 from keyboard import is_pressed
 from utils import Process
 from autoplayer import main
-from requests import Session
 from winreg import HKEY_CURRENT_USER
 from runtools.registry import read_key
 from ctypes import windll
