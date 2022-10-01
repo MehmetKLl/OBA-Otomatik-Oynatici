@@ -8,7 +8,7 @@ class Log:
     def __init__(self,filename,flush=True):
         if not path.exists(LOG_PATH):
             mkdir(LOG_PATH)
-            
+
         self.filename = f"{filename} - {strftime('%d.%m.%Y %H.%M.%S')}.log"
         self.file_io = open(f"{LOG_PATH}\\{self.filename}","w")
 
