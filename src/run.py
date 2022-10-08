@@ -63,6 +63,7 @@ def install_program_contents(content_bytes,mode):
     else:
         log.write(f"{'Installation' if mode == 'install' else 'Update'} completed without any issues.")
         log.close()
+        return 0
 
 def download_program_contents(mode):
     global verify_ssl
