@@ -43,7 +43,7 @@ def set_registry_values(mode):
     except exceptions.SSLError:
         log.write(f"An error occured due to SSL certificate authentication:\n{format_exc()}\n")
             
-        ask_no_ssl_verify = gui.ask_and_show_error(f"Sürüm bilgisi alınırken SSL doğrulaması başarısız oldu. SSL doğrulamasını es geçip gene de devam etmek istiyor musunuz?\n(Bu yöntem güvenlik açıklarına sebep olacağından tavsiye edilmez.)",f"ÖBA Otomatik Oynatıcı | {'Kurulum' if mode == 'install' else 'Güncelleme Sistemi'}")        
+        ask_no_ssl_verify = gui.ask_and_show_error("Sürüm bilgisi alınırken SSL doğrulaması başarısız oldu. SSL doğrulamasını es geçip gene de devam etmek istiyor musunuz?\n(Bu yöntem güvenlik açıklarına sebep olacağından tavsiye edilmez.)",f"ÖBA Otomatik Oynatıcı | {'Kurulum' if mode == 'install' else 'Güncelleme Sistemi'}")        
         if ask_no_ssl_verify:
             verify_ssl = False
             return set_registry_values(mode)
@@ -54,13 +54,13 @@ def set_registry_values(mode):
     except exceptions.ConnectTimeout:
         log.write(f"Connection timed out:\n{format_exc()}\n")
                 
-        gui.show_error(f"Sürüm bilgisi alınırken sunucuya gönderilen istek zaman aşımına uğradı.",f"ÖBA Otomatik Oynatıcı | {'Kurulum' if mode == 'install' else 'Güncelleme Sistemi'}")
+        gui.show_error("Sürüm bilgisi alınırken sunucuya gönderilen istek zaman aşımına uğradı.",f"ÖBA Otomatik Oynatıcı | {'Kurulum' if mode == 'install' else 'Güncelleme Sistemi'}")
         return 1
             
     except exceptions.ConnectionError:
         log.write(f"An error occured while getting version information from Github:\n{format_exc()}\n")
                 
-        gui.show_error(f"Sürüm bilgisi internet mevcut olmadığından alınamadı.",f"ÖBA Otomatik Oynatıcı | {'Kurulum' if mode == 'install' else 'Güncelleme Sistemi'}")
+        gui.show_error("Sürüm bilgisi internet mevcut olmadığından alınamadı.",f"ÖBA Otomatik Oynatıcı | {'Kurulum' if mode == 'install' else 'Güncelleme Sistemi'}")
         return 1
     else:
         log.write(f"{'Updated' if mode == 'update' else 'Created'} registry value at: \"{FULL_KEY_PATH}\"")
@@ -73,9 +73,9 @@ def install_program_contents(content_bytes,mode):
         log.write(f"Creating temporary folder: \"{TEMP_PATH}\"")
         file.create_dir(TEMP_PATH)
 
-        log.write(f"Downloading app contents...")
+        log.write("Downloading app contents...")
         file.write_byte(f"{TEMP_PATH}\\executable.zip",content_bytes)
-        log.write(f"App contents have downloaded.")
+        log.write("App contents have downloaded.")
 
         if mode == "update":
             log.write("App folder is cleaning...")
@@ -121,7 +121,7 @@ def download_program_contents(mode):
     except exceptions.SSLError:
         log.write(f"An error occured due to SSL certificate authentication:\n{format_exc()}\n")
         
-        ask_no_ssl_verify = gui.ask_and_show_error(f"SSL doğrulaması başarısız oldu. SSL doğrulamasını es geçip gene de devam etmek istiyor musunuz?\n(Bu yöntem güvenlik açıklarına sebep olacağından tavsiye edilmez.)",f"ÖBA Otomatik Oynatıcı | {'Kurulum' if mode == 'install' else 'Güncelleme Sistemi'}")        
+        ask_no_ssl_verify = gui.ask_and_show_error("SSL doğrulaması başarısız oldu. SSL doğrulamasını es geçip gene de devam etmek istiyor musunuz?\n(Bu yöntem güvenlik açıklarına sebep olacağından tavsiye edilmez.)",f"ÖBA Otomatik Oynatıcı | {'Kurulum' if mode == 'install' else 'Güncelleme Sistemi'}")        
         if ask_no_ssl_verify:
            verify_ssl = False
            return download_program_contents(mode)
@@ -132,13 +132,13 @@ def download_program_contents(mode):
     except exceptions.ConnectTimeout:
         log.write(f"Connection timed out:\n{format_exc()}\n")
             
-        gui.show_error(f"Sunucuya gönderilen istek zaman aşımına uğradı.",f"ÖBA Otomatik Oynatıcı | {'Kurulum' if mode == 'install' else 'Güncelleme Sistemi'}")
+        gui.show_error("Sunucuya gönderilen istek zaman aşımına uğradı.",f"ÖBA Otomatik Oynatıcı | {'Kurulum' if mode == 'install' else 'Güncelleme Sistemi'}")
         return (1, None)
         
     except exceptions.ConnectionError:
         log.write(f"An error occured while getting app contents from Github:\n{format_exc()}\n")
             
-        gui.show_error(f"Program internet olmadığından bilgisayara indirilemedi.",f"ÖBA Otomatik Oynatıcı | {'Kurulum' if mode == 'install' else 'Güncelleme Sistemi'}")
+        gui.show_error("Program internet olmadığından bilgisayara indirilemedi.",f"ÖBA Otomatik Oynatıcı | {'Kurulum' if mode == 'install' else 'Güncelleme Sistemi'}")
         return (1, None)
         
 
