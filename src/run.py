@@ -1,12 +1,11 @@
 from traceback import format_exc
 from sys import exit
-from requests import Session, exceptions
-from utils.process import kill, start, process_list
+from requests import exceptions
+from utils.process import start
 from utils.env_paths import PROGRAM_PATH, TEMP_PATH, FULL_KEY_PATH, KEY_PATH, KEY_NAME
 from utils.log import Log
 from runtools import registry, server, file, gui
 from winreg import HKEY_CURRENT_USER
-from time import sleep
 
 verify_ssl = True
 log = None  
