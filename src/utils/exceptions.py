@@ -1,2 +1,2 @@
-class FailedRequestError(Exception):
+class ErrorOccuredException(Exception):
     pass

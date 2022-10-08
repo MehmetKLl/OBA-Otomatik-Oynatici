@@ -11,7 +11,65 @@ from time import sleep
 verify_ssl = True
 log = None  
 
+def get_version_data():
+    global verify_ssl
+    
+    log.write("Getting version information from Github...")
+    try:
+        return (0, server.get_version(verify=verify_ssl))
+    except exceptions.SSLError:
+        log.write(f"An error occured due to SSL certificate authentication:\n{format_exc()}\n")
+        
+        ask_no_ssl_verify = gui.ask_and_show_error("SSL doğrulaması başarısız oldu. SSL doğrumasını es geçip gene de devam etmek istiyor musunuz?\n(Bu yöntem güvenlik açıklarına sebep olacağından tavsiye edilmez.)","ÖBA Otomatik Oynatıcı | Güncelleme Sistemi")        
+        if ask_no_ssl_verify:
+            verify_ssl = False
+            get_version_data()
+        else:
+            return (2, None)
+            
+    except Exception:
+        log.write(f"An error occured while getting app contents from Github:\n{format_exc()}\n")
+        return (2, None)
+    
+
+def set_registry_values(mode):
+    global verify_ssl
+
+    if mode not in ["update","install"]:
+        raise ValueError(f"Mode must be \"update\" or \"install\", not \"{mode}\"")
+    
+    log.write(f"{'Updating' if mode == 'update' else 'Creating'} registry value at: \"{FULL_KEY_PATH}\"")
+    try:
+        registry.create_key(HKEY_CURRENT_USER,KEY_PATH,KEY_NAME,server.get_version(verify=verify_ssl))
+    except exceptions.SSLError:
+        log.write(f"An error occured due to SSL certificate authentication:\n{format_exc()}\n")
+            
+        ask_no_ssl_verify = gui.ask_and_show_error(f"Sürüm bilgisi alınırken SSL doğrulaması başarısız oldu. SSL doğrulamasını es geçip gene de devam etmek istiyor musunuz?\n(Bu yöntem güvenlik açıklarına sebep olacağından tavsiye edilmez.)",f"ÖBA Otomatik Oynatıcı | {'Kurulum' if mode == 'install' else 'Güncelleme Sistemi'}")        
+        if ask_no_ssl_verify:
+            verify_ssl = False
+            return set_registry_values(mode)
+                   
+        else:
+            return 1
+                
+    except exceptions.ConnectTimeout:
+        log.write(f"Connection timed out:\n{format_exc()}\n")
+                
+        gui.show_error(f"Sürüm bilgisi alınırken sunucuya gönderilen istek zaman aşımına uğradı.",f"ÖBA Otomatik Oynatıcı | {'Kurulum' if mode == 'install' else 'Güncelleme Sistemi'}")
+        return 1
+            
+    except exceptions.ConnectionError:
+        log.write(f"An error occured while getting version information from Github:\n{format_exc()}\n")
+                
+        gui.show_error(f"Sürüm bilgisi internet mevcut olmadığından alınamadı.",f"ÖBA Otomatik Oynatıcı | {'Kurulum' if mode == 'install' else 'Güncelleme Sistemi'}")
+        return 1
+    else:
+        log.write(f"{'Updated' if mode == 'update' else 'Created'} registry value at: \"{FULL_KEY_PATH}\"")
+
 def install_program_contents(content_bytes,mode):
+    if mode not in ["update","install"]:
+        raise ValueError(f"Mode must be \"update\" or \"install\", not \"{mode}\"")
+    
     try:
         log.write(f"Creating temporary folder: \"{TEMP_PATH}\"")
         file.create_dir(TEMP_PATH)
@@ -39,34 +97,24 @@ def install_program_contents(content_bytes,mode):
         file.remove_all(TEMP_PATH)
         log.write("Temporary setup folder been deleted.")
                 
-        if mode == "update":
-            log.write(f"Updating registry value at: \"{FULL_KEY_PATH}\"")
-            registry.create_key(HKEY_CURRENT_USER,KEY_PATH,KEY_NAME,server.get_version())
-            log.write(f"Updated registry value at: \"{FULL_KEY_PATH}\"")
-
-        elif mode == "install":
-            log.write(f"Creating registry value at: \"{FULL_KEY_PATH}\"")
-            registry.create_key(HKEY_CURRENT_USER,KEY_PATH,KEY_NAME,server.get_version())
-            log.write(f"Created registry value at: \"{FULL_KEY_PATH}\"")
             
     except PermissionError as exc:
         gui.show_error("Yetki hatası. Uygulamayı yönetici olarak çalıştırmayı deneyin.", f"ÖBA Otomatik Oynatıcı | {'Kurulum' if mode == 'install' else 'Güncelleme Sistemi'}")
-        log.close()
-        exit(1)
+        return 1
 
     except Exception as exc:
         exc_tb = format_exc()
         gui.show_error(f"Beklenmedik bir hata oluştu:\n\n{exc_tb}", f"ÖBA Otomatik Oynatıcı | {'Kurulum' if mode == 'install' else 'Güncelleme Sistemi'}")
-        log.close()
-        exit(1)
+        return 1
 
     else:
-        log.write(f"{'Installation' if mode == 'install' else 'Update'} completed without any issues.")
-        log.close()
         return 0
 
 def download_program_contents(mode):
     global verify_ssl
+
+    if mode not in ["update","install"]:
+        raise ValueError(f"Mode must be \"update\" or \"install\", not \"{mode}\"")
     
     log.write("Getting app contents from Github...")
     try:
@@ -80,76 +128,80 @@ def download_program_contents(mode):
            return download_program_contents(mode)
                
         else:
-            log.close()
             return (1, None)
             
     except exceptions.ConnectTimeout:
         log.write(f"Connection timed out:\n{format_exc()}\n")
             
         gui.show_error(f"Sunucuya gönderilen istek zaman aşımına uğradı.",f"ÖBA Otomatik Oynatıcı | {'Kurulum' if mode == 'install' else 'Güncelleme Sistemi'}")
-        log.close()
         return (1, None)
         
     except exceptions.ConnectionError:
         log.write(f"An error occured while getting app contents from Github:\n{format_exc()}\n")
             
         gui.show_error(f"Program internet olmadığından bilgisayara indirilemedi.",f"ÖBA Otomatik Oynatıcı | {'Kurulum' if mode == 'install' else 'Güncelleme Sistemi'}")
-        log.close()
         return (1, None)
         
 
 def start_installer():
-
-    is_error_occured, content_bytes = download_program_contents(mode="install")
-    if is_error_occured:
+    return_code, content_bytes = download_program_contents(mode="install")
+    if return_code:
+        log.close()
         exit(1)
 
 
-    is_error_occured = install_program_contents(content_bytes,mode="install")
-    if is_error_occured:
+    return_code = install_program_contents(content_bytes,mode="install")
+    if return_code:
+        log.close()
         exit(1)
 
+    return_code = set_registry_values(mode="install")
+    if return_code:
+        log.close()
+        exit(1)
 
+    log.write("Installation completed without any issues.")
+    log.close()
 
     
 def start_updater():
-
     log.write(f"Reading registry value at: \"{FULL_KEY_PATH}\"")
     local_version = registry.read_key(HKEY_CURRENT_USER,KEY_PATH,KEY_NAME)
     log.write(f"Read registry value at: \"{FULL_KEY_PATH}\"")
 
     
-    log.write("Getting version information from Github...")
-    try:
-        main_version = server.get_version(verify=verify_ssl)
-    except exceptions.SSLError:
-        log.write(f"An error occured due to SSL certificate authentication:\n{format_exc()}\n")
-        
-        ask_no_ssl_verify = gui.ask_and_show_error("SSL doğrulaması başarısız oldu. SSL doğrumasını es geçip gene de devam etmek istiyor musunuz?\n(Bu yöntem güvenlik açıklarına sebep olacağından tavsiye edilmez.)","ÖBA Otomatik Oynatıcı | Güncelleme Sistemi")        
-        if ask_no_ssl_verify:
-            verify_ssl = False
-            start_updater()
-        else:
-            pass
-            
-    except Exception:
-        log.write(f"An error occured while getting app contents from Github:\n{format_exc()}\n")
-    
-    else:
-        if local_version == main_version:
-            log.write("Application is already up to date.")
-        
-        elif local_version != main_version:
-            log.write("Application isn't up to date.")
+    return_code, main_version = get_version_data()
 
-            is_error_occured, content_bytes = download_program_contents(mode="update")
-            if is_error_occured:
-                exit(1)
+    if return_code:
+        log.close()
+        return
+    
+    
+    if local_version == main_version:
+        log.write("Application is already up to date.")
+        
+    elif local_version != main_version:
+        log.write("Application isn't up to date.")
+            
+        return_code, content_bytes = download_program_contents(mode="update")
+        if return_code:
+            log.close()
+            exit(1)
 
          
-            is_error_occured = install_program_contents(content_bytes,mode="update")
-            if is_error_occured:
-                exit(1)
+        return_code = install_program_contents(content_bytes,mode="update")
+        if return_code:
+            log.close()
+            exit(1)
+
+
+        return_code = set_registry_values(mode="update")
+        if return_code:
+            log.close()
+            exit(1)
+
+        log.write("Update completed without any issues.")
+        log.close()
 
 
 

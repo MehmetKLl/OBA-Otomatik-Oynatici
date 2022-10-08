@@ -16,7 +16,7 @@ def scroll_new_video():
         elif locateOnScreen("img/open_button3.png"):
             x, y, w, h = locateOnScreen("img/open_button3.png")
             click(x=x,y=y,button="left")
-
+            
         if locateOnScreen("img/new_video_icon.png"):
             x, y, w, h = locateOnScreen("img/new_video_icon.png")
             start_new_video(x,y)
@@ -48,7 +48,7 @@ def scroll_current_video():
         elif locateOnScreen("img/open_button3.png"):
             x, y, w, h = locateOnScreen("img/open_button3.png")
             click(x=x,y=y,button="left")
-
+            
         if locateOnScreen("img/current_icon.png"):
             break
         elif locateOnScreen("img/finished_icon.png"):
@@ -59,7 +59,7 @@ def scroll_current_video():
             x, y, w, h = locateOnScreen("img/non_clickable_icon.png")
             moveTo(x,y)
             scroll(-50)
-
+         
 def start_new_video(x,y):
     click(x=x,y=y,button="left")
     sleep(5)
