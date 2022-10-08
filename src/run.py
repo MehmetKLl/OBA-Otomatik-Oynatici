@@ -99,8 +99,6 @@ def download_program_contents(mode):
         
 
 def start_installer():
-    global verify_ssl, log
-    log.start()
 
     is_error_occured, content_bytes = download_program_contents(mode="install")
     if is_error_occured:
@@ -115,8 +113,6 @@ def start_installer():
 
     
 def start_updater():
-    global verify_ssl, log
-    log.start()
 
     log.write(f"Reading registry value at: \"{FULL_KEY_PATH}\"")
     local_version = registry.read_key(HKEY_CURRENT_USER,KEY_PATH,KEY_NAME)
@@ -125,7 +121,7 @@ def start_updater():
     
     log.write("Getting version information from Github...")
     try:
-        main_version = server.get_version()
+        main_version = server.get_version(verify=verify_ssl)
     except exceptions.SSLError:
         log.write(f"An error occured due to SSL certificate authentication:\n{format_exc()}\n")
         
