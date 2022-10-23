@@ -1,6 +1,6 @@
 
 <h2> ÖBA Otomatik Oynatıcı </h2>
-<h3> Sürüm 1.3.6 </h3>
+<b> Sürüm 1.3.6 </b>
 
 <h4>Kullanım</h4>
 
@@ -71,9 +71,11 @@
 |-|-|
 |*|:x:|
 
+<font size=6>
 :white_check_mark: : Belirtilen işletim sisteminde çalışıyor ve destekleniyor.<br>
 :ballot_box_with_check: : Belirtilen işletim sisteminde çalıştırılıp denenmedi ancak destekleniyor.<br>
 :x: : Desteklenmiyor. 
+</font>
 
 ---------------------------------
 
