@@ -1,0 +1,187 @@
+curl 'https://github-production-upload-manifest-file-7fdce7.s3.amazonaws.com/' \
+  -H 'Accept: */*' \
+  -H 'Accept-Language: tr-TR,tr;q=0.9,en-US;q=0.8,en;q=0.7' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: multipart/form-data; boundary=----WebKitFormBoundarycZc7NzbBUZqGCNjO' \
+  -H 'Origin: https://github.com' \
+  -H 'Referer: https://github.com/MehmetKLl/OBA-Otomatik-Oynatici/upload/main' \
+  -H 'Sec-Fetch-Dest: empty' \
+  -H 'Sec-Fetch-Mode: cors' \
+  -H 'Sec-Fetch-Site: cross-site' \
+  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36' \
+  -H 'sec-ch-ua: "Chromium";v="106", "Google Chrome";v="106", "Not;A=Brand";v="99"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "Windows"' \
+  --data-raw $'------WebKitFormBoundarycZc7NzbBUZqGCNjO\r\nContent-Disposition: form-data; name="key"\r\n\r\n521709736/1174515553\r\n------WebKitFormBoundarycZc7NzbBUZqGCNjO\r\nContent-Disposition: form-data; name="acl"\r\n\r\nprivate\r\n------WebKitFormBoundarycZc7NzbBUZqGCNjO\r\nContent-Disposition: form-data; name="policy"\r\n\r\neyJleHBpcmF0aW9uIjoiMjAyMi0xMC0yMVQxNjo0OToxMloiLCJjb25kaXRpb25zIjpbeyJidWNrZXQiOiJnaXRodWItcHJvZHVjdGlvbi11cGxvYWQtbWFuaWZlc3QtZmlsZS03ZmRjZTcifSx7ImtleSI6IjUyMTcwOTczNi8xMTc0NTE1NTUzIn0seyJhY2wiOiJwcml2YXRlIn0sWyJjb250ZW50LWxlbmd0aC1yYW5nZSIsNzQyNyw3NDI3XSx7IngtYW16LWNyZWRlbnRpYWwiOiJBS0lBSVdOSllBWDRDU1ZFSDUzQS8yMDIyMTAyMS91cy1lYXN0LTEvczMvYXdzNF9yZXF1ZXN0In0seyJ4LWFtei1hbGdvcml0aG0iOiJBV1M0LUhNQUMtU0hBMjU2In0seyJ4LWFtei1kYXRlIjoiMjAyMjEwMjFUMDAwMDAwWiJ9LHsiQ29udGVudC1UeXBlIjoidGV4dC9wbGFpbiJ9XX0=\r\n------WebKitFormBoundarycZc7NzbBUZqGCNjO\r\nContent-Disposition: form-data; name="X-Amz-Algorithm"\r\n\r\nAWS4-HMAC-SHA256\r\n------WebKitFormBoundarycZc7NzbBUZqGCNjO\r\nContent-Disposition: form-data; name="X-Amz-Credential"\r\n\r\nAKIAIWNJYAX4CSVEH53A/20221021/us-east-1/s3/aws4_request\r\n------WebKitFormBoundarycZc7NzbBUZqGCNjO\r\nContent-Disposition: form-data; name="X-Amz-Date"\r\n\r\n20221021T000000Z\r\n------WebKitFormBoundarycZc7NzbBUZqGCNjO\r\nContent-Disposition: form-data; name="X-Amz-Signature"\r\n\r\n3f6b96b016fb5cb1d1630b7babca269a7244ef0354571720f6cd8f923e8c4f49\r\n------WebKitFormBoundarycZc7NzbBUZqGCNjO\r\nContent-Disposition: form-data; name="Content-Type"\r\n\r\ntext/plain\r\n------WebKitFormBoundarycZc7NzbBUZqGCNjO\r\nContent-Disposition: form-data; name="file"; filename="login.py"\r\nContent-Type: text/plain\r\n\r\n\r\n------WebKitFormBoundarycZc7NzbBUZqGCNjO--\r\n' \
+  --compressed
+
+	       ------WebKitFormBoundary1gfHIDspnQLuPjCc\r\nContent-Disposition: form-data; name="key"\r\n\r\n521709736/1174559763\r\n------WebKitFormBoundary1gfHIDspnQLuPjCc\r\nContent-Disposition: form-data; name="acl"\r\n\r\nprivate\r\n------WebKitFormBoundary1gfHIDspnQLuPjCc\r\nContent-Disposition: form-data; name="policy"\r\n\r\neyJleHBpcmF0aW9uIjoiMjAyMi0xMC0yMVQxNzozMTo0MloiLCJjb25kaXRpb25zIjpbeyJidWNrZXQiOiJnaXRodWItcHJvZHVjdGlvbi11cGxvYWQtbWFuaWZlc3QtZmlsZS03ZmRjZTcifSx7ImtleSI6IjUyMTcwOTczNi8xMTc0NTU5NzYzIn0seyJhY2wiOiJwcml2YXRlIn0sWyJjb250ZW50LWxlbmd0aC1yYW5nZSIsODU0NSw4NTQ1XSx7IngtYW16LWNyZWRlbnRpYWwiOiJBS0lBSVdOSllBWDRDU1ZFSDUzQS8yMDIyMTAyMS91cy1lYXN0LTEvczMvYXdzNF9yZXF1ZXN0In0seyJ4LWFtei1hbGdvcml0aG0iOiJBV1M0LUhNQUMtU0hBMjU2In0seyJ4LWFtei1kYXRlIjoiMjAyMjEwMjFUMDAwMDAwWiJ9LHsiQ29udGVudC1UeXBlIjoiYXBwbGljYXRpb24vb2N0ZXQtc3RyZWFtIn1dfQ==\r\n------WebKitFormBoundary1gfHIDspnQLuPjCc\r\nContent-Disposition: form-data; name="X-Amz-Algorithm"\r\n\r\nAWS4-HMAC-SHA256\r\n------WebKitFormBoundary1gfHIDspnQLuPjCc\r\nContent-Disposition: form-data; name="X-Amz-Credential"\r\n\r\nAKIAIWNJYAX4CSVEH53A/20221021/us-east-1/s3/aws4_request\r\n------WebKitFormBoundary1gfHIDspnQLuPjCc\r\nContent-Disposition: form-data; name="X-Amz-Date"\r\n\r\n20221021T000000Z\r\n------WebKitFormBoundary1gfHIDspnQLuPjCc\r\nContent-Disposition: form-data; name="X-Amz-Signature"\r\n\r\n749e2de2aa59c5dc00415a5d613c134b79697c533fe984a320dd50ae673f9292\r\n------WebKitFormBoundary1gfHIDspnQLuPjCc\r\nContent-Disposition: form-data; name="Content-Type"\r\n\r\napplication/octet-stream\r\n------WebKitFormBoundary1gfHIDspnQLuPjCc\r\nContent-Disposition: form-data; name="%22file%22; filename=%22login.py%22"\r\n\r\n\r\n------WebKitFormBoundary1gfHIDspnQLuPjCc--\r\n
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"X-Amz-Credential" - ?
+"X-Amz-Date"
+"X-Amz-Signature"
+
+
+
+curl "https://github-production-upload-manifest-file-7fdce7.s3.amazonaws.com/" ^
+  -H "Accept: */*" ^
+  -H "Accept-Language: tr-TR,tr;q=0.9,en-US;q=0.8,en;q=0.7" ^
+  -H "Connection: keep-alive" ^
+  -H "Content-Type: multipart/form-data; boundary=----WebKitFormBoundarycZc7NzbBUZqGCNjO" ^
+  -H "Origin: https://github.com" ^
+  -H "Referer: https://github.com/MehmetKLl/OBA-Otomatik-Oynatici/upload/main" ^
+  -H "Sec-Fetch-Dest: empty" ^
+  -H "Sec-Fetch-Mode: cors" ^
+  -H "Sec-Fetch-Site: cross-site" ^
+  -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36" ^
+  -H "sec-ch-ua: ^\^"Chromium^\^";v=^\^"106^\^", ^\^"Google Chrome^\^";v=^\^"106^\^", ^\^"Not;A=Brand^\^";v=^\^"99^\^"" ^
+  -H "sec-ch-ua-mobile: ?0" ^
+  -H "sec-ch-ua-platform: ^\^"Windows^\^"" ^
+  --data-raw ^"------WebKitFormBoundarycZc7NzbBUZqGCNjO^
+
+Content-Disposition: form-data; name=^\^"key^\^"^
+
+^
+
+521709736/1174515553^
+
+------WebKitFormBoundarycZc7NzbBUZqGCNjO^
+
+Content-Disposition: form-data; name=^\^"acl^\^"^
+
+^
+
+private^
+
+------WebKitFormBoundarycZc7NzbBUZqGCNjO^
+
+Content-Disposition: form-data; name=^\^"policy^\^"^
+
+^
+
+eyJleHBpcmF0aW9uIjoiMjAyMi0xMC0yMVQxNjo0OToxMloiLCJjb25kaXRpb25zIjpbeyJidWNrZXQiOiJnaXRodWItcHJvZHVjdGlvbi11cGxvYWQtbWFuaWZlc3QtZmlsZS03ZmRjZTcifSx7ImtleSI6IjUyMTcwOTczNi8xMTc0NTE1NTUzIn0seyJhY2wiOiJwcml2YXRlIn0sWyJjb250ZW50LWxlbmd0aC1yYW5nZSIsNzQyNyw3NDI3XSx7IngtYW16LWNyZWRlbnRpYWwiOiJBS0lBSVdOSllBWDRDU1ZFSDUzQS8yMDIyMTAyMS91cy1lYXN0LTEvczMvYXdzNF9yZXF1ZXN0In0seyJ4LWFtei1hbGdvcml0aG0iOiJBV1M0LUhNQUMtU0hBMjU2In0seyJ4LWFtei1kYXRlIjoiMjAyMjEwMjFUMDAwMDAwWiJ9LHsiQ29udGVudC1UeXBlIjoidGV4dC9wbGFpbiJ9XX0=^
+
+------WebKitFormBoundarycZc7NzbBUZqGCNjO^
+
+Content-Disposition: form-data; name=^\^"X-Amz-Algorithm^\^"^
+
+^
+
+AWS4-HMAC-SHA256^
+
+------WebKitFormBoundarycZc7NzbBUZqGCNjO^
+
+Content-Disposition: form-data; name=^\^"X-Amz-Credential^\^"^
+
+^
+
+AKIAIWNJYAX4CSVEH53A/20221021/us-east-1/s3/aws4_request^
+
+------WebKitFormBoundarycZc7NzbBUZqGCNjO^
+
+Content-Disposition: form-data; name=^\^"X-Amz-Date^\^"^
+
+^
+
+20221021T000000Z^
+
+------WebKitFormBoundarycZc7NzbBUZqGCNjO^
+
+Content-Disposition: form-data; name=^\^"X-Amz-Signature^\^"^
+
+
+
+fetch("https://github-production-upload-manifest-file-7fdce7.s3.amazonaws.com/", {
+  "headers": {
+    "accept": "*/*",
+    "accept-language": "tr-TR,tr;q=0.9,en-US;q=0.8,en;q=0.7",
+    "content-type": "multipart/form-data; boundary=----WebKitFormBoundarycZc7NzbBUZqGCNjO",
+    "sec-ch-ua": "\"Chromium\";v=\"106\", \"Google Chrome\";v=\"106\", \"Not;A=Brand\";v=\"99\"",
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-platform": "\"Windows\"",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "cross-site"
+  },
+  "referrer": "https://github.com/MehmetKLl/OBA-Otomatik-Oynatici/upload/main",
+  "referrerPolicy": "no-referrer-when-downgrade",
+  "body": "------WebKitFormBoundarycZc7NzbBUZqGCNjO\r\nContent-Disposition: form-data; name=\"key\"\r\n\r\n521709736/1174515553\r\n------WebKitFormBoundarycZc7NzbBUZqGCNjO\r\nContent-Disposition: form-data; name=\"acl\"\r\n\r\nprivate\r\n------WebKitFormBoundarycZc7NzbBUZqGCNjO\r\nContent-Disposition: form-data; name=\"policy\"\r\n\r\neyJleHBpcmF0aW9uIjoiMjAyMi0xMC0yMVQxNjo0OToxMloiLCJjb25kaXRpb25zIjpbeyJidWNrZXQiOiJnaXRodWItcHJvZHVjdGlvbi11cGxvYWQtbWFuaWZlc3QtZmlsZS03ZmRjZTcifSx7ImtleSI6IjUyMTcwOTczNi8xMTc0NTE1NTUzIn0seyJhY2wiOiJwcml2YXRlIn0sWyJjb250ZW50LWxlbmd0aC1yYW5nZSIsNzQyNyw3NDI3XSx7IngtYW16LWNyZWRlbnRpYWwiOiJBS0lBSVdOSllBWDRDU1ZFSDUzQS8yMDIyMTAyMS91cy1lYXN0LTEvczMvYXdzNF9yZXF1ZXN0In0seyJ4LWFtei1hbGdvcml0aG0iOiJBV1M0LUhNQUMtU0hBMjU2In0seyJ4LWFtei1kYXRlIjoiMjAyMjEwMjFUMDAwMDAwWiJ9LHsiQ29udGVudC1UeXBlIjoidGV4dC9wbGFpbiJ9XX0=\r\n------WebKitFormBoundarycZc7NzbBUZqGCNjO\r\nContent-Disposition: form-data; name=\"X-Amz-Algorithm\"\r\n\r\nAWS4-HMAC-SHA256\r\n------WebKitFormBoundarycZc7NzbBUZqGCNjO\r\nContent-Disposition: form-data; name=\"X-Amz-Credential\"\r\n\r\nAKIAIWNJYAX4CSVEH53A/20221021/us-east-1/s3/aws4_request\r\n------WebKitFormBoundarycZc7NzbBUZqGCNjO\r\nContent-Disposition: form-data; name=\"X-Amz-Date\"\r\n\r\n20221021T000000Z\r\n------WebKitFormBoundarycZc7NzbBUZqGCNjO\r\nContent-Disposition: form-data; name=\"X-Amz-Signature\"\r\n\r\n3f6b96b016fb5cb1d1630b7babca269a7244ef0354571720f6cd8f923e8c4f49\r\n------WebKitFormBoundarycZc7NzbBUZqGCNjO\r\nContent-Disposition: form-data; name=\"Content-Type\"\r\n\r\ntext/plain\r\n------WebKitFormBoundarycZc7NzbBUZqGCNjO\r\nContent-Disposition: form-data; name=\"file\"; filename=\"login.py\"\r\nContent-Type: text/plain\r\n\r\n\r\n------WebKitFormBoundarycZc7NzbBUZqGCNjO--\r\n",
+  "method": "POST",
+  "mode": "cors",
+  "credentials": "omit"
+});
+^
+
+3f6b96b016fb5cb1d1630b7babca269a7244ef0354571720f6cd8f923e8c4f49^
+
+------WebKitFormBoundarycZc7NzbBUZqGCNjO^
+
+Content-Disposition: form-data; name=^\^"Content-Type^\^"^
+
+^
+
+text/plain^
+
+------WebKitFormBoundarycZc7NzbBUZqGCNjO^
+
+Content-Disposition: form-data; name=^\^"file^\^"; filename=^\^"login.py^\^"^
+
+Content-Type: text/plain^
+
+^
+
+^
+
+------WebKitFormBoundarycZc7NzbBUZqGCNjO--^
+
+^" ^
+  --compressed
+
+
+
+
+
+
+
+
+
+$session = New-Object Microsoft.PowerShell.Commands.WebRequestSession
+$session.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36"
+Invoke-WebRequest -UseBasicParsing -Uri "https://github-production-upload-manifest-file-7fdce7.s3.amazonaws.com/" `
+-Method "POST" `
+-WebSession $session `
+-Headers @{
+"Accept"="*/*"
+  "Accept-Encoding"="gzip, deflate, br"
+  "Accept-Language"="tr-TR,tr;q=0.9,en-US;q=0.8,en;q=0.7"
+  "Origin"="https://github.com"
+  "Referer"="https://github.com/MehmetKLl/OBA-Otomatik-Oynatici/upload/main"
+  "Sec-Fetch-Dest"="empty"
+  "Sec-Fetch-Mode"="cors"
+  "Sec-Fetch-Site"="cross-site"
+  "sec-ch-ua"="`"Chromium`";v=`"106`", `"Google Chrome`";v=`"106`", `"Not;A=Brand`";v=`"99`""
+  "sec-ch-ua-mobile"="?0"
+  "sec-ch-ua-platform"="`"Windows`""
+} `
+-ContentType "multipart/form-data; boundary=----WebKitFormBoundarycZc7NzbBUZqGCNjO" `
+-Body ([System.Text.Encoding]::UTF8.GetBytes("------WebKitFormBoundarycZc7NzbBUZqGCNjO$([char]13)$([char]10)Content-Disposition: form-data; name=`"key`"$([char]13)$([char]10)$([char]13)$([char]10)521709736/1174515553$([char]13)$([char]10)------WebKitFormBoundarycZc7NzbBUZqGCNjO$([char]13)$([char]10)Content-Disposition: form-data; name=`"acl`"$([char]13)$([char]10)$([char]13)$([char]10)private$([char]13)$([char]10)------WebKitFormBoundarycZc7NzbBUZqGCNjO$([char]13)$([char]10)Content-Disposition: form-data; name=`"policy`"$([char]13)$([char]10)$([char]13)$([char]10)eyJleHBpcmF0aW9uIjoiMjAyMi0xMC0yMVQxNjo0OToxMloiLCJjb25kaXRpb25zIjpbeyJidWNrZXQiOiJnaXRodWItcHJvZHVjdGlvbi11cGxvYWQtbWFuaWZlc3QtZmlsZS03ZmRjZTcifSx7ImtleSI6IjUyMTcwOTczNi8xMTc0NTE1NTUzIn0seyJhY2wiOiJwcml2YXRlIn0sWyJjb250ZW50LWxlbmd0aC1yYW5nZSIsNzQyNyw3NDI3XSx7IngtYW16LWNyZWRlbnRpYWwiOiJBS0lBSVdOSllBWDRDU1ZFSDUzQS8yMDIyMTAyMS91cy1lYXN0LTEvczMvYXdzNF9yZXF1ZXN0In0seyJ4LWFtei1hbGdvcml0aG0iOiJBV1M0LUhNQUMtU0hBMjU2In0seyJ4LWFtei1kYXRlIjoiMjAyMjEwMjFUMDAwMDAwWiJ9LHsiQ29udGVudC1UeXBlIjoidGV4dC9wbGFpbiJ9XX0=$([char]13)$([char]10)------WebKitFormBoundarycZc7NzbBUZqGCNjO$([char]13)$([char]10)Content-Disposition: form-data; name=`"X-Amz-Algorithm`"$([char]13)$([char]10)$([char]13)$([char]10)AWS4-HMAC-SHA256$([char]13)$([char]10)------WebKitFormBoundarycZc7NzbBUZqGCNjO$([char]13)$([char]10)Content-Disposition: form-data; name=`"X-Amz-Credential`"$([char]13)$([char]10)$([char]13)$([char]10)AKIAIWNJYAX4CSVEH53A/20221021/us-east-1/s3/aws4_request$([char]13)$([char]10)------WebKitFormBoundarycZc7NzbBUZqGCNjO$([char]13)$([char]10)Content-Disposition: form-data; name=`"X-Amz-Date`"$([char]13)$([char]10)$([char]13)$([char]10)20221021T000000Z$([char]13)$([char]10)------WebKitFormBoundarycZc7NzbBUZqGCNjO$([char]13)$([char]10)Content-Disposition: form-data; name=`"X-Amz-Signature`"$([char]13)$([char]10)$([char]13)$([char]10)3f6b96b016fb5cb1d1630b7babca269a7244ef0354571720f6cd8f923e8c4f49$([char]13)$([char]10)------WebKitFormBoundarycZc7NzbBUZqGCNjO$([char]13)$([char]10)Content-Disposition: form-data; name=`"Content-Type`"$([char]13)$([char]10)$([char]13)$([char]10)text/plain$([char]13)$([char]10)------WebKitFormBoundarycZc7NzbBUZqGCNjO$([char]13)$([char]10)Content-Disposition: form-data; name=`"file`"; filename=`"login.py`"$([char]13)$([char]10)Content-Type: text/plain$([char]13)$([char]10)$([char]13)$([char]10)$([char]13)$([char]10)------WebKitFormBoundarycZc7NzbBUZqGCNjO--$([char]13)$([char]10)"))
+
+
+
