@@ -71,8 +71,8 @@
 |-|-|
 |*|:x:|
 
-:white_check_mark: : Belirtilen işletim sisteminde çalışıyor ve destekleniyor. 
-:ballot_box_with_check: : Belirtilen işletim sisteminde çalıştırılıp denenmedi ancak destekleniyor.
+:white_check_mark: : Belirtilen işletim sisteminde çalışıyor ve destekleniyor.<br>
+:ballot_box_with_check: : Belirtilen işletim sisteminde çalıştırılıp denenmedi ancak destekleniyor.<br>
 :x: : Desteklenmiyor. 
 
 ---------------------------------
