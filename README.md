@@ -50,6 +50,33 @@
 
 ---------------------------------
 
+<h4>Desteklenen İşletim Sistemleri</h4>
+
+|Windows|Desteklenme Durumu|
+|-|-|
+|Windows 11 x86|:ballot_box_with_check:|
+|Windows 11 x64|:ballot_box_with_check:|
+|Windows 10 x86|:ballot_box_with_check:|
+|Windows 10 x64|:white_check_mark:|
+|Windows 8 x86|:ballot_box_with_check:|
+|Windows 8 x64|:white_check_mark:|
+|Windows 7 x64|:white_check_mark:|
+|Windows 7 x86|:white_check_mark:|
+
+|MacOS|Desteklenme Durumu|
+|-|-|
+|*|:x:|
+
+|Linux|Desteklenme Durumu|
+|-|-|
+|*|:x:|
+
+:white_check_mark: : Belirtilen işletim sisteminde çalışıyor ve destekleniyor. 
+:ballot_box_with_check: : Belirtilen işletim sisteminde çalıştırılıp denenmedi ancak destekleniyor.
+:x: : Desteklenmiyor. 
+
+---------------------------------
+
 <h4>Sürüm Notları</h4>
 
 |Sürüm|Notlar|
