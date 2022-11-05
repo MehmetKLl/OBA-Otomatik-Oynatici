@@ -149,13 +149,11 @@ def start_installer():
         exit(1)
 
 
-    return_code = install_program_contents(content_bytes,mode="install")
-    if return_code:
+    if install_program_contents(content_bytes,mode="install"):
         log.close()
         exit(1)
 
-    return_code = set_registry_values(mode="install")
-    if return_code:
+    if set_registry_values(mode="install"):
         log.close()
         exit(1)
 
@@ -188,14 +186,12 @@ def start_updater():
             exit(1)
 
          
-        return_code = install_program_contents(content_bytes,mode="update")
-        if return_code:
+        if install_program_contents(content_bytes,mode="update"):
             log.close()
             exit(1)
 
 
-        return_code = set_registry_values(mode="update")
-        if return_code:
+        if set_registry_values(mode="update"):
             log.close()
             exit(1)
 
