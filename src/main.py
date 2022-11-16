@@ -83,6 +83,7 @@ class Root(Tk):
                 messagebox.showinfo(f"ÖBA Otomatik Oynatıcı v{self.version}","Program sonlandırıldı.")
                 process.terminate()
                 break
+
         windll.kernel32.SetThreadExecutionState(0x80000000)
         self.wm_attributes("-alpha",1)
         self.start_button.config(state="normal")
