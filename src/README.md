@@ -10,5 +10,5 @@
 <br>
 <b> • </b><code><a href="run.py">run.py</a></code>: oba_otomatik_oynatma.exe dosyasının kaynak kodudur.<br>
 <b> • </b><code><a href="main.py">main.py</a></code>: Programın arayüzünün kaynak kodudur.<br>
-<b> • </b><code><a href="autoplayer.py">run.py</a></code>: Otomatik oynatma mekanizmasının kaynak kodudur.<br>
+<b> • </b><code><a href="autoplayer.py">autoplayer.py</a></code>: Otomatik oynatma mekanizmasının kaynak kodudur.<br>
 
