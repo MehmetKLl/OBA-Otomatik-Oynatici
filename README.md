@@ -1,7 +1,7 @@
 
 <h2> ÖBA Otomatik Oynatıcı </h2>
 <b> Sürüm 1.3.6 </b>
-<br>
+<br><br>
 <p><i>Kısa yoldan dosyayı indirmek için <a href="https://github.com/MehmetKLl/OBA-Otomatik-Oynatici/raw/main/oba_otomatik_oynatma.zip" >tıklayın.</a></i></p>
 
 <h4>Kullanım</h4>
