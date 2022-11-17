@@ -7,8 +7,8 @@
 </a> 
  dizini</h4>
 <p> ÖBA Otomatik Oynatıcı'nın kaynak kodlarının bulunduğu dizindir. </p>
-<ul>
-<li><code><a href="src/run.py">run.py</a></code>: oba_otomatik_oynatma.exe dosyasının kaynak kodudur.</li>
-<li><code><a href="src/main.py">main.py</a></code>: Programın arayüzünün kaynak kodudur.</li>
-<li><code><a href="src/autoplayer.py">run.py</a></code>: Otomatik oynatma mekanizmasının kaynak kodudur.</li>
-<\ul>
+<br>
+•<code><a href="src/run.py">run.py</a></code>: oba_otomatik_oynatma.exe dosyasının kaynak kodudur.<br>
+•<code><a href="src/main.py">main.py</a></code>: Programın arayüzünün kaynak kodudur.<br>
+•<code><a href="src/autoplayer.py">run.py</a></code>: Otomatik oynatma mekanizmasının kaynak kodudur.<br>
+
