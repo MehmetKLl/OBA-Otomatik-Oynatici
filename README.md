@@ -11,14 +11,17 @@
 - Arayüz ekrana gelmeden önce sürüm denetleyicisi çalıştırıldığından arayüzün ekrana gelmesi bazı etkenlere bağlı olarak değişebilir.
 - Program kurulduktan sonra aynı dosyayla kuruluma gerek olmadan program çalıştırılabilir.
 <br>
+<br>
 <img src="img/pic1.png">
 </img>
 <i>İlk oba_otomatik_oynatma.exe çalıştırılır.</i>
 
 <br>
+<br>
 <img src="img/pic2.png">
 </img>
 
+<br>
 <br>
 <img src="img/pic3.png">
 </img>
