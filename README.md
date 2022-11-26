@@ -48,7 +48,7 @@
 
 - Program Chrome tarayıcısında %100 site büyütme boyutunda farklı ekran boyutlarında çalışabilmektedir. 
 - Tüm çalıştırılabilir dosyalar 32 bit pyinstaller ile bundle edilmiştir, 64 bit sistemlerde de çalışmaktadır. 
-- Program Windows 10 x64/x86, Windows 8 x64/x86 ve Windows 7 x64/x86 sistemlerde kusursuz çalışmaktadır, program diğer sistemlerde denenmemiştir.
+- Program Windows 10 x64/x86, Windows 8 x64 ve Windows 7 x64/x86 sistemlerde kusursuz çalışmaktadır, program diğer sistemlerde denenmemiştir.
 - Program "Eğitime başla/Eğitime devam et" tuşuna basılıp yeni ekran açıldığı zaman en önde tarayıcı gözükecek şekilde çalıştırılmalıdır.
 - Program çalışırken fare ile oynanmamalıdır, eğer oynarsanız büyük ihtimalle programın videoyu kontrol etme mekanizması bozulacaktır.
 
