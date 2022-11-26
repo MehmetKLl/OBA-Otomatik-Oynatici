@@ -28,6 +28,7 @@
 <i>Ayarlar kısmından gerekli düzenlemeler yapılabilir.</i>
 
 <br>
+<br>
 <img src="img/pic2.png">
 </img>
 <i>"Başlat" tuşuna basarak program çalıştırılır.</i>
