@@ -1,6 +1,7 @@
 
 <h2> ÖBA Otomatik Oynatıcı </h2>
 <b> Sürüm 1.3.6 </b>
+<br>
 <i> Bu proje <a href="/LICENSE">MIT Lisansı</a> kapsamındadır. </i>
 <br><br>
 <i>Uğraşmak yerine, dosyayı direkt <a href="https://github.com/MehmetKLl/OBA-Otomatik-Oynatici/raw/main/oba_otomatik_oynatma.zip" >buradan</a> indirebilirsiniz.</i>
