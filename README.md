@@ -10,23 +10,21 @@
 - Program ilk çalıştırıldığı vakit kurulması gereken dosyaları internetten indirdiğinden program ilk çalıştırıldığı vakit internet gerektirmektedir.
 - Arayüz ekrana gelmeden önce sürüm denetleyicisi çalıştırıldığından arayüzün ekrana gelmesi bazı etkenlere bağlı olarak değişebilir.
 - Program kurulduktan sonra aynı dosyayla kuruluma gerek olmadan program çalıştırılabilir.
----------------------------------
+<br>
 <img src="img/pic1.png">
 </img>
 <i>İlk oba_otomatik_oynatma.exe çalıştırılır.</i>
 
----------------------------------
+<br>
 <img src="img/pic2.png">
 </img>
 
----------------------------------
-
+<br>
 <img src="img/pic3.png">
 </img>
 <i>Ayarlar kısmından gerekli düzenlemeler yapılabilir.</i>
 
----------------------------------
-
+<br>
 <img src="img/pic2.png">
 </img>
 <i>"Başlat" tuşuna basarak program çalıştırılır.</i>
