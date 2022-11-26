@@ -38,7 +38,7 @@
 <h4>Program Hakkında Bilgiler</h4>
 
 - Program Python ile yazılmıştır, arayüzlü basit bir makro uygulamasıdır.
-- Program çalışırken ekran görüntüsünü işleyerek çalışmaktadır, bu yüzden bir yere gideceğiniz zaman programı açık bırakabilirsiniz.
+- Program çalışırken ekran görüntüsünü işleyerek çalışmaktadır, bu yüzden programın hızı bir yere kadar işlemcinizin gücü ile orantılı olacaktır. 
 - Programda requests, pywin32, pyautogui, tkinter ve keyboard modülleri/kütüphaneleri kullanılmıştır.
 - Programı kendi atadığınız kısayol ile kapatabilirsiniz. 
 
@@ -75,11 +75,11 @@
 |-|-|
 |*|:x:|
 
-<font size=6>
+<i>
 :white_check_mark: : Belirtilen işletim sisteminde çalışıyor ve destekleniyor.<br>
 :ballot_box_with_check: : Belirtilen işletim sisteminde çalıştırılıp denenmedi ancak destekleniyor.<br>
 :x: : Desteklenmiyor. 
-</font>
+</i>
 
 ---------------------------------
 
