@@ -1,8 +1,6 @@
 
 <h2> ÖBA Otomatik Oynatıcı </h2>
 <b> Sürüm 1.3.6 </b>
-<br>
-<i> Bu proje <a href="/LICENSE">MIT Lisansı</a> kapsamındadır. </i>
 <br><br>
 <i>Uğraşmak yerine, dosyayı direkt <a href="https://github.com/MehmetKLl/OBA-Otomatik-Oynatici/raw/main/oba_otomatik_oynatma.zip" >buradan</a> indirebilirsiniz.</i>
 
@@ -47,6 +45,7 @@
 
 <h4>Uyarılar</h4>
 
+- Bu proje <a href="/LICENSE">MIT Lisansı</a> kapsamındadır.
 - Program Chrome tarayıcısında %100 site büyütme boyutunda farklı ekran boyutlarında çalışabilmektedir. 
 - Tüm çalıştırılabilir dosyalar 32 bit pyinstaller ile bundle edilmiştir, 64 bit sistemlerde de çalışmaktadır. 
 - Program Windows 10 x64/x86, Windows 8 x64 ve Windows 7 x64/x86 sistemlerde kusursuz çalışmaktadır, program diğer sistemlerde denenmemiştir.
