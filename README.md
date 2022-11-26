@@ -1,8 +1,9 @@
 
 <h2> ÖBA Otomatik Oynatıcı </h2>
 <b> Sürüm 1.3.6 </b>
+<i> Bu proje <a href="/LICENSE">MIT Lisansı</a> kapsamındadır. </i>
 <br><br>
-<p><i>Uğraşmak yerine, dosyayı direkt <a href="https://github.com/MehmetKLl/OBA-Otomatik-Oynatici/raw/main/oba_otomatik_oynatma.zip" >buradan</a> indirebilirsiniz.</i></p>
+<i>Uğraşmak yerine, dosyayı direkt <a href="https://github.com/MehmetKLl/OBA-Otomatik-Oynatici/raw/main/oba_otomatik_oynatma.zip" >buradan</a> indirebilirsiniz.</i>
 
 <h4>Kullanım</h4>
 
@@ -10,14 +11,13 @@
 - Program ilk çalıştırıldığı vakit kurulması gereken dosyaları internetten indirdiğinden program ilk çalıştırıldığı vakit internet gerektirmektedir.
 - Arayüz ekrana gelmeden önce sürüm denetleyicisi çalıştırıldığından arayüzün ekrana gelmesi bazı etkenlere bağlı olarak değişebilir.
 - Program kurulduktan sonra aynı dosyayla kuruluma gerek olmadan program çalıştırılabilir.
-<br>
-<br>
+<br><br>
 <img src="img/pic1.png">
 </img>
 <i>İlk oba_otomatik_oynatma.exe çalıştırılır.</i>
 
-<br>
-<br>
+<br><br>
+
 <img src="img/pic2.png">
 </img>
 
@@ -27,8 +27,8 @@
 </img>
 <i>Ayarlar kısmından gerekli düzenlemeler yapılabilir.</i>
 
-<br>
-<br>
+<br><br>
+
 <img src="img/pic2.png">
 </img>
 <i>"Başlat" tuşuna basarak program çalıştırılır.</i>
