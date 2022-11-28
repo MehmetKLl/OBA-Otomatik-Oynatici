@@ -20,8 +20,8 @@
 <img src="img/pic2.png">
 </img>
 
-<br>
-<br>
+<br><br>
+
 <img src="img/pic3.png">
 </img>
 <i>Ayarlar kısmından gerekli düzenlemeler yapılabilir.</i>
