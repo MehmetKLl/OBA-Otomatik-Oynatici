@@ -20,13 +20,18 @@
 
 ---------------------------------
 
-<h4>Kullanım</h4>
+<h4>Kullanmadan Önce Uyarılar</h4>
 
-- Program ilk çalıştırıldığı vakit gereken dosyaları kurmakta ve programı öyle çalıştırmaktadır. Bundan dolayı program ilk seferde biraz geç açılabilir.
+- Program ilk çalıştırıldığı vakit gereken dosyaları bilgisayara kurmakta ve programı öyle çalıştırmaktadır. Bundan dolayı program ilk seferde biraz geç açılabilir.
 - Program ilk çalıştırıldığı vakit kurulması gereken dosyaları internetten indirdiğinden program ilk çalıştırıldığı vakit internet gerektirmektedir.
 - Arayüz ekrana gelmeden önce sürüm denetleyicisi çalıştırıldığından arayüzün ekrana gelmesi bazı etkenlere bağlı olarak değişebilir.
-- Program kurulduktan sonra aynı dosyayla kuruluma gerek olmadan program çalıştırılabilir.
-<br><br>
+- Program kurulduktan sonra aynı dosyayla kuruluma gerek olmadan tekrar çalıştırılabilir.
+- *Program videoların izlendiği kısımdan itibaren açılmalıdır (Site boyutu %100 olmak şartıyla).* Aksi takdirde program çalışmayacaktır. 
+
+---------------------------------
+
+<h4>Kullanım</h4>
+
 <img src="img/pic1.png">
 </img>
 <i>İlk oba_otomatik_oynatma.exe çalıştırılır.</i>
