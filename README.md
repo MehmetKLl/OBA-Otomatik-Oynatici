@@ -56,14 +56,6 @@
 
 ---------------------------------
 
-<h4>Uyarılar</h4>
-
-- Bu proje <a href="/LICENSE">MIT Lisansı</a> kapsamındadır.
-- Tüm çalıştırılabilir dosyalar 32 bit pyinstaller ile bundle edilmiştir, 64 bit sistemlerde de çalışmaktadır. 
-- Program Windows 10 x64/x86, Windows 8 x64 ve Windows 7 x64/x86 sistemlerde kusursuz çalışmaktadır, program diğer sistemlerde denenmemiştir.
-
----------------------------------
-
 <h4>Desteklenen İşletim Sistemleri</h4>
 
 |Windows|Desteklenme Durumu|
