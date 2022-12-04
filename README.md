@@ -4,6 +4,22 @@
 <br><br>
 <i>Uğraşmak yerine, dosyayı direkt <a href="https://github.com/MehmetKLl/OBA-Otomatik-Oynatici/raw/main/oba_otomatik_oynatma.zip" >buradan</a> indirebilirsiniz.</i>
 
+<h4>Nedir bu ÖBA Otomatik Oynatıcı?</h4>
+
+- ÖBA Otomatik Oynatıcı Python ile yazılan arayüzlü basit bir makro uygulamasıdır.
+- Program ekran görüntüsünü işleyip doğal tıklama işlemlerini taklit ederek çalışmaktadır. 
+- Programda requests, pywin32, pyautogui, tkinter ve keyboard modülleri/kütüphaneleri kullanılmıştır.
+
+---------------------------------
+
+<h4>Niye ÖBA Otomatik Oynatıcı?</h4>
+
+- Program tamamen tıklama işlemlerini taklit ettiği için diğer alternatiflerine göre sıkıntı oluşturmaz. 
+- Program açık kaynak kodlu olduğundan alternatiflerine göre çok daha risksiz ve güvenlidir. 
+- Program, alternatifleri gibi kullanıcıyı uğraştırmayıp kullanıcı sadece "Başlat" tuşuna tıklayıp programı çalıştırabildiğinden kullanıcıya kolay bir deneyim sağlar. 
+
+---------------------------------
+
 <h4>Kullanım</h4>
 
 - Program ilk çalıştırıldığı vakit gereken dosyaları kurmakta ve programı öyle çalıştırmaktadır. Bundan dolayı program ilk seferde biraz geç açılabilir.
@@ -31,15 +47,6 @@
 <img src="img/pic2.png">
 </img>
 <i>"Başlat" tuşuna basarak program çalıştırılır.</i>
-
----------------------------------
-
-<h4>Program Hakkında Bilgiler</h4>
-
-- Program Python ile yazılmıştır, arayüzlü basit bir makro uygulamasıdır.
-- Program çalışırken ekran görüntüsünü işleyerek çalışmaktadır, bu yüzden programın hızı bir yere kadar işlemcinizin gücü ile orantılı olacaktır. 
-- Programda requests, pywin32, pyautogui, tkinter ve keyboard modülleri/kütüphaneleri kullanılmıştır.
-- Programı kendi atadığınız kısayol ile kapatabilirsiniz. 
 
 ---------------------------------
 
