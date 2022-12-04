@@ -26,7 +26,8 @@
 - Program ilk çalıştırıldığı vakit kurulması gereken dosyaları internetten indirdiğinden program ilk çalıştırıldığı vakit internet gerektirmektedir.
 - Arayüz ekrana gelmeden önce sürüm denetleyicisi çalıştırıldığından arayüzün ekrana gelmesi bazı etkenlere bağlı olarak değişebilir.
 - Program kurulduktan sonra aynı dosyayla kuruluma gerek olmadan tekrar çalıştırılabilir.
-- <b><ins>Program videoların izlendiği kısımdan itibaren başlatılmalıdır (Site boyutu %100 olmak şartıyla)</ins></b>. Aksi takdirde program doğru <b>çalışmayacaktır</b>. 
+- <b><ins>Program videoların izlendiği kısımdan itibaren başlatılmalıdır (Site boyutu %100 olmak şartıyla)</ins></b>. Aksi takdirde program doğru <b>çalışmayacaktır</b>.
+- <b><ins>Program çalışırken fare ile oynanmamalı</ins></b> ve program durdurulmak isteniyorsa <b><ins>sadece kısayol tuşuyla kapatılmalıdır</ins></b>, aksi takdirde program çökebilir. 
 
 ---------------------------------
 
