@@ -14,9 +14,9 @@
 
 <h4>Niye ÖBA Otomatik Oynatıcı?</h4>
 
-- Program tamamen tıklama işlemlerini taklit ettiği için diğer alternatiflerine göre sıkıntı oluşturmaz. 
-- Program açık kaynak kodlu olduğundan alternatiflerine göre çok daha risksiz ve güvenlidir. 
-- Program, alternatifleri gibi kullanıcıyı uğraştırmayıp kullanıcı sadece "Başlat" tuşuna tıklayıp programı çalıştırabildiğinden kullanıcıya kolay bir deneyim sağlar. 
+- Program <b>sadece tıklama işlemlerini taklit ettiği</b> için diğer alternatiflerine göre sıkıntı oluşturmaz. 
+- Program <b>açık kaynak kodlu</b> olduğundan alternatiflerine göre çok daha risksiz ve güvenlidir. 
+- Program, alternatifleri gibi <b>kullanıcıyı uğraştırmayıp</b> kullanıcı sadece "Başlat" tuşuna tıklayıp programı çalıştırabildiğinden kullanıcıya kolay bir deneyim sağlar. 
 
 ---------------------------------
 
