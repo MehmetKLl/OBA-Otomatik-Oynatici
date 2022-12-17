@@ -1,6 +1,6 @@
 
 <h2> ÖBA Otomatik Oynatıcı </h2>
-<b> Sürüm 1.3.6 </b>
+<b> Sürüm 1.4.0 </b>
 <br><br>
 <i>Uğraşmak yerine, dosyayı direkt <a href="https://github.com/MehmetKLl/OBA-Otomatik-Oynatici/raw/main/oba_otomatik_oynatma.zip" >buradan</a> indirebilirsiniz.</i>
 
@@ -89,6 +89,7 @@
 
 |Sürüm|Notlar|
 |-|-|
+|1.4.0|Programın arayüzü yeniden tasarlandı ve sil baştan Qt kütüphanesi ile yazıldı. Programın otomatik oynatma altyapısı OpenCV kütüphanesi kullanılarak sıfırdan yazıldı. Programın otomatik oynatma mekanizması geliştirildi. Programın optimizasyonunu arttırmak için otomatik oynatma mekanizmasına kontrol geciktirme parametreleri eklendi.|
 |1.3.6|Programın mekanizması bilgisayarın uyku moduna girmesini engelleyecek biçimde geliştirildi. Optimizasyon sorunları, kod hataları giderildi.|
 |1.3.5|Windows 7 desteği eklendi. Yeni log sistemi eklendi. Otomatik oynatma mekanizmasının kaynak kodları düzenlendi. Kurulum programının kodları düzenlendi. Arayüzün performansı arttırıldı.|
 |1.3.4|Programın mekanizması geliştirildi. Log sistemi kaldırıldı. Kod yapısı düzenlendi.|
