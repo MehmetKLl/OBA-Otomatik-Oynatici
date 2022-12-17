@@ -1,34 +1,39 @@
-from multiprocessing import Process as process
+from multiprocessing import Process
 from multiprocessing import Pipe
 from traceback import format_exc
-from subprocess import check_output, CREATE_NO_WINDOW, Popen
+from subprocess import check_output, CREATE_NO_WINDOW, Popen, PIPE
 from os import path
 
-class Process(process):
+class ProcessWithException(Process):
     def __init__(self, *args, **kwargs):
-        process.__init__(self, *args, **kwargs)
-        self._pconn, self._cconn = Pipe()
-        self._exception = None
+        Process.__init__(self, *args, **kwargs)
+        self.pconn, self.cconn = Pipe()
+        self.exc, self.tb = None, None
 
     def run(self):
         try:
-            process.run(self)
-            self._cconn.send(None)
-        except Exception as e:
+            Process.run(self)
+            self._cconn.send((None,None))
+        except Exception as exc:
             tb = format_exc()
-            self._cconn.send((e, tb))
-            
-    @property
-    def exception(self):
-        if self._pconn.poll():
-            self._exception = self._pconn.recv()
-        return self._exception
+            self.cconn.send((exc, tb))
+
+    def catch_exception(self):
+        if self.pconn.poll():
+            self.exc, self.tb = self.pconn.recv()
+        return self.exc, self.tb
+
+    def wait_for_exception(self):
+        while True:
+            exc = self.send_exception()
+            if any(exc):
+                return exc
 
 def process_list():
     return check_output(["tasklist"],shell=False,creationflags=CREATE_NO_WINDOW).split(b"\r\n")[3:]
 
 def start(executable):
-    return Popen([path.basename(executable)],shell=True,creationflags=CREATE_NO_WINDOW,cwd=path.dirname(executable))
+    return Popen([path.basename(executable)],shell=True,creationflags=CREATE_NO_WINDOW,cwd=path.dirname(executable), stdout=PIPE, stderr=PIPE)
 
 def run(cmd):
     return Popen(cmd,shell=False,creationflags=CREATE_NO_WINDOW)
