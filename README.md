@@ -8,7 +8,7 @@
 
 - ÖBA Otomatik Oynatıcı Python ile yazılan arayüzlü basit bir makro uygulamasıdır.
 - Program ekran görüntüsünü işleyip doğal tıklama işlemlerini taklit ederek çalışmaktadır. 
-- Programda requests, pywin32, pyautogui, tkinter ve keyboard modülleri/kütüphaneleri kullanılmıştır.
+- Programda requests, pywin32, PyQt5, OpenCV ve keyboard modülleri/kütüphaneleri kullanılmıştır.
 
 ---------------------------------
 
