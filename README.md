@@ -1,6 +1,7 @@
 
 <h2> ÖBA Otomatik Oynatıcı </h2>
 <b> Sürüm 1.4.0 </b>
+<br>
 <i> Program bu sürüm itibariyle kararlı değildir ve her sistemde çalışmamaktadır. </i>
 <br><br>
 <i>Uğraşmak yerine, dosyayı direkt <a href="https://github.com/MehmetKLl/OBA-Otomatik-Oynatici/raw/main/oba_otomatik_oynatma.zip" >buradan</a> indirebilirsiniz.</i>
