@@ -1,6 +1,6 @@
 
 <h2> ÖBA Otomatik Oynatıcı </h2>
-<b> Sürüm 1.4.0 </b>
+<b> Sürüm 1.4.1 </b>
 <br>
 <i> Program bu sürüm itibariyle kararlı değildir ve her sistemde çalışmamaktadır. </i>
 <br><br>
@@ -91,6 +91,7 @@
 
 |Sürüm|Notlar|
 |-|-|
+|1.4.1|Windows 10 için uyumluluk hataları giderildi.|
 |1.4.0|Programın arayüzü yeniden tasarlandı ve sil baştan Qt kütüphanesi ile yazıldı. Programın otomatik oynatma altyapısı OpenCV kütüphanesi kullanılarak sıfırdan yazıldı. Programın otomatik oynatma mekanizması geliştirildi. Programın optimizasyonunu arttırmak için otomatik oynatma mekanizmasına kontrol geciktirme parametreleri eklendi.|
 |1.3.6|Programın mekanizması bilgisayarın uyku moduna girmesini engelleyecek biçimde geliştirildi. Optimizasyon sorunları, kod hataları giderildi.|
 |1.3.5|Windows 7 desteği eklendi. Yeni log sistemi eklendi. Otomatik oynatma mekanizmasının kaynak kodları düzenlendi. Kurulum programının kodları düzenlendi. Arayüzün performansı arttırıldı.|
