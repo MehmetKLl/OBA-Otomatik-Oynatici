@@ -76,7 +76,7 @@ def set_registry_values(mode):
         return 1
     
     except OSError as exc:
-        error_code = exc.__class__.errno
+        error_code = exc.errno
 
         if error_code == error_codes.ENOENT:
             utils.dialogs.show_error("Aranılan dosya ya da dizin bulunamadı.", dialog_title)
