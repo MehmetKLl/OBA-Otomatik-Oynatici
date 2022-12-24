@@ -1,4 +1,4 @@
-from winreg import HKEY_LOCAL_MACHINE, HKEY_CURRENT_USER, HKEY_CLASSES_ROOT, OpenKeyEx, CreateKeyEx, QueryValueEx, SetValueEx, KEY_READ, KEY_WRITE, REG_SZ
+from winreg import OpenKeyEx, CreateKeyEx, QueryValueEx, SetValueEx, KEY_READ, KEY_WRITE, REG_SZ
 
 def read_key(hkey,key_location,value_name):
     with OpenKeyEx(hkey,key_location,0,KEY_READ) as key:

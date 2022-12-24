@@ -1,4 +1,4 @@
-from PyQt5.QtCore import Qt, QThread, pyqtSignal
+from PyQt5.QtCore import QThread, pyqtSignal
 from keyboard import is_pressed
 from utils.process import ProcessWithException
 import autoplayer.main
