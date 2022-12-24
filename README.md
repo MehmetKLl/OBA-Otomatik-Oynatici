@@ -6,6 +6,8 @@
 <br><br>
 <i>Uğraşmak yerine, dosyayı direkt <a href="https://github.com/MehmetKLl/OBA-Otomatik-Oynatici/raw/main/oba_otomatik_oynatma.zip" >buradan</a> indirebilirsiniz.</i>
 
+--------------------------------- 
+
 <h4>Nedir bu ÖBA Otomatik Oynatıcı?</h4>
 
 - ÖBA Otomatik Oynatıcı Python ile yazılan arayüzlü basit bir makro uygulamasıdır.
