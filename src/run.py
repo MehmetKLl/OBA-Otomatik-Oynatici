@@ -81,7 +81,7 @@ def set_registry_values(mode):
         if error_code == error_codes.ENOENT:
             utils.dialogs.show_error("Aranılan dosya ya da dizin bulunamadı.", dialog_title)
 
-        elif error_code == error_codes.EPERM or error_code == error_codes.EACCES:
+        elif error_code in (error_codes.EPERM, error_codes.EACCES):
             utils.dialogs.show_error("Yetki hatası oluştu. Programı yönetici olarak çalıştırmayı deneyin.", dialog_title)
 
         else:
@@ -102,7 +102,7 @@ def check_key_exists():
     except OSError as exc:
         error_code = exc.errno
 
-        if error_code == error_codes.EPERM or error_code == error_codes.EACCES:
+        if error_code in (error_codes.EPERM, error_codes.EACCES):
             utils.dialogs.show_error("Kayıt defteri değeri okunurken yetki hatası oluştu. Programı yönetici olarak çalıştırmayı deneyin.", dialog_title)
 
         else:
@@ -167,7 +167,7 @@ def install_program_contents(content_bytes,mode):
         elif error_code == error_codes.ENOMEM:
             utils.dialogs.show_error("Uygulamanın kullanabileceği bellek miktarı yetersiz.", dialog_title)
 
-        elif error_code == error_codes.EPERM or error_code == error_codes.EACCES:
+        elif error_code in (error_codes.EPERM, error_codes.EACCES):
             utils.dialogs.show_error("Yetki hatası oluştu. Programı yönetici olarak çalıştırmayı deneyin.", dialog_title)
         
         else:
