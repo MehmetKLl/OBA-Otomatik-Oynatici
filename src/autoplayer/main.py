@@ -1,6 +1,6 @@
 from time import sleep
 from autoplayer.handler import Screen
-from autoplayer.events import left_click, scroll
+from autoplayer.events import left_click
 from utils.constants import Player
 from utils.exceptions import BorderNotFoundException
 
