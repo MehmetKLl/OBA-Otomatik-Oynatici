@@ -7,3 +7,5 @@ README.md
 /src/executable/
 
 /src/run.py
+
+.deepsource.toml
