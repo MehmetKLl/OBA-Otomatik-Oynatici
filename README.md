@@ -58,6 +58,10 @@
 </img>
 <i>"Başlat" tuşuna basarak program çalıştırılır.</i>
 
+<br><br>
+
+<a href="https://youtu.be/eZo2jmeZ7BU"></a>
+
 ---------------------------------
 
 <h4>Desteklenen İşletim Sistemleri</h4>
