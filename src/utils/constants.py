@@ -1,6 +1,6 @@
 from os import environ
 
-VERSION = "1.4.1"
+VERSION = "1.4.2"
 
 class File:
     PROGRAM_PATH = f"{environ['APPDATA']}\\OBA Otomatik Oynatici"

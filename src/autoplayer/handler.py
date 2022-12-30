@@ -53,7 +53,7 @@ class Screen:
 
         if x_array.size == 0 or y_array.size == 0:
             if exceptions == "raise":
-                raise ImageNotFoundException("Image \"{image}\" couldn't found.",image=image)
+                raise ImageNotFoundException(f"Image \"{image}\" couldn't found.",image=image)
 
             return None
 

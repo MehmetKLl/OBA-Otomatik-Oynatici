@@ -1,8 +1,8 @@
 from time import sleep
 from autoplayer.handler import Screen
-from autoplayer.events import left_click
+from autoplayer.events import left_click, scroll
 from utils.constants import Player
-from utils.exceptions import BorderNotFoundException
+from utils.exceptions import BorderNotFoundException, VideoIconNotFoundException, ImageNotFoundException
 
 SCROLL_DELAY = Player.SCROLL_DELAY
 VIDEO_CHECK_DELAY = Player.VIDEO_CHECK_DELAY
@@ -101,6 +101,8 @@ def start_new_video(pos):
     else:
         raise BorderNotFoundException()
     
+    border_pos = border.get_pos()
+
     left_click(x=border_pos[0]+20,y=border_pos[1]+20)
     sleep(5)
     if Screen().capture("img/stopped.png"):
@@ -108,10 +110,15 @@ def start_new_video(pos):
 
 
 def control_current_video():
-    cur_icon = Screen().capture("img/current_icon.png")
-
     while True:
-        if cur_icon in Screen().capture("img/finished_icon.png",mode="all"):
+        for _ in range(20):
+            cur_icon = Screen().capture("img/current_icon.png")
+            if cur_icon:
+                break
+        else:
+            raise VideoIconNotFoundException()
+
+        if cur_icon.get_pos()[:2] in [i.get_pos()[:2] for i in Screen().capture("img/finished_icon.png",mode="all")]:
             scroll_new_video()
             break
 

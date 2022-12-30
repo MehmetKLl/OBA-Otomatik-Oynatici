@@ -153,6 +153,9 @@ class MainWindow(QWidget):
 
         elif isinstance(exception[0], ImageNotFoundException):
             exception_msgbox.setText(f"Ekranda \"{exception[0].image}\" görüntüsü bulunamadı.")
+        
+        elif isinstance(exception[0], VideoIconNotFoundException):
+            exception_msgbox.setText("Ekranda \"oynatılan video\" simgesi bulunamadı ve programda hata oluştu.")
 
         else:
             exception_msgbox.setText("Hata oluştu ve program sonlandırıldı.")
@@ -164,7 +167,7 @@ class MainWindow(QWidget):
             
 
 class SettingsWindow(QWidget):    
-    def __init__(self,*args,**kwargs):
+    def __init__(self, *args, **kwargs):
        super().__init__(*args,**kwargs)
        self.setup()
        self.place_widgets()

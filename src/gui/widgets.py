@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QVBoxLayout, QLabel
+from PyQt5.QtWidgets import QVBoxLayout, QLabel, QMessageBox
 from PyQt5.QtCore import Qt
 
 class TextBox(QVBoxLayout):
