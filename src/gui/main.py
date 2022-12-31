@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import QWidget, QApplication, QPushButton, QHBoxLayout, QVB
 from PyQt5.QtGui import QIcon, QIntValidator
 from PyQt5.QtCore import Qt
 from utils.constants import GUI, Player, VERSION
-from utils.exceptions import BorderNotFoundException, ImageNotFoundException
+from utils.exceptions import BorderNotFoundException, ImageNotFoundException, VideoIconNotFoundException
 from .widgets import TextBox
 from .autoplayer import Autoplayer
 from .styles import Styles
