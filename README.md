@@ -68,7 +68,7 @@
 |Windows 11 x64|:ballot_box_with_check:|
 |Windows 10 x86|:ballot_box_with_check:|
 |Windows 10 x64|:white_check_mark:|
-|Windows 8 x86|:ballot_box_with_check:|
+|Windows 8 x86|:white_check_mark:|
 |Windows 8 x64|:white_check_mark:|
 |Windows 7 x64|:white_check_mark:|
 |Windows 7 x86|:white_check_mark:|
