@@ -1,5 +1,5 @@
 <h2> ÖBA Otomatik Oynatıcı </h2>
-<b> Sürüm 1.4.2 </b>
+<b> Sürüm 1.4.3 </b>
 <br><br>
 <h4>
 <a href="/src/">
