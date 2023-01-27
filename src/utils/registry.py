@@ -2,9 +2,9 @@ from winreg import HKEY_LOCAL_MACHINE, HKEY_CURRENT_USER, HKEY_CLASSES_ROOT, Ope
 
 def read_key(hkey,key_location,value_name):
     with OpenKeyEx(hkey,key_location,0,KEY_READ) as key:
-            version = QueryValueEx(key,value_name)
+            value = QueryValueEx(key,value_name)
             
-    return version[0]
+    return value[0]
 
 def create_key(hkey,key_location,value_name,value):
     with CreateKeyEx(hkey,key_location,0,KEY_WRITE) as key:

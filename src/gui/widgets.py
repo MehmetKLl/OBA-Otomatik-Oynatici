@@ -1,5 +1,6 @@
-from PyQt5.QtWidgets import QVBoxLayout, QLabel, QMessageBox
+from PyQt5.QtWidgets import QVBoxLayout, QLabel, QMessageBox, QPushButton
 from PyQt5.QtCore import Qt
+from .styles import Styles
 
 class TextBox(QVBoxLayout):
     def __init__(self, title, text, char_per_row):
@@ -19,3 +20,17 @@ class TextBox(QVBoxLayout):
         self.text_box.setAlignment(Qt.AlignLeft)
         self.setSpacing(5)
         self.addWidget(self.text_box)
+
+class DialogBox(QMessageBox):
+    def __init__(self, title, text, msg_icon, window_icon):
+        super().__init__()
+
+        self.setWindowFlags(Qt.WindowStaysOnTopHint | Qt.WindowCloseButtonHint)
+        self.setWindowIcon(window_icon)
+        self.setIcon(msg_icon)
+        self.setWindowTitle(title)
+        self.setObjectName("msgbox")
+        self.setStyleSheet(Styles.MessageBoxStyle)
+        self.addButton(QPushButton("Tamam"), QMessageBox.YesRole)
+        self.setText(text)
+        self.exec_()

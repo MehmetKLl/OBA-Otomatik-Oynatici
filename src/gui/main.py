@@ -1,13 +1,12 @@
-from sys import argv
-from ctypes import windll
 from keyboard import is_pressed
+from ctypes import windll
 from pywintypes import error as WinApiError
 from PyQt5.QtWidgets import QWidget, QApplication, QPushButton, QHBoxLayout, QVBoxLayout, QLabel, QMessageBox, QLineEdit, QCheckBox
 from PyQt5.QtGui import QIcon, QIntValidator
 from PyQt5.QtCore import Qt
 from utils.constants import GUI, Player, VERSION
 from utils.exceptions import BorderNotFoundException, ImageNotFoundException, VideoIconNotFoundException
-from .widgets import TextBox
+from .widgets import TextBox, DialogBox
 from .autoplayer import Autoplayer
 from .styles import Styles
 
@@ -45,6 +44,7 @@ class MainWindow(QWidget):
         self.settings_button = QPushButton(text="Ayarlar")
         self.settings_button.clicked.connect(self.open_settings)
         self.version_text = QLabel(text=f"v{VERSION}")
+        self.version_text.setObjectName("version_text")
 
         footer_layout.addWidget(self.start_button,0,Qt.AlignLeft)
         footer_layout.addWidget(self.settings_button,1,Qt.AlignLeft)
@@ -87,14 +87,7 @@ class MainWindow(QWidget):
             
     def start_autoplayer(self):
         if not self.check_is_shortcut_valid():
-            invalid_key_msgbox = QMessageBox()
-            invalid_key_msgbox.setWindowFlags(Qt.WindowStaysOnTopHint | Qt.WindowCloseButtonHint)
-            invalid_key_msgbox.setWindowIcon(self.icon)
-            invalid_key_msgbox.setIcon(QMessageBox.Critical)
-            invalid_key_msgbox.setWindowTitle(GUI.TITLE)
-            invalid_key_msgbox.addButton(QPushButton("Tamam"), QMessageBox.YesRole)
-            invalid_key_msgbox.setText("Kısayol tuşu geçersiz.")
-            invalid_key_msgbox.exec_()
+            DialogBox(GUI.TITLE, "Kısayol tuşu geçersiz.", QMessageBox.Critical, self.icon)
             return
 
         self.autoplayer_thread = Autoplayer(parent=self)
@@ -123,44 +116,30 @@ class MainWindow(QWidget):
         self.setWindowTitle(GUI.TITLE)
     
     def autoplayer_stoppedEvent(self):
-        stopped_msgbox = QMessageBox()
-        stopped_msgbox.setWindowFlags(Qt.WindowStaysOnTopHint | Qt.WindowCloseButtonHint)
-        stopped_msgbox.setWindowIcon(self.icon)
-        stopped_msgbox.setIcon(QMessageBox.Information)
-        stopped_msgbox.setWindowTitle(GUI.TITLE)
-        stopped_msgbox.addButton(QPushButton("Tamam"), QMessageBox.YesRole)
-        stopped_msgbox.setText("Program sonlandırıldı.")
-        stopped_msgbox.exec_()
+        DialogBox(GUI.TITLE, "Program sonlandırıldı.", QMessageBox.Information, self.icon)
 
         self.autoplayer_finishedEvent()
 
     def autoplayer_exceptionEvent(self, exception):
-        exception_msgbox = QMessageBox()
-        exception_msgbox.setWindowFlags(Qt.WindowStaysOnTopHint | Qt.WindowCloseButtonHint)
-        exception_msgbox.setWindowIcon(self.icon)
-        exception_msgbox.setIcon(QMessageBox.Critical)
-        exception_msgbox.setWindowTitle(GUI.TITLE)
-        exception_msgbox.addButton(QPushButton("Tamam"), QMessageBox.YesRole)
-
         if self.dev_mode:
-            exception_msgbox.setText(f"Hata yakalandı:\n\n{exception[1]}")
+            error_string = f"Hata yakalandı:\n\n{exception[1]}"
 
         elif isinstance(exception[0], BorderNotFoundException):
-            exception_msgbox.setText("Oynatılacak videonun kenarlıkları bulunamadı. Programı belirtildiği kısımda çalıştırdığınızdan emin olun.")
+            error_string = "Oynatılacak videonun kenarlıkları bulunamadı. Programı belirtildiği kısımda çalıştırdığınızdan emin olun."
         
         elif isinstance(exception[0], WinApiError):
-            exception_msgbox.setText("Programda farenin zorlanması sonucunda hata oluştu ve program sonlandırıldı.")
+            error_string = "Programda farenin zorlanması sonucunda hata oluştu ve program sonlandırıldı."
 
         elif isinstance(exception[0], ImageNotFoundException):
-            exception_msgbox.setText(f"Ekranda \"{exception[0].image}\" görüntüsü bulunamadı.")
+            error_string = f"Ekranda \"{exception[0].image}\" görüntüsü bulunamadı."
         
         elif isinstance(exception[0], VideoIconNotFoundException):
-            exception_msgbox.setText("Ekranda \"oynatılan video\" simgesi bulunamadı ve programda hata oluştu.")
+            error_string = "Ekranda \"oynatılan video\" simgesi bulunamadı ve programda hata oluştu."
 
         else:
-            exception_msgbox.setText("Hata oluştu ve program sonlandırıldı.")
+            error_string = "Hata oluştu ve program sonlandırıldı."
 
-        exception_msgbox.exec_()
+        DialogBox(GUI.TITLE, error_string, QMessageBox.Critical, self.icon)
 
         self.autoplayer_finishedEvent()
 
@@ -299,7 +278,3 @@ class SettingsWindow(QWidget):
         self.main_layout.addWidget(self.scroll_delay_widget, 3)
         self.main_layout.addWidget(self.video_check_delay_widget, 4)
         self.setLayout(self.main_layout)
-
-
-App = QApplication(argv)
-MainWindow = MainWindow()
