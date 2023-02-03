@@ -1,6 +1,7 @@
+from ctypes import windll, wintypes, byref, sizeof, c_bool
 from PyQt5.QtWidgets import QVBoxLayout, QLabel, QMessageBox, QPushButton
 from PyQt5.QtCore import Qt
-from .styles import Styles
+from .styles import Styles, SYSTEM_THEME
 
 class TextBox(QVBoxLayout):
     def __init__(self, title, text, char_per_row):
@@ -33,4 +34,10 @@ class DialogBox(QMessageBox):
         self.setStyleSheet(Styles.MessageBoxStyle)
         self.addButton(QPushButton("Tamam"), QMessageBox.YesRole)
         self.setText(text)
-        self.exec_()
+
+        if SYSTEM_THEME == "DARK":
+            self.window_handle = self.winId()
+            change_window_theme = windll.dwmapi.DwmSetWindowAttribute(int(self.window_handle), 20, byref(c_bool(True)), sizeof(wintypes.BOOL))
+            
+            if change_window_theme:
+                windll.dwmapi.DwmSetWindowAttribute(int(self.window_handle), 19, byref(c_bool(True)), sizeof(wintypes.BOOL))

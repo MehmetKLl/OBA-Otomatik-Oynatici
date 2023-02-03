@@ -1,5 +1,5 @@
 from keyboard import is_pressed
-from ctypes import windll
+from ctypes import windll, wintypes, byref, sizeof, c_bool
 from pywintypes import error as WinApiError
 from PyQt5.QtWidgets import QWidget, QApplication, QPushButton, QHBoxLayout, QVBoxLayout, QLabel, QMessageBox, QLineEdit, QCheckBox
 from PyQt5.QtGui import QIcon, QIntValidator
@@ -8,7 +8,7 @@ from utils.constants import GUI, Player, VERSION
 from utils.exceptions import BorderNotFoundException, ImageNotFoundException, VideoIconNotFoundException
 from .widgets import TextBox, DialogBox
 from .autoplayer import Autoplayer
-from .styles import Styles
+from .styles import Styles, SYSTEM_THEME
 
 
 class MainWindow(QWidget):
@@ -27,6 +27,13 @@ class MainWindow(QWidget):
         self.setWindowIcon(self.icon)
         self.setObjectName("main")
         self.setStyleSheet(Styles.MainWindowStyle)
+
+        if SYSTEM_THEME == "DARK":
+            self.window_handle = self.winId()
+            change_window_theme = windll.dwmapi.DwmSetWindowAttribute(int(self.window_handle), 20, byref(c_bool(True)), sizeof(wintypes.BOOL))
+
+            if change_window_theme:
+                windll.dwmapi.DwmSetWindowAttribute(int(self.window_handle), 19, byref(c_bool(True)), sizeof(wintypes.BOOL))
         
         self.shortcut = GUI.SHORTCUT
         self.dev_mode = GUI.DEV_MODE
@@ -87,7 +94,8 @@ class MainWindow(QWidget):
             
     def start_autoplayer(self):
         if not self.check_is_shortcut_valid():
-            DialogBox(GUI.TITLE, "Kısayol tuşu geçersiz.", QMessageBox.Critical, self.icon)
+            invalid_shortcut_msgbox = DialogBox(GUI.TITLE, "Kısayol tuşu geçersiz.", QMessageBox.Critical, self.icon)
+            invalid_shortcut_msgbox.exec_()
             return
 
         self.autoplayer_thread = Autoplayer(parent=self)
@@ -116,7 +124,7 @@ class MainWindow(QWidget):
         self.setWindowTitle(GUI.TITLE)
     
     def autoplayer_stoppedEvent(self):
-        DialogBox(GUI.TITLE, "Program sonlandırıldı.", QMessageBox.Information, self.icon)
+        DialogBox(GUI.TITLE, "Program sonlandırıldı.", QMessageBox.Information, self.icon).exec_()
 
         self.autoplayer_finishedEvent()
 
@@ -139,7 +147,7 @@ class MainWindow(QWidget):
         else:
             error_string = "Hata oluştu ve program sonlandırıldı."
 
-        DialogBox(GUI.TITLE, error_string, QMessageBox.Critical, self.icon)
+        DialogBox(GUI.TITLE, error_string, QMessageBox.Critical, self.icon).exec_()
 
         self.autoplayer_finishedEvent()
 
@@ -160,6 +168,13 @@ class SettingsWindow(QWidget):
         self.setFixedSize(self.size())
         self.setObjectName("settings")
         self.setStyleSheet(Styles.SettingsWindowStyle)
+
+        if SYSTEM_THEME == "DARK":
+            self.window_handle = self.winId()
+            change_window_theme = windll.dwmapi.DwmSetWindowAttribute(int(self.window_handle), 20, byref(c_bool(True)), sizeof(wintypes.BOOL))
+            
+            if change_window_theme:
+                windll.dwmapi.DwmSetWindowAttribute(int(self.window_handle), 19, byref(c_bool(True)), sizeof(wintypes.BOOL))
 
 
     def closeEvent(self,event):
