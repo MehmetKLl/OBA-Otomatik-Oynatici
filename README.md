@@ -93,7 +93,7 @@
 
 |Sürüm|Notlar|
 |-|-|
-|1.4.3|Programın işletim sistemi tarafından DWM API kullanılarak karanlık tema kullanıyor olarak işaretlenmesi sağlandı.|
+|1.4.4|Programın işletim sistemi tarafından DWM API kullanılarak karanlık tema kullanıyor olarak işaretlenmesi sağlandı.|
 |1.4.3|Karanlık mod eklendi.|
 |1.4.2|Önemli algoritma hataları giderildi. Uyumluluk sorunları giderildi.|
 |1.4.1|Windows 10 için uyumluluk hataları giderildi.|
