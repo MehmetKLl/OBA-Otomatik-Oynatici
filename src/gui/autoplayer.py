@@ -8,14 +8,11 @@ class Autoplayer(QThread):
     stopped_signal = pyqtSignal()
 
     def __init__(self,*args,**kwargs):
-        return super().__init__(*args,**kwargs)
+        super().__init__(*args,**kwargs)
 
 
     def run(self):
-        autoplayer.main.SCROLL_DELAY = self.parent().scroll_delay
-        autoplayer.main.VIDEO_CHECK_DELAY = self.parent().video_check_delay
-
-        self.autoplayer_process = ProcessWithException(target=autoplayer.main.start)
+        self.autoplayer_process = ProcessWithException(target=autoplayer.main.start, args=(self.parent().scroll_delay, self.parent().video_check_delay))
         self.autoplayer_process.start()
 
         while True:
