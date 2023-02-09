@@ -37,25 +37,40 @@
 
 <h4>Kullanım</h4>
 
-<img src="img/pic1.png">
+<picture>
+<source media="(prefers-color-scheme: dark)" srcset="img/file_dark.png">
+<img src="img/file_light.png">
 </img>
+</picture>
+<br>
 <i>İlk oba_otomatik_oynatma.exe çalıştırılır.</i>
 
 <br><br>
 
-<img src="img/pic2.png">
+<picture>
+<source media="(prefers-color-scheme: dark)" srcset="img/main_gui_dark.png">
+<img src="img/main_gui_light.png">
 </img>
+</picture>
 
 <br><br>
 
-<img src="img/pic3.png">
+<picture>
+<source media="(prefers-color-scheme: dark)" srcset="img/settings_dark.png">
+<img src="img/settings_light.png">
 </img>
+</picture>
+<br>
 <i>Ayarlar kısmından gerekli düzenlemeler yapılabilir.</i>
 
 <br><br>
 
-<img src="img/pic2.png">
+<picture>
+<source media="(prefers-color-scheme: dark)" srcset="img/main_gui_dark.png">
+<img src="img/main_gui_light.png">
 </img>
+</picture>
+<br>
 <i>"Başlat" tuşuna basarak program çalıştırılır.</i>
 
 ---------------------------------
