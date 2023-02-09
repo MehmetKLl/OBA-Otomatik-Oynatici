@@ -1,4 +1,4 @@
-<h2> ÖBA Otomatik Oynatıcı 🎗 </h2>
+<h2> ÖBA Otomatik Oynatıcı <img src="img/ribbon.png" height="38" width="24"></img> </h2>
 <b> Sürüm 1.4.5 </b>
 <br><br>
 <h4>
