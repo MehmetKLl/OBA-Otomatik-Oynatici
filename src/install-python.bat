@@ -7,15 +7,16 @@ set /p "isPythonInstalled=[?] Is Python installed and in the path at your system
 
 if "%isPythonInstalled%"=="A" (
     python -V
+    if errorlevel 1 (
+        echo. & echo [!] Python isn't installed at your system.
+        goto InstallPython
+    ) 
     if errorlevel 0 (
         echo. & echo [i] Python is installed at your system.
         pause > NUL
         exit 0
     )
-    if errorlevel 1 (
-        echo. & echo [!] Python isn't installed at your system.
-        goto InstallPython
-    )
+  
 )
 if "%isPythonInstalled%"=="N" (
     echo [!] Python isn't installed at your system.
