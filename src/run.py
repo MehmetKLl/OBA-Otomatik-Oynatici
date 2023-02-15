@@ -3,7 +3,7 @@ from traceback import format_exc
 from sys import exit
 from requests import exceptions
 from utils.process import kill, start
-from utils.constants import File, Registry, InstallerDialogs
+from utils.constants import File, Registry, InstallerDialogs, GitHub
 import utils.log
 import utils.github
 import utils.dialogs
@@ -63,7 +63,7 @@ def set_registry_values(mode):
                    
         return 1
                 
-    except exceptions.ConnectTimeout:
+    except (exceptions.ConnectTimeout, exceptions.ReadTimeout):
         utils.log.log.write(f"Connection timed out:\n{format_exc()}\n")
                 
         utils.dialogs.show_error(f"Sürüm bilgisi alınırken sunucuya gönderilen istek zaman aşımına uğradı.", dialog_title)
@@ -204,7 +204,7 @@ def download_program_contents(mode):
         else:
             return (1, None)
             
-    except exceptions.ConnectTimeout:
+    except (exceptions.ConnectTimeout, exceptions.ReadTimeout):
         utils.log.log.write(f"Connection timed out:\n{format_exc()}\n")
             
         utils.dialogs.show_error(f"Sunucuya gönderilen istek zaman aşımına uğradı.",InstallerDialogs.INSTALLER_TITLE if mode == 'install' else InstallerDialogs.UPDATER_TITLE)
@@ -215,7 +215,6 @@ def download_program_contents(mode):
             
         utils.dialogs.show_error(f"Program internet olmadığından bilgisayara indirilemedi.",InstallerDialogs.INSTALLER_TITLE if mode == 'install' else InstallerDialogs.UPDATER_TITLE)
         return (1, None)
-        
 
 def start_installer():
     is_error_occured, content_bytes = download_program_contents(mode="install")
@@ -301,11 +300,18 @@ def start_troubleshooter():
     utils.log.log.write("Auto-repair process completed without any issues.")
     utils.log.log.close()
 
+def show_license_agreement():
+    return utils.dialogs.ask_no_icon(f"{GitHub.LICENSE_TEXT}\n({GitHub.LICENSE_USER_URL})\n\n\nYazılımın lisans sözleşmesini okuyup kabul ediyor musunuz?\n(Evet deyip programı bilgisayarınıza kurmanız sözleşmeyi kabul edip onayladığınız anlamına gelecektir.)", InstallerDialogs.LICENSE_TITLE)
 
 def main():
     kill("oba_gui.exe")
 
     if not check_key_exists():
+        is_license_agreed = show_license_agreement()
+
+        if not is_license_agreed:
+            exit(0)
+
         utils.log.create_log("log","Installer")
         start_installer()
     else:
