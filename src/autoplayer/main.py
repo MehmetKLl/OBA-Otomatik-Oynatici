@@ -31,7 +31,7 @@ def scroll_and_start_new_video(scroll_delay=SCROLL_DELAY, video_check_delay=VIDE
             x, y, w, h = new_video_icon.get_pos()
             start_new_video((x,y))
             scroll_current_video(scroll_delay=scroll_delay)
-            control_current_video(video_check_delay=video_check_delay)
+            control_current_video(scroll_delay=scroll_delay, video_check_delay=video_check_delay)
             break
         
         current_video_icon = videos_icons_screen.capture("img/current_icon.png")
@@ -39,7 +39,7 @@ def scroll_and_start_new_video(scroll_delay=SCROLL_DELAY, video_check_delay=VIDE
             x, y, w, h = current_video_icon.get_pos()
             start_new_video((x,y))
             scroll_current_video(scroll_delay=scroll_delay)
-            control_current_video(video_check_delay=video_check_delay)
+            control_current_video(scroll_delay=scroll_delay, video_check_delay=video_check_delay)
             break
 
         finished_icon = videos_icons_screen.capture("img/finished_icon.png")
@@ -109,17 +109,17 @@ def start_new_video(pos):
         left_click(new_x_pos=border_pos[0]+20,new_y_pos=border_pos[1]+20)
 
 
-def control_current_video(video_check_delay=VIDEO_CHECK_DELAY):
+def control_current_video(scroll_delay=SCROLL_DELAY, video_check_delay=VIDEO_CHECK_DELAY):
+    for _ in range(5):
+        cur_icon = Screen().capture("img/current_icon.png")
+        if cur_icon:
+            break
+    else:
+        raise VideoIconNotFoundException()
+    
     while True:
-        for _ in range(20):
-            cur_icon = Screen().capture("img/current_icon.png")
-            if cur_icon:
-                break
-        else:
-            raise VideoIconNotFoundException()
-
         if cur_icon.get_pos()[:2] in [i.get_pos()[:2] for i in Screen().capture("img/finished_icon.png",mode="all")]:
-            scroll_and_start_new_video()
+            scroll_and_start_new_video(scroll_delay, video_check_delay)
             break
 
         sleep(video_check_delay)
