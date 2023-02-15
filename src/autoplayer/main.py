@@ -91,7 +91,7 @@ def scroll_current_video(scroll_delay=SCROLL_DELAY):
         sleep(scroll_delay)
             
 def start_new_video(pos):
-    left_click(x=pos[0],y=pos[1])
+    left_click(new_x_pos=pos[0],new_y_pos=pos[1])
     sleep(5)
     
     for _ in range(5):
@@ -103,10 +103,10 @@ def start_new_video(pos):
     
     border_pos = border.get_pos()
 
-    left_click(x=border_pos[0]+20,y=border_pos[1]+20)
+    left_click(new_x_pos=border_pos[0]+20,new_y_pos=border_pos[1]+20)
     sleep(5)
     if Screen().capture("img/stopped.png"):
-        left_click(x=border_pos[0]+20,y=border_pos[1]+20)
+        left_click(new_x_pos=border_pos[0]+20,new_y_pos=border_pos[1]+20)
 
 
 def control_current_video(video_check_delay=VIDEO_CHECK_DELAY):
@@ -119,7 +119,7 @@ def control_current_video(video_check_delay=VIDEO_CHECK_DELAY):
             raise VideoIconNotFoundException()
 
         if cur_icon.get_pos()[:2] in [i.get_pos()[:2] for i in Screen().capture("img/finished_icon.png",mode="all")]:
-            scroll_new_video()
+            scroll_and_start_new_video()
             break
 
         sleep(video_check_delay)
