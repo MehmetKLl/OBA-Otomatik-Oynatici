@@ -1,11 +1,8 @@
 <h2> ÖBA Otomatik Oynatıcı </h2>
-<b> Sürüm 1.4.7 </b>
+<b> Sürüm 1.4.8 </b>
 <br><br>
-<h4>
-<a href="/src/">
-<code>src/</code>
-</a> 
- dizini</h4>
+
+<h4><a href="/src/"><code>src/</code></a> dizini</h4>
 <p> ÖBA Otomatik Oynatıcı'nın kaynak kodlarının bulunduğu dizindir. </p>
 <br>
 <b> • </b><code><a href="run.py">run.py</a></code>: oba_otomatik_oynatma.exe dosyasının kaynak kodudur.<br>
