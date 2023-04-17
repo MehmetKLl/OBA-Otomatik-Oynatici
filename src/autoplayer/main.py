@@ -29,7 +29,7 @@ def scroll_and_start_new_video(scroll_delay=SCROLL_DELAY, video_check_delay=VIDE
         new_video_icon = videos_icons_screen.capture("img/new_video_icon.png")
         if new_video_icon:
             x, y, w, h = new_video_icon.get_pos()
-            start_new_video((x,y))
+            start_new_video((x+5,y-5))
             scroll_current_video(scroll_delay=scroll_delay)
             control_current_video(scroll_delay=scroll_delay, video_check_delay=video_check_delay)
             break
@@ -37,7 +37,7 @@ def scroll_and_start_new_video(scroll_delay=SCROLL_DELAY, video_check_delay=VIDE
         current_video_icon = videos_icons_screen.capture("img/current_icon.png")
         if current_video_icon:
             x, y, w, h = current_video_icon.get_pos()
-            start_new_video((x,y))
+            start_new_video((x+5,y-5))
             scroll_current_video(scroll_delay=scroll_delay)
             control_current_video(scroll_delay=scroll_delay, video_check_delay=video_check_delay)
             break
@@ -118,7 +118,9 @@ def control_current_video(scroll_delay=SCROLL_DELAY, video_check_delay=VIDEO_CHE
         raise VideoIconNotFoundException()
     
     while True:
-        if cur_icon.get_pos()[:2] in [i.get_pos()[:2] for i in Screen().capture("img/finished_icon.png",mode="all")]:
+        finished_icons = Screen().capture("img/finished_icon.png",mode="all")
+
+        if cur_icon.get_pos()[:2] in ([] if not finished_icons else [i.get_pos()[:2] for i in finished_icons]):
             scroll_and_start_new_video(scroll_delay, video_check_delay)
             break
 
