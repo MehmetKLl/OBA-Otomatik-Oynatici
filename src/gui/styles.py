@@ -119,9 +119,9 @@ class Styles:
                         }
 
                         QWidget#footer QPushButton:hover {
-                            background-color: rgb(25,25,25);
-                            border: 1px solid rgb(191,191,191);
-                            color: rgb(191,191,191);
+                            background-color: rgb(25, 25, 25);
+                            border: 1px solid rgb(159,159,159);
+                            color: rgb(159,159,159);
                         }
 
                         QWidget#footer QPushButton:pressed {
@@ -175,8 +175,8 @@ class Styles:
 
                             QMessageBox#msgbox QPushButton:hover {
                                 background-color: rgb(25,25,25);
-                                border: 1px solid rgb(191,191,191);
-                                color: rgb(191,191,191);
+                                border: 1px solid rgb(159,159,159);
+                                color: rgb(159,159,159);
                             }
 
                             QMessageBox#msgbox QPushButton:pressed {

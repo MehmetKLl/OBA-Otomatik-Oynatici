@@ -1,6 +1,6 @@
 
 <h2> ÖBA Otomatik Oynatıcı </h2>
-<b> Sürüm 1.4.7 </b>
+<b> Sürüm 1.4.8 </b>
 <br>
 
 <br>
@@ -108,6 +108,7 @@
 
 |Sürüm|Notlar|
 |-|-|
+|1.4.8|Program ve arayüz hataları giderildi.|
 |1.4.7|Program hataları giderildi.|
 |1.4.6|Program hataları giderildi.|
 |1.4.5|Ayarlamalarla ilgili önemli algoritma hataları giderildi. Uyumluluk sorunları düzeltildi.|

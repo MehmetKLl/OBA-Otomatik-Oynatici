@@ -2,8 +2,8 @@ from keyboard import is_pressed
 from ctypes import windll, wintypes, byref, sizeof, c_bool
 from pywintypes import error as WinApiError
 from PyQt5.QtWidgets import QWidget, QApplication, QPushButton, QHBoxLayout, QVBoxLayout, QLabel, QMessageBox, QLineEdit, QCheckBox
-from PyQt5.QtGui import QIcon, QIntValidator
-from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QIcon, QRegExpValidator
+from PyQt5.QtCore import Qt, QRegExp
 from utils.constants import GUI, Player, VERSION
 from utils.exceptions import BorderNotFoundException, ImageNotFoundException, VideoIconNotFoundException
 from .widgets import TextBox, DialogBox
@@ -192,16 +192,16 @@ class SettingsWindow(QWidget):
         self.parent().shortcut = self.shortcut_entry.text()
 
     def scroll_delay_entry_textChangedEvent(self):
-        try:
-            self.parent().scroll_delay = float(self.scroll_delay_entry.text())
-        except:
-            self.parent().scroll_delay = self.scroll_delay_entry.text()
+        if not self.scroll_delay_entry.text():
+            return
+
+        self.parent().scroll_delay = int(self.scroll_delay_entry.text())
 
     def video_check_delay_entry_textChangedEvent(self):
-        try:
-            self.parent().video_check_delay = float(self.video_check_delay_entry.text())
-        except:
-            self.parent().video_check_delay = self.video_check_delay_entry.text()
+        if not self.video_check_delay_entry.text():
+            return
+
+        self.parent().video_check_delay = int(self.video_check_delay_entry.text())
 
     def place_widgets(self):
         self.main_layout = QVBoxLayout()
@@ -246,8 +246,7 @@ class SettingsWindow(QWidget):
 
         self.scroll_delay_widget = QWidget()
         self.scroll_delay_widget.setObjectName("option_box")
-        self.scroll_delay_entry_validator = QIntValidator()
-        self.scroll_delay_entry_validator.setRange(0, 90)
+        self.scroll_delay_entry_validator = QRegExpValidator(QRegExp("[0-9]{1,2}"))
         self.scroll_delay_widget_layout = QVBoxLayout()
         self.scroll_delay_text = QLabel("Video kaydırma gecikmesi:")
         self.scroll_delay_entry_layout = QHBoxLayout()
@@ -267,8 +266,7 @@ class SettingsWindow(QWidget):
 
         self.video_check_delay_widget = QWidget()
         self.video_check_delay_widget.setObjectName("option_box")
-        self.video_check_delay_entry_validator = QIntValidator()
-        self.video_check_delay_entry_validator.setRange(0, 90)
+        self.video_check_delay_entry_validator = QRegExpValidator(QRegExp("[0-9]{1,2}"))
         self.video_check_delay_widget_layout = QVBoxLayout()
         self.video_check_delay_text = QLabel("Video kontrol gecikmesi:")
         self.video_check_delay_entry_layout = QHBoxLayout()
