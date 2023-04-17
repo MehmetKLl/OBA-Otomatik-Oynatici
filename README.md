@@ -1,6 +1,6 @@
 
-<h2> ÖBA Otomatik Oynatıcı <img src="img/ribbon.png" height="38" width="24"></img> </h2>
-<b> Sürüm 1.4.6 </b>
+<h2> ÖBA Otomatik Oynatıcı </h2>
+<b> Sürüm 1.4.7 </b>
 <br>
 
 <br>
@@ -108,6 +108,7 @@
 
 |Sürüm|Notlar|
 |-|-|
+|1.4.7|Program hataları giderildi.|
 |1.4.6|Program hataları giderildi.|
 |1.4.5|Ayarlamalarla ilgili önemli algoritma hataları giderildi. Uyumluluk sorunları düzeltildi.|
 |1.4.4|Programın işletim sistemi tarafından DWM API kullanılarak karanlık tema kullanıyor olarak işaretlenmesi sağlandı.|

@@ -1,5 +1,5 @@
-<h2> ÖBA Otomatik Oynatıcı <img src="../img/ribbon.png" height="38" width="24"></img> </h2>
-<b> Sürüm 1.4.6 </b>
+<h2> ÖBA Otomatik Oynatıcı </h2>
+<b> Sürüm 1.4.7 </b>
 <br><br>
 <h4>
 <a href="/src/">
