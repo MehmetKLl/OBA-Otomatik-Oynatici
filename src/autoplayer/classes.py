@@ -24,10 +24,10 @@ class CapturedImage:
         if button.lower() == "left":
             return events.left_click(self.x_pos, self.y_pos)
 
-        elif button.lower() == "right":
+        if button.lower() == "right":
             return events.right_click(self.x_pos,self.y_pos)
 
-        elif button.lower() == "scroll":
+        if button.lower() == "scroll":
             return events.scroll(scroll_value,self.x_pos,self.y_pos)
 
         raise ValueError(f"Invalid button name: \"{button}\"")
