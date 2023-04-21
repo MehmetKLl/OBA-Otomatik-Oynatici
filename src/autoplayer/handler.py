@@ -22,12 +22,9 @@ class Screen:
 
         savedc.SelectObject(bitmap)
 
-        bmp = savedc.BitBlt((0,0), (self.width,self.height), mfcdc, (0, 0), SRCCOPY)
+        bitmap_bytes = bitmap.GetBitmapBits(True)
 
-        bmp_info = bitmap.GetInfo()
-        bmp_bytes = bitmap.GetBitmapBits(True)
-
-        self.screen_array = cvtColor(cvtColor(frombuffer(bmp_bytes, dtype=uint8).reshape((self.height,self.width,4)), COLOR_BGRA2BGR), COLOR_BGR2HSV)
+        self.screen_array = cvtColor(cvtColor(frombuffer(bitmap_bytes, dtype=uint8).reshape((self.height,self.width,4)), COLOR_BGRA2BGR), COLOR_BGR2HSV)
         
         DeleteObject(bitmap.GetHandle())
         savedc.DeleteDC()
