@@ -128,3 +128,9 @@
 |1.2.1|Arayüz eklendi. Programı durdurma kısayolunu değiştirme seçeneği eklendi.|
 |1.1.0|Programın mekanizması geliştirildi.|
 |1.0.0|Programın stabil olmayan ve yayınlanmayan ilk sürümü.|
+
+---------------------------------
+
+<h4>Beni desteklemek için...</h4>
+
+Bu projeyi <i>tek başıma</i> geliştiriyor ve projeyi <i>hiçbir menfaat beklemeksizin ücretsiz</i> ve <i>herkese açık</i> olarak yayınlıyorum. Eğer ki projeyi beğendiyseniz ve bana biraz da olsa destek olmak istiyorsanız <b>projeyi yıldızlamanız</b> <i>yeterli</i> olacaktır. 
