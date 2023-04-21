@@ -11,12 +11,12 @@ class Screen:
     def __init__(self):
         self.height = GetSystemMetrics(1)
         self.width = GetSystemMetrics(0)
-        
+
         hwnd = GetDesktopWindow()
         hwnddc = GetWindowDC(hwnd)
         mfcdc = CreateDCFromHandle(hwnddc)
         savedc = mfcdc.CreateCompatibleDC()
-        
+
         bitmap = CreateBitmap()
         bitmap.CreateCompatibleBitmap(mfcdc,self.width,self.height)
 
@@ -25,18 +25,18 @@ class Screen:
         bitmap_bytes = bitmap.GetBitmapBits(True)
 
         self.screen_array = cvtColor(cvtColor(frombuffer(bitmap_bytes, dtype=uint8).reshape((self.height,self.width,4)), COLOR_BGRA2BGR), COLOR_BGR2HSV)
-        
+
         DeleteObject(bitmap.GetHandle())
         savedc.DeleteDC()
         mfcdc.DeleteDC()
         ReleaseDC(hwnd,hwnddc)
 
-        
+
 
     def capture(self, image=None, threshold=0.99, mode="single", exceptions="silent"):
         if mode not in ["single","all"] or exceptions not in ["silent","raise"]:
             raise ValueError("Invalid arguments.")
-        
+
         self.template_image_array = cvtColor(cvtColor(imread(image), COLOR_BGRA2BGR), COLOR_BGR2HSV)
         self.template_height, self.template_width, _ = self.template_image_array.shape
 
@@ -56,5 +56,5 @@ class Screen:
 
         matched_sub_images_objects = [CapturedImage(x, y, self.template_width, self.template_height, self.template_image_array) for x, y in zip(x_cords, y_cords)] 
         return matched_sub_images_objects
-            
+
 

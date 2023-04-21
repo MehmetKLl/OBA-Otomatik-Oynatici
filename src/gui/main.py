@@ -16,7 +16,7 @@ class MainWindow(QWidget):
         super().__init__()
         self.setup()
         self.place_widgets()
-        
+
     def setup(self):
         self.setGeometry(0,0,450,400)
         self.setWindowFlags(Qt.WindowStaysOnTopHint)
@@ -39,7 +39,7 @@ class MainWindow(QWidget):
 
             if change_window_theme:
                 windll.dwmapi.DwmSetWindowAttribute(int(self.window_handle), 19, byref(c_bool(True)), sizeof(wintypes.BOOL))
-        
+
         self.shortcut = GUI.SHORTCUT
         self.dev_mode = GUI.DEV_MODE
         self.autoclose = GUI.AUTOCLOSE
@@ -73,18 +73,18 @@ class MainWindow(QWidget):
     def place_widgets(self):
         self.main_layout = QVBoxLayout()
         self.main_layout.setContentsMargins(0,0,0,0)
-        
+
         self.top_layout = QVBoxLayout()
         self.top_layout.setContentsMargins(10,10,10,10)
         self.top_layout.setSpacing(20)
-        
+
         self.about_textbox = TextBox("Nedir bu ÖBA Otomatik Oynatıcı?","ÖBA Otomatik Oynatıcı Python ile yazılan arayüzlü basit bir makro uygulamasıdır. Program ekran görüntüsünü işleyip doğal tıklama işlemlerini taklit ederek çalışmaktadır.",char_per_row=60)
         self.why_textbox = TextBox("Niye ÖBA Otomatik Oynatıcı?","<b>•</b> Program tamamen tıklama işlemlerini taklit ettiği için diğer alternatiflerine göre sıkıntı oluşturmaz.<br><b>•</b> Program açık kaynak kodlu olduğundan daha güvenilirdir.<br><b>•</b> Kullanımı daha kolaydır.",char_per_row=60)
         self.usage_textbox = TextBox("Kullanım","<b>•</b> Program videoların izlendiği kısımdan itibaren başlatılmalıdır. Aksi takdirde program doğru çalışmayacaktır.<br><b>•</b> Program çalışırken fare ile oynanmamalı ve program durdurulmak isteniyorsa sadece kısayol tuşu veya \"Durdur\" tuşuna basılarak kapatılmalıdır, aksi takdirde program çökebilir.",char_per_row=60)
         self.top_layout.addLayout(self.about_textbox)
         self.top_layout.addLayout(self.why_textbox)
         self.top_layout.addLayout(self.usage_textbox)
-        
+
         self.main_layout.addLayout(self.top_layout,0)
 
         self.place_footer()
@@ -98,15 +98,15 @@ class MainWindow(QWidget):
     def open_settings(self):
         self.settings_window = SettingsWindow(parent=self)
         self.settings_window.show()
-    
+
     def check_is_shortcut_valid(self):
         try:
             is_pressed(self.shortcut)
         except:
             return False
-        
+
         return True
-            
+
     def start_autoplayer(self):
         if not self.check_is_shortcut_valid():
             invalid_shortcut_msgbox = DialogBox(GUI.TITLE, "Kısayol tuşu geçersiz.", QMessageBox.Critical, self.icon)
@@ -123,12 +123,12 @@ class MainWindow(QWidget):
     def autoplayer_startedEvent(self):
         self.start_button.setEnabled(False)
         windll.kernel32.SetThreadExecutionState(0x80000002)
-        
+
         if self.autoclose:
             self.setWindowOpacity(0)
-        
+
         self.setWindowTitle(f"{GUI.TITLE} - Çalışıyor...")
-    
+
     def autoplayer_finishedEvent(self):
         if self.autoclose:
             self.setWindowOpacity(1)
@@ -137,7 +137,7 @@ class MainWindow(QWidget):
         windll.kernel32.SetThreadExecutionState(0x80000000)
 
         self.setWindowTitle(GUI.TITLE)
-    
+
     def autoplayer_stoppedEvent(self):
         DialogBox(GUI.TITLE, "Program sonlandırıldı.", QMessageBox.Information, self.icon).exec_()
 
@@ -149,13 +149,13 @@ class MainWindow(QWidget):
 
         elif isinstance(exception[0], BorderNotFoundException):
             error_string = "Oynatılacak videonun kenarlıkları bulunamadı. Programı belirtildiği kısımda çalıştırdığınızdan emin olun."
-        
+
         elif isinstance(exception[0], WinApiError):
             error_string = "Programda farenin zorlanması sonucunda hata oluştu ve program sonlandırıldı."
 
         elif isinstance(exception[0], ImageNotFoundException):
             error_string = f"Ekranda \"{exception[0].image}\" görüntüsü bulunamadı."
-        
+
         elif isinstance(exception[0], VideoIconNotFoundException):
             error_string = "Ekranda \"oynatılan video\" simgesi bulunamadı ve programda hata oluştu."
 
@@ -166,7 +166,7 @@ class MainWindow(QWidget):
 
         self.autoplayer_finishedEvent()
 
-            
+
 
 class SettingsWindow(QWidget):    
     def __init__(self, *args, **kwargs):
@@ -192,7 +192,7 @@ class SettingsWindow(QWidget):
         if SYSTEM_THEME == "DARK":
             self.window_handle = self.winId()
             change_window_theme = windll.dwmapi.DwmSetWindowAttribute(int(self.window_handle), 20, byref(c_bool(True)), sizeof(wintypes.BOOL))
-            
+
             if change_window_theme:
                 windll.dwmapi.DwmSetWindowAttribute(int(self.window_handle), 19, byref(c_bool(True)), sizeof(wintypes.BOOL))
 
@@ -308,7 +308,7 @@ class SettingsWindow(QWidget):
         self.support_me_button.setObjectName("support_me_button")
         self.support_me_button.clicked.connect(self.parent().open_support_me)
         self.support_me_button.setFixedWidth(self.support_me_button.sizeHint().width())
-        
+
         self.main_layout.addWidget(self.shortcut_widget)
         self.main_layout.addWidget(self.autoclose_widget)
         self.main_layout.addWidget(self.dev_mode_widget)

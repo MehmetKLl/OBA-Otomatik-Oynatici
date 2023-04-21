@@ -38,6 +38,6 @@ class DialogBox(QMessageBox):
         if SYSTEM_THEME == "DARK":
             self.window_handle = self.winId()
             change_window_theme = windll.dwmapi.DwmSetWindowAttribute(int(self.window_handle), 20, byref(c_bool(True)), sizeof(wintypes.BOOL))
-            
+
             if change_window_theme:
                 windll.dwmapi.DwmSetWindowAttribute(int(self.window_handle), 19, byref(c_bool(True)), sizeof(wintypes.BOOL))

@@ -6,7 +6,7 @@ try:
 
     if SYSTEM_THEME:
         SYSTEM_THEME = "LIGHT" 
-    
+
     else:
         SYSTEM_THEME = "DARK"
 
@@ -82,7 +82,7 @@ class Styles:
                             background-color: rgb(225, 225, 225);
                             color: rgb(65, 65, 65);
                         }
-                        
+
                         """
 
         SettingsWindowStyle = """
@@ -118,9 +118,9 @@ class Styles:
                                 """
 
         MessageBoxStyle = """
-        
+
                         """
-    
+
     elif SYSTEM_THEME == "DARK":
         MainWindowStyle = """
                         QWidget#main {
@@ -195,7 +195,7 @@ class Styles:
                             background-color: rgb(30, 30, 30);
                             color: rgb(128, 128, 128);
                         }
-                        
+
                         """
 
         SettingsWindowStyle = """
@@ -238,7 +238,7 @@ class Styles:
                                     color: rgb(128, 128, 128);
                                 }
                                 """
-        
+
         MessageBoxStyle = """
                             QMessageBox#msgbox {
                                 background-color: #1e1e1e;
@@ -269,4 +269,4 @@ class Styles:
                                 color: white;
                             }
                         """
-    
+

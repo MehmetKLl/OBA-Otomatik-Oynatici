@@ -14,19 +14,19 @@ def remove_all(target_path):
 
 def remove_in(target_path):
     target_path = path.abspath(target_path.strip("\\"))
-    
+
     for content in listdir(target_path):
         content_abs_path = f"{target_path}\\{content}"
 
         if path.isfile(content_abs_path):
             remove(content_abs_path)
-        
+
         elif path.isdir(content_abs_path):
             remove_in(content_abs_path)
             rmdir(content_abs_path)
-        
 
-        
+
+
 
 def remove_folder(folder):
     rmdir(folder)
@@ -37,5 +37,5 @@ def create_folder(folder):
 def write_byte(file,bytes_:bytes):
     with open(file,"wb") as file_io:
         file_io.write(bytes_)
-        
-        
+
+
