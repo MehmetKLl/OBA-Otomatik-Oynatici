@@ -15,7 +15,7 @@ def scroll_and_start_new_video(scroll_delay=SCROLL_DELAY, video_check_delay=VIDE
             break
     else:
         raise BorderNotFoundException()
-    
+
     border.click("left")
     border.click("scroll",SCROLL_VALUE)
 
@@ -33,7 +33,7 @@ def scroll_and_start_new_video(scroll_delay=SCROLL_DELAY, video_check_delay=VIDE
             scroll_current_video(scroll_delay=scroll_delay)
             control_current_video(scroll_delay=scroll_delay, video_check_delay=video_check_delay)
             break
-        
+
         current_video_icon = videos_icons_screen.capture("img/current_icon.png")
         if current_video_icon:
             x, y, w, h = current_video_icon.get_pos()
@@ -47,14 +47,14 @@ def scroll_and_start_new_video(scroll_delay=SCROLL_DELAY, video_check_delay=VIDE
             finished_icon.click("scroll",SCROLL_VALUE)
             sleep(scroll_delay)
             continue
-            
+
         non_clickable_icon = videos_icons_screen.capture("img/non_clickable_icon.png", threshold = 0.999)
         if non_clickable_icon:
             non_clickable_icon.click("scroll",SCROLL_VALUE)
 
         sleep(scroll_delay)
 
-            
+
 
 
 def scroll_current_video(scroll_delay=SCROLL_DELAY):
@@ -83,24 +83,24 @@ def scroll_current_video(scroll_delay=SCROLL_DELAY):
             finished_icon.click("scroll",SCROLL_VALUE)
             sleep(scroll_delay)
             continue
-            
+
         non_clickable_icon = videos_icons_screen.capture("img/non_clickable_icon.png")
         if non_clickable_icon:
             non_clickable_icon.click("scroll",SCROLL_VALUE)
 
         sleep(scroll_delay)
-            
+
 def start_new_video(pos):
     left_click(new_x_pos=pos[0],new_y_pos=pos[1])
     sleep(5)
-    
+
     for _ in range(5):
         border = Screen().capture("img/border.png",exceptions="silent")
         if border:
             break
     else:
         raise BorderNotFoundException()
-    
+
     border_pos = border.get_pos()
 
     left_click(new_x_pos=border_pos[0]+20,new_y_pos=border_pos[1]+20)
@@ -116,7 +116,7 @@ def control_current_video(scroll_delay=SCROLL_DELAY, video_check_delay=VIDEO_CHE
             break
     else:
         raise VideoIconNotFoundException()
-    
+
     while True:
         finished_icons = Screen().capture("img/finished_icon.png",mode="all")
 

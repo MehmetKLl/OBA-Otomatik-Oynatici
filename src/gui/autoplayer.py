@@ -22,7 +22,7 @@ class Autoplayer(QThread):
                 self.autoplayer_process.terminate()
                 self.stopped_signal.emit()
                 break
-                
+
             if all(exception):
                 self.autoplayer_process.terminate()
                 self.exception_signal.emit(exception)

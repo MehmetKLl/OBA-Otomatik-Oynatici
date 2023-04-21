@@ -11,7 +11,7 @@ class Log:
 
         self.filename = f"{filename} - {strftime('%d.%m.%Y %H.%M.%S')}.log"
         self.file_io = open(f"{File.LOG_PATH}\\{self.filename}","w")
-            
+
     def write(self, text):
         self.file_io.write(f"[{strftime('%d.%m.%Y %H:%M:%S')}] {text}\n")
         self.file_io.flush()
