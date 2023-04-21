@@ -56,7 +56,7 @@ def set_registry_values(mode):
     except exceptions.SSLError:
         utils.log.log.write(f"An error occured due to SSL certificate authentication:\n{format_exc()}\n")
 
-        ask_no_ssl_verify = utils.dialogs.ask_error(f"Sürüm bilgisi alınırken SSL doğrulaması başarısız oldu. SSL doğrulamasını es geçip gene de devam etmek istiyor musunuz?\n(Bu yöntem güvenlik açıklarına sebep olacağından tavsiye edilmez.)",InstallerDialogs.INSTALLER_TITLE if mode == 'install' else InstallerDialogs.UPDATER_TITLE)        
+        ask_no_ssl_verify = utils.dialogs.ask_error("Sürüm bilgisi alınırken SSL doğrulaması başarısız oldu. SSL doğrulamasını es geçip gene de devam etmek istiyor musunuz?\n(Bu yöntem güvenlik açıklarına sebep olacağından tavsiye edilmez.)",InstallerDialogs.INSTALLER_TITLE if mode == 'install' else InstallerDialogs.UPDATER_TITLE)        
         if ask_no_ssl_verify:
             verify_ssl = False
             return set_registry_values(mode)
@@ -66,13 +66,13 @@ def set_registry_values(mode):
     except (exceptions.ConnectTimeout, exceptions.ReadTimeout):
         utils.log.log.write(f"Connection timed out:\n{format_exc()}\n")
 
-        utils.dialogs.show_error(f"Sürüm bilgisi alınırken sunucuya gönderilen istek zaman aşımına uğradı.", dialog_title)
+        utils.dialogs.show_error("Sürüm bilgisi alınırken sunucuya gönderilen istek zaman aşımına uğradı.", dialog_title)
         return 1
 
     except exceptions.ConnectionError:
         utils.log.log.write(f"An error occured while getting version information from Github:\n{format_exc()}\n")
 
-        utils.dialogs.show_error(f"Sürüm bilgisi internet mevcut olmadığından alınamadı.", dialog_title)
+        utils.dialogs.show_error("Sürüm bilgisi internet mevcut olmadığından alınamadı.", dialog_title)
         return 1
 
     except OSError as exc:
@@ -133,9 +133,9 @@ def install_program_contents(content_bytes,mode):
         utils.log.log.write(f"Creating temporary folder: \"{File.TEMP_PATH}\"")
         utils.file.create_folder(File.TEMP_PATH)
 
-        utils.log.log.write(f"Downloading app contents...")
+        utils.log.log.write("Downloading app contents...")
         utils.file.write_byte(f"{File.TEMP_PATH}\\executable.zip",content_bytes)
-        utils.log.log.write(f"App contents have downloaded.")
+        utils.log.log.write("App contents have downloaded.")
 
         if mode == "update":
             utils.log.log.write("App folder is cleaning...")
@@ -196,7 +196,7 @@ def download_program_contents(mode):
     except exceptions.SSLError:
         utils.log.log.write(f"An error occured due to SSL certificate authentication:\n{format_exc()}\n")
 
-        ask_no_ssl_verify = utils.dialogs.ask_error(f"SSL doğrulaması başarısız oldu. SSL doğrulamasını es geçip gene de devam etmek istiyor musunuz?\n(Bu yöntem güvenlik açıklarına sebep olacağından tavsiye edilmez.)",InstallerDialogs.INSTALLER_TITLE if mode == 'install' else InstallerDialogs.UPDATER_TITLE)        
+        ask_no_ssl_verify = utils.dialogs.ask_error("SSL doğrulaması başarısız oldu. SSL doğrulamasını es geçip gene de devam etmek istiyor musunuz?\n(Bu yöntem güvenlik açıklarına sebep olacağından tavsiye edilmez.)",InstallerDialogs.INSTALLER_TITLE if mode == 'install' else InstallerDialogs.UPDATER_TITLE)        
         if ask_no_ssl_verify:
            verify_ssl = False
            return download_program_contents(mode)
@@ -207,13 +207,13 @@ def download_program_contents(mode):
     except (exceptions.ConnectTimeout, exceptions.ReadTimeout):
         utils.log.log.write(f"Connection timed out:\n{format_exc()}\n")
 
-        utils.dialogs.show_error(f"Sunucuya gönderilen istek zaman aşımına uğradı.",InstallerDialogs.INSTALLER_TITLE if mode == 'install' else InstallerDialogs.UPDATER_TITLE)
+        utils.dialogs.show_error("Sunucuya gönderilen istek zaman aşımına uğradı.",InstallerDialogs.INSTALLER_TITLE if mode == 'install' else InstallerDialogs.UPDATER_TITLE)
         return (1, None)
 
     except exceptions.ConnectionError:
         utils.log.log.write(f"An error occured while getting app contents from Github:\n{format_exc()}\n")
 
-        utils.dialogs.show_error(f"Program internet olmadığından bilgisayara indirilemedi.",InstallerDialogs.INSTALLER_TITLE if mode == 'install' else InstallerDialogs.UPDATER_TITLE)
+        utils.dialogs.show_error("Program internet olmadığından bilgisayara indirilemedi.",InstallerDialogs.INSTALLER_TITLE if mode == 'install' else InstallerDialogs.UPDATER_TITLE)
         return (1, None)
 
 def start_installer():
