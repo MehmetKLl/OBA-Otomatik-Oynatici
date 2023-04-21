@@ -3,7 +3,7 @@ from win32con import SRCCOPY
 from win32gui import GetDesktopWindow, GetWindowDC, DeleteObject, ReleaseDC
 from win32ui import CreateDCFromHandle, CreateBitmap
 from numpy import uint8, frombuffer, where
-from cv2 import cvtColor, COLOR_BGRA2BGR, COLOR_BGR2HSV, imread, matchTemplate, TM_CCOEFF_NORMED, split
+from cv2 import cvtColor, COLOR_BGRA2BGR, COLOR_BGR2HSV, imread, matchTemplate, TM_CCOEFF_NORMED
 from .classes import CapturedImage
 from utils.exceptions import ImageNotFoundException
 

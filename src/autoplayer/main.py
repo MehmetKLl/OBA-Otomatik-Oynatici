@@ -1,8 +1,8 @@
 from time import sleep
 from autoplayer.handler import Screen
-from autoplayer.events import left_click, scroll
+from autoplayer.events import left_click
 from utils.constants import Player
-from utils.exceptions import BorderNotFoundException, VideoIconNotFoundException, ImageNotFoundException
+from utils.exceptions import BorderNotFoundException, VideoIconNotFoundException
 
 SCROLL_DELAY = Player.SCROLL_DELAY
 VIDEO_CHECK_DELAY = Player.VIDEO_CHECK_DELAY
