@@ -26,7 +26,7 @@ def scroll_and_start_new_video(scroll_delay=SCROLL_DELAY, video_check_delay=VIDE
         if open_category_button:
             open_category_button.click("left")
 
-        new_video_icon = videos_icons_screen.capture("img/new_video_icon.png", threshold = 0.9999)
+        new_video_icon = videos_icons_screen.capture("img/new_video_icon.png", threshold = 0.999)
         if new_video_icon:
             x, y, w, h = new_video_icon.get_pos()
             start_new_video((x,y))
@@ -48,7 +48,7 @@ def scroll_and_start_new_video(scroll_delay=SCROLL_DELAY, video_check_delay=VIDE
             sleep(scroll_delay)
             continue
             
-        non_clickable_icon = videos_icons_screen.capture("img/non_clickable_icon.png", threshold = 0.9999)
+        non_clickable_icon = videos_icons_screen.capture("img/non_clickable_icon.png", threshold = 0.999)
         if non_clickable_icon:
             non_clickable_icon.click("scroll",SCROLL_VALUE)
 

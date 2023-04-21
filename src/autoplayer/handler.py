@@ -43,21 +43,21 @@ class Screen:
         self.template_image_array = cvtColor(cvtColor(imread(image), COLOR_BGRA2BGR), COLOR_BGR2HSV)
         self.template_height, self.template_width, _ = self.template_image_array.shape
 
-        match_template_array = where(matchTemplate(self.screen_array, self.template_image_array, TM_CCOEFF_NORMED) >= threshold)
+        matched_template_cords = where(matchTemplate(self.screen_array, self.template_image_array, TM_CCOEFF_NORMED) >= threshold)
 
-        x_array, y_array = match_template_array[1], match_template_array[0]
+        x_cords, y_cords = matched_template_cords[1], matched_template_cords[0]
 
 
-        if x_array.size == 0 or y_array.size == 0:
+        if x_cords.size == 0 or y_cords.size == 0:
             if exceptions == "raise":
                 raise ImageNotFoundException(f"Image \"{image}\" couldn't found.",image=image)
 
             return None
 
         if mode == "single":
-            return CapturedImage(x_array[0], y_array[0], self.template_width, self.template_height, self.template_image_array)
+            return CapturedImage(x_cords[0], y_cords[0], self.template_width, self.template_height, self.template_image_array)
 
-        matched_sub_images_objects = [CapturedImage(x, y, self.template_width, self.template_height, self.template_image_array) for x, y in zip(x_array, y_array)] 
+        matched_sub_images_objects = [CapturedImage(x, y, self.template_width, self.template_height, self.template_image_array) for x, y in zip(x_cords, y_cords)] 
         return matched_sub_images_objects
             
 

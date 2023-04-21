@@ -1,10 +1,10 @@
 from keyboard import is_pressed
 from ctypes import windll, wintypes, byref, sizeof, c_bool
 from pywintypes import error as WinApiError
-from PyQt5.QtWidgets import QWidget, QApplication, QPushButton, QHBoxLayout, QVBoxLayout, QLabel, QMessageBox, QLineEdit, QCheckBox
-from PyQt5.QtGui import QIcon, QRegExpValidator
-from PyQt5.QtCore import Qt, QRegExp
-from utils.constants import GUI, Player, VERSION
+from PyQt5.QtWidgets import QWidget, QDesktopWidget, QPushButton, QHBoxLayout, QVBoxLayout, QLabel, QMessageBox, QLineEdit, QCheckBox
+from PyQt5.QtGui import QIcon,QRegExpValidator, QDesktopServices
+from PyQt5.QtCore import Qt, QUrl, QRegExp
+from utils.constants import GUI, Player, VERSION, GitHub
 from utils.exceptions import BorderNotFoundException, ImageNotFoundException, VideoIconNotFoundException
 from .widgets import TextBox, DialogBox
 from .autoplayer import Autoplayer
@@ -28,6 +28,11 @@ class MainWindow(QWidget):
         self.setObjectName("main")
         self.setStyleSheet(Styles.MainWindowStyle)
 
+        window_geometry = self.frameGeometry()
+        screen_center_point = QDesktopWidget().availableGeometry().center()
+        window_geometry.moveCenter(screen_center_point)
+        self.move(window_geometry.topLeft())
+
         if SYSTEM_THEME == "DARK":
             self.window_handle = self.winId()
             change_window_theme = windll.dwmapi.DwmSetWindowAttribute(int(self.window_handle), 20, byref(c_bool(True)), sizeof(wintypes.BOOL))
@@ -47,15 +52,21 @@ class MainWindow(QWidget):
         self.footer.setFixedHeight(50)
         footer_layout = QHBoxLayout()
         self.start_button = QPushButton(text="Başlat")
+        self.start_button.setObjectName("main_buttons")
         self.start_button.clicked.connect(self.start_autoplayer)
         self.settings_button = QPushButton(text="Ayarlar")
+        self.settings_button.setObjectName("main_buttons")
         self.settings_button.clicked.connect(self.open_settings)
         self.version_text = QLabel(text=f"v{VERSION}")
         self.version_text.setObjectName("version_text")
+        self.support_me_button = QPushButton(text="Bana destek ol!")
+        self.support_me_button.setObjectName("support_me_button")
+        self.support_me_button.clicked.connect(self.open_support_me)
 
-        footer_layout.addWidget(self.start_button,0,Qt.AlignLeft)
+        footer_layout.addWidget(self.start_button,1,Qt.AlignLeft)
         footer_layout.addWidget(self.settings_button,1,Qt.AlignLeft)
-        footer_layout.addWidget(self.version_text,2,Qt.AlignRight)
+        footer_layout.addWidget(self.support_me_button,7,Qt.AlignRight)
+        footer_layout.addWidget(self.version_text,1,Qt.AlignRight)
 
         self.footer.setLayout(footer_layout)
 
@@ -77,8 +88,12 @@ class MainWindow(QWidget):
         self.main_layout.addLayout(self.top_layout,0)
 
         self.place_footer()
-        self.main_layout.addWidget(self.footer,1,Qt.AlignBottom)
+        self.main_layout.addWidget(self.footer,0,Qt.AlignBottom)
         self.setLayout(self.main_layout)
+
+    def open_support_me(self):
+        QDesktopServices.openUrl(QUrl(GitHub.SUPPORT_ME_URL))
+        self.showMinimized()
 
     def open_settings(self):
         self.settings_window = SettingsWindow(parent=self)
@@ -145,7 +160,7 @@ class MainWindow(QWidget):
             error_string = "Ekranda \"oynatılan video\" simgesi bulunamadı ve programda hata oluştu."
 
         else:
-            error_string = "Hata oluştu ve program sonlandırıldı."
+            error_string = "Hata oluştu ve program sonlandırıldı. Detaylı hata bilgisi almak için geliştirici modunu açıp tekrar deneyebilirsiniz."
 
         DialogBox(GUI.TITLE, error_string, QMessageBox.Critical, self.icon).exec_()
 
@@ -160,7 +175,7 @@ class SettingsWindow(QWidget):
        self.place_widgets()
 
     def setup(self):
-        self.setGeometry(0,0,275,350)
+        self.setGeometry(0,0,275,375)
         self.setWindowFlags(Qt.Sheet | Qt.WindowCloseButtonHint)
         self.setWindowModality(Qt.ApplicationModal)
         self.setWindowTitle(GUI.TITLE)
@@ -168,6 +183,11 @@ class SettingsWindow(QWidget):
         self.setFixedSize(self.size())
         self.setObjectName("settings")
         self.setStyleSheet(Styles.SettingsWindowStyle)
+
+        window_geometry = self.frameGeometry()
+        screen_center_point = QDesktopWidget().availableGeometry().center()
+        window_geometry.moveCenter(screen_center_point)
+        self.move(window_geometry.topLeft())
 
         if SYSTEM_THEME == "DARK":
             self.window_handle = self.winId()
@@ -284,10 +304,15 @@ class SettingsWindow(QWidget):
         self.video_check_delay_widget.setLayout(self.video_check_delay_widget_layout)
         self.video_check_delay_widget.setFixedSize(self.video_check_delay_widget.sizeHint().width(),self.video_check_delay_widget.sizeHint().height())
 
+        self.support_me_button = QPushButton(text="Bana destek ol!")
+        self.support_me_button.setObjectName("support_me_button")
+        self.support_me_button.clicked.connect(self.parent().open_support_me)
+        self.support_me_button.setFixedWidth(self.support_me_button.sizeHint().width())
         
-        self.main_layout.addWidget(self.shortcut_widget, 0)
-        self.main_layout.addWidget(self.autoclose_widget, 1)
-        self.main_layout.addWidget(self.dev_mode_widget, 2)
-        self.main_layout.addWidget(self.scroll_delay_widget, 3)
-        self.main_layout.addWidget(self.video_check_delay_widget, 4)
+        self.main_layout.addWidget(self.shortcut_widget)
+        self.main_layout.addWidget(self.autoclose_widget)
+        self.main_layout.addWidget(self.dev_mode_widget)
+        self.main_layout.addWidget(self.scroll_delay_widget)
+        self.main_layout.addWidget(self.video_check_delay_widget)
+        self.main_layout.addWidget(self.support_me_button)
         self.setLayout(self.main_layout)
