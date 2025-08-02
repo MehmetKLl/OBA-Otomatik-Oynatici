@@ -30,7 +30,7 @@ class ProcessWithException(Process):
                 return exc
 
 def process_list():
-    return check_output(["tasklist"],shell=False,creationflags=CREATE_NO_WINDOW).split(b"\r\n")[3:]
+    return [" ".join([i.decode("utf-8") for i in x.split()[:-5]]) for x in check_output(["tasklist"],shell=False,creationflags=CREATE_NO_WINDOW).split(b"\r\n")[3:-1]]
 
 def start(executable):
     return Popen([path.basename(executable)],shell=True,creationflags=CREATE_NO_WINDOW,cwd=path.dirname(executable), stdout=PIPE, stderr=PIPE)

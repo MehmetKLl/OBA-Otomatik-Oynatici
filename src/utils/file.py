@@ -25,9 +25,6 @@ def remove_in(target_path):
             remove_in(content_abs_path)
             rmdir(content_abs_path)
 
-
-
-
 def remove_folder(folder):
     rmdir(folder)
 

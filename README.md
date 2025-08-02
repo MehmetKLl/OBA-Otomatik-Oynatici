@@ -1,7 +1,5 @@
 <h2> ÖBA Otomatik Oynatıcı </h2>
-<b> Sürüm 1.4.10 </b>
-<br>
-<h3>:x:<i>Program mevcut sürüm itibariyle <ins>güncel değildir</ins>, ÖBA'da düzgün çalışmayacaktır.</i></h3>
+<b> Sürüm 1.5.0 </b>
 <br><br>
 <i>Uğraşmak yerine, dosyayı direkt <a href="https://github.com/MehmetKLl/OBA-Otomatik-Oynatici/raw/main/oba_otomatik_oynatma.zip" >buradan</a> indirebilirsiniz.</i>
 <br><br>
@@ -93,9 +91,9 @@
 |Windows 11 x64|:ballot_box_with_check:|
 |Windows 10 x86|:ballot_box_with_check:|
 |Windows 10 x64|:white_check_mark:|
-|Windows 8 x86|:white_check_mark:|
+|Windows 8 x86|:ballot_box_with_check:|
 |Windows 8 x64|:white_check_mark:|
-|Windows 7 x64|:white_check_mark:|
+|Windows 7 x64|:ballot_box_with_check:|
 |Windows 7 x86|:white_check_mark:|
 
 |MacOS|Desteklenme Durumu|
@@ -118,6 +116,7 @@
 
 |Sürüm|Notlar|
 |-|-|
+|1.5.0|Uygulama algoritması yeni ÖBA arayüzü ile çalışacak biçimde düzenlendi. Arayüzde geliştirilme yapıldı. Otomatik tamir sisteminin hatalı çalışmasına sebep olan hata giderildi.|
 |1.4.10|Program hataları giderildi.|
 |1.4.9|Arayüz geliştirildi.|
 |1.4.8|Program ve arayüz hataları giderildi.|

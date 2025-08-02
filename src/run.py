@@ -2,7 +2,7 @@ from winreg import HKEY_CURRENT_USER
 from traceback import format_exc
 from sys import exit
 from requests import exceptions
-from utils.process import kill, start
+from utils.process import kill, start, process_list
 from utils.constants import File, Registry, InstallerDialogs, GitHub
 import utils.log
 import utils.github
@@ -11,7 +11,8 @@ import utils.registry
 import utils.file
 import errno as error_codes
 
-verify_ssl = True 
+verify_ssl = True
+dedicated_termination = False
 
 def get_version_data():
     global verify_ssl
@@ -25,14 +26,13 @@ def get_version_data():
         ask_no_ssl_verify = utils.dialogs.ask_error("SSL doğrulaması başarısız oldu. SSL doğrumasını es geçip gene de devam etmek istiyor musunuz?\n(Bu yöntem güvenlik açıklarına sebep olacağından tavsiye edilmez.)",InstallerDialogs.UPDATER_TITLE)        
         if ask_no_ssl_verify:
             verify_ssl = False
-            get_version_data()
+            return get_version_data()
 
         return (2, None)
 
     except Exception:
-        utils.log.log.write(f"An error occured while getting app contents from Github:\n{format_exc()}\n")
+        utils.log.log.write(f"An error occured while getting version information from Github:\n{format_exc()}\n")
         return (2, None)
-
 
 def set_registry_values(mode):
     global verify_ssl
@@ -45,6 +45,10 @@ def set_registry_values(mode):
 
     elif mode == "install":
         dialog_title = InstallerDialogs.INSTALLER_TITLE
+
+    if not utils.registry.check_key_exists(HKEY_CURRENT_USER,Registry.KEY_PATH,Registry.FIRSTUSE_KEY_NAME):
+        utils.log.log.write(f"Creating \"{Registry.FIRSTUSE_KEY_NAME}\" registry key at: \"{Registry.FIRSTUSE_FULL_KEY_PATH}\"")
+        utils.registry.create_key(HKEY_CURRENT_USER,Registry.KEY_PATH,Registry.FIRSTUSE_KEY_NAME,"")
 
     utils.log.log.write(f"Creating \"{Registry.LASTCRASH_KEY_NAME}\" registry key at: \"{Registry.LASTCRASH_FULL_KEY_PATH}\"")
 
@@ -93,7 +97,7 @@ def set_registry_values(mode):
     utils.log.log.write(f"{'Updated' if mode == 'update' else 'Created'} registry value at: \"{Registry.VERSION_FULL_KEY_PATH}\"")
     utils.log.log.write(f"Created \"{Registry.LASTCRASH_KEY_NAME}\" registry key at: \"{Registry.LASTCRASH_FULL_KEY_PATH}\"")
 
-def check_key_exists():
+def check_is_installed():
     dialog_title = InstallerDialogs.TITLE
 
     try:
@@ -116,6 +120,28 @@ def check_key_exists():
         utils.dialogs.show_error(f"Kayıt defteri değeri okunurken beklenmedik bir hata oluştu:\n\n{exc_tb}", dialog_title)
         exit(1)
 
+def check_is_app_running():
+    dialog_title = InstallerDialogs.UPDATER_TITLE
+
+    try:
+        return (0, "oba_gui.exe" in process_list())
+
+    except OSError as exc:
+        error_code = exc.errno
+
+        if error_code in (error_codes.EPERM, error_codes.EACCES):
+            utils.dialogs.show_error("Çalışan işlemler alınırken yetki hatası oluştu. Programı yönetici olarak çalıştırmayı deneyin.", dialog_title)
+
+        else:
+            exc_tb = format_exc()
+            utils.dialogs.show_error(f"Çalışan işlemler alınırken çözümlenemeyen bir sebepten işletim sistemi hatası oluştu:\n\n{exc_tb}", dialog_title)
+
+        return (1, None)
+
+    except Exception as exc:
+        exc_tb = format_exc()
+        utils.dialogs.show_error(f"Kayıt defteri değeri okunurken beklenmedik bir hata oluştu:\n\n{exc_tb}", dialog_title)
+        return (1, None)
 
 def install_program_contents(content_bytes,mode):
     global verify_ssl
@@ -235,6 +261,8 @@ def start_installer():
 
 
 def start_updater():
+    global dedicated_termination
+
     utils.log.log.write(f"Reading registry value at: \"{Registry.VERSION_FULL_KEY_PATH}\"")
     local_version = utils.registry.read_key(HKEY_CURRENT_USER,Registry.KEY_PATH,Registry.VERSION_KEY_NAME)
     utils.log.log.write(f"Read registry value at: \"{Registry.VERSION_FULL_KEY_PATH}\"")
@@ -242,6 +270,7 @@ def start_updater():
     is_error_occured, main_version = get_version_data()
 
     if is_error_occured:
+        utils.log.log.write("Aborting update check...")
         utils.log.log.close()
         return
 
@@ -250,6 +279,19 @@ def start_updater():
 
     elif local_version != main_version:
         utils.log.log.write("Application isn't up to date.")
+
+        utils.log.log.write("Checking older app is whether running or not...")
+        is_error_occured, is_app_running = check_is_app_running()
+
+        if is_error_occured:
+            utils.log.log.write("Aborting updating process...")
+            utils.log.log.close()
+            return
+
+        if is_app_running:
+            utils.log.log.write("Terminating working app...")
+            kill("oba_gui.exe")
+            dedicated_termination = True
 
         ask_for_update = utils.dialogs.ask_info(f"Programın yeni bir sürümü mevcut. Programı yeni sürüme güncellemek ister misiniz?\n\nBilgisayarda yüklü olan sürüm: {local_version}\nSon sürüm: {main_version}",InstallerDialogs.UPDATER_TITLE)
         if not ask_for_update:
@@ -300,18 +342,9 @@ def start_troubleshooter():
     utils.log.log.write("Auto-repair process completed without any issues.")
     utils.log.log.close()
 
-def show_license_agreement():
-    return utils.dialogs.ask_no_icon(f"{GitHub.LICENSE_TEXT}\n({GitHub.LICENSE_USER_URL})\n\n\nYazılımın lisans sözleşmesini okuyup kabul ediyor musunuz?\n(Evet deyip programı bilgisayarınıza kurmanız sözleşmeyi kabul edip onayladığınız anlamına gelecektir.)", InstallerDialogs.LICENSE_TITLE)
 
 def main():
-    kill("oba_gui.exe")
-
-    if not check_key_exists():
-        is_license_agreed = show_license_agreement()
-
-        if not is_license_agreed:
-            exit(0)
-
+    if not check_is_installed():
         utils.log.create_log("log","Installer")
         start_installer()
     else:
@@ -324,7 +357,7 @@ def main():
 
     return_bytes, return_code = gui_process.communicate(), gui_process.returncode
 
-    if return_bytes[1] or return_code:
+    if all((return_bytes[1] or return_code, not dedicated_termination)):
         if utils.registry.read_key(HKEY_CURRENT_USER,Registry.KEY_PATH,Registry.LASTCRASH_KEY_NAME) == "1":
             utils.log.create_log("log","Troubleshooter")
             start_troubleshooter()

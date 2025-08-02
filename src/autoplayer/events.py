@@ -1,5 +1,6 @@
 from win32api import SetCursorPos, GetCursorPos, mouse_event
 from win32con import MOUSEEVENTF_LEFTDOWN, MOUSEEVENTF_LEFTUP, MOUSEEVENTF_RIGHTDOWN, MOUSEEVENTF_RIGHTUP, MOUSEEVENTF_WHEEL
+from numpy import arange
 from time import sleep
 
 def left_click(new_x_pos=None, new_y_pos=None):

@@ -4,8 +4,9 @@ from pywintypes import error as WinApiError
 from PyQt5.QtWidgets import QWidget, QDesktopWidget, QPushButton, QHBoxLayout, QVBoxLayout, QLabel, QMessageBox, QLineEdit, QCheckBox
 from PyQt5.QtGui import QIcon,QRegExpValidator, QDesktopServices
 from PyQt5.QtCore import Qt, QUrl, QRegExp
-from utils.constants import GUI, Player, VERSION, GitHub
+from utils.constants import GUI, Player, VERSION, GitHub, Registry
 from utils.exceptions import BorderNotFoundException, ImageNotFoundException, VideoIconNotFoundException
+from utils.registry import check_is_first_use, delete_first_use_key
 from .widgets import TextBox, DialogBox
 from .autoplayer import Autoplayer
 from .styles import Styles, SYSTEM_THEME
@@ -45,6 +46,7 @@ class MainWindow(QWidget):
         self.autoclose = GUI.AUTOCLOSE
         self.scroll_delay = Player.SCROLL_DELAY
         self.video_check_delay = Player.VIDEO_CHECK_DELAY
+        self.page_loading_delay = Player.PAGE_LOADING_DELAY
 
     def place_footer(self):
         self.footer = QWidget()
@@ -112,6 +114,11 @@ class MainWindow(QWidget):
             invalid_shortcut_msgbox = DialogBox(GUI.TITLE, "Kısayol tuşu geçersiz.", QMessageBox.Critical, self.icon)
             invalid_shortcut_msgbox.exec_()
             return
+        
+        if check_is_first_use():
+            firstuse_msgbox = DialogBox(GUI.TITLE, GUI.TUTORIAL_TEXT, QMessageBox.Warning, self.icon)
+            firstuse_msgbox.exec_()
+            delete_first_use_key()
 
         self.autoplayer_thread = Autoplayer(parent=self)
         self.autoplayer_thread.started.connect(self.autoplayer_startedEvent)
@@ -162,7 +169,9 @@ class MainWindow(QWidget):
         else:
             error_string = "Hata oluştu ve program sonlandırıldı. Detaylı hata bilgisi almak için geliştirici modunu açıp tekrar deneyebilirsiniz."
 
-        DialogBox(GUI.TITLE, error_string, QMessageBox.Critical, self.icon).exec_()
+        exception_dialogbox = DialogBox(GUI.TITLE, error_string, QMessageBox.Critical, self.icon)
+        exception_dialogbox.setTextInteractionFlags(Qt.TextSelectableByMouse)
+        exception_dialogbox.exec_()
 
         self.autoplayer_finishedEvent()
 
@@ -175,7 +184,7 @@ class SettingsWindow(QWidget):
        self.place_widgets()
 
     def setup(self):
-        self.setGeometry(0,0,275,375)
+        self.setGeometry(0,0,275,410)
         self.setWindowFlags(Qt.Sheet | Qt.WindowCloseButtonHint)
         self.setWindowModality(Qt.ApplicationModal)
         self.setWindowTitle(GUI.TITLE)
@@ -222,6 +231,12 @@ class SettingsWindow(QWidget):
             return
 
         self.parent().video_check_delay = int(self.video_check_delay_entry.text())
+
+    def page_loading_delay_entry_textChangedEvent(self):
+        if not self.page_loading_delay_entry.text():
+            return
+
+        self.parent().page_loading_delay = int(self.page_loading_delay_entry.text())
 
     def place_widgets(self):
         self.main_layout = QVBoxLayout()
@@ -271,6 +286,7 @@ class SettingsWindow(QWidget):
         self.scroll_delay_text = QLabel("Video kaydırma gecikmesi:")
         self.scroll_delay_entry_layout = QHBoxLayout()
         self.scroll_delay_entry = QLineEdit()
+        self.scroll_delay_entry.setAlignment(Qt.AlignCenter)
         self.scroll_delay_entry.setValidator(self.scroll_delay_entry_validator)
         self.scroll_delay_entry.setText(str(self.parent().scroll_delay))
         self.scroll_delay_entry.textChanged.connect(self.scroll_delay_entry_textChangedEvent)
@@ -291,6 +307,7 @@ class SettingsWindow(QWidget):
         self.video_check_delay_text = QLabel("Video kontrol gecikmesi:")
         self.video_check_delay_entry_layout = QHBoxLayout()
         self.video_check_delay_entry = QLineEdit()
+        self.video_check_delay_entry.setAlignment(Qt.AlignCenter)
         self.video_check_delay_entry.setValidator(self.video_check_delay_entry_validator)
         self.video_check_delay_entry.setText(str(self.parent().video_check_delay))
         self.video_check_delay_entry.textChanged.connect(self.video_check_delay_entry_textChangedEvent)
@@ -304,15 +321,31 @@ class SettingsWindow(QWidget):
         self.video_check_delay_widget.setLayout(self.video_check_delay_widget_layout)
         self.video_check_delay_widget.setFixedSize(self.video_check_delay_widget.sizeHint().width(),self.video_check_delay_widget.sizeHint().height())
 
-        self.support_me_button = QPushButton(text="Bana destek ol!")
-        self.support_me_button.setObjectName("support_me_button")
-        self.support_me_button.clicked.connect(self.parent().open_support_me)
-        self.support_me_button.setFixedWidth(self.support_me_button.sizeHint().width())
+        self.page_loading_delay_widget = QWidget()
+        self.page_loading_delay_widget.setObjectName("option_box")
+        self.page_loading_delay_entry_validator = QRegExpValidator(QRegExp("[0-9]{1,2}"))
+        self.page_loading_delay_widget_layout = QVBoxLayout()
+        self.page_loading_delay_text = QLabel("Sayfa yüklenme bekleme süresi:")
+        self.page_loading_delay_entry_layout = QHBoxLayout()
+        self.page_loading_delay_entry = QLineEdit()
+        self.page_loading_delay_entry.setAlignment(Qt.AlignCenter)
+        self.page_loading_delay_entry.setValidator(self.page_loading_delay_entry_validator)
+        self.page_loading_delay_entry.setText(str(self.parent().page_loading_delay))
+        self.page_loading_delay_entry.textChanged.connect(self.page_loading_delay_entry_textChangedEvent)
+        self.page_loading_delay_entry.setFixedWidth(20)
+        self.page_loading_delay_entry_type = QLabel("saniye")
+        self.page_loading_delay_entry_type.setAlignment(Qt.AlignCenter)
+        self.page_loading_delay_entry_layout.addWidget(self.page_loading_delay_entry,0, Qt.AlignLeft)
+        self.page_loading_delay_entry_layout.addWidget(self.page_loading_delay_entry_type,1, Qt.AlignLeft)
+        self.page_loading_delay_widget_layout.addWidget(self.page_loading_delay_text)
+        self.page_loading_delay_widget_layout.addLayout(self.page_loading_delay_entry_layout)
+        self.page_loading_delay_widget.setLayout(self.page_loading_delay_widget_layout)
+        self.page_loading_delay_widget.setFixedSize(self.page_loading_delay_widget.sizeHint().width(),self.page_loading_delay_widget.sizeHint().height())
 
         self.main_layout.addWidget(self.shortcut_widget)
         self.main_layout.addWidget(self.autoclose_widget)
         self.main_layout.addWidget(self.dev_mode_widget)
         self.main_layout.addWidget(self.scroll_delay_widget)
         self.main_layout.addWidget(self.video_check_delay_widget)
-        self.main_layout.addWidget(self.support_me_button)
+        self.main_layout.addWidget(self.page_loading_delay_widget)
         self.setLayout(self.main_layout)

@@ -12,7 +12,7 @@ class Autoplayer(QThread):
 
 
     def run(self):
-        self.autoplayer_process = ProcessWithException(target=autoplayer.main.start, args=(self.parent().scroll_delay, self.parent().video_check_delay))
+        self.autoplayer_process = ProcessWithException(target=autoplayer.main.start, args=(self.parent().scroll_delay, self.parent().video_check_delay, self.parent().page_loading_delay))
         self.autoplayer_process.start()
 
         while True:

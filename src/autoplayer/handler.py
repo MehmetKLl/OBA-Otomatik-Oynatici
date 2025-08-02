@@ -32,7 +32,7 @@ class Screen:
 
 
 
-    def capture(self, image=None, threshold=0.99, mode="single", exceptions="silent"):
+    def capture(self, image=None, threshold=0.8, mode="single", exceptions="silent"):
         if mode not in ["single","all"] or exceptions not in ["silent","raise"]:
             raise ValueError("Invalid arguments.")
 

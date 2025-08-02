@@ -40,6 +40,7 @@ class Styles:
                             padding: 5px;
                             padding-left: 15px;
                             padding-right: 15px;
+                            border-radius: 2px;
                             background-color: rgb(230, 230, 230);
                             border: 1px solid rgb(64, 64, 64);
                             color: rgb(64, 64, 64);
@@ -95,26 +96,6 @@ class Styles:
                                     background-color: #fff0f5;
                                     padding: 5px;
                                 }
-
-                                QWidget#settings QPushButton#support_me_button {
-                                    background-color: rgb(225, 225, 225);
-                                    border: 1px solid rgb(192, 192, 192);
-                                    color: rgb(0, 0, 0);
-                                    padding: 2px;
-                                    border-radius: 2px;
-                                }
-
-                                QWidget#settings QPushButton#support_me_button:hover {
-                                    background-color: rgb(225, 225, 225);
-                                    border: 1px solid rgb(214, 214, 214);
-                                    color: rgb(22, 22, 22);
-                                    text-decoration: underline;
-                                }
-
-                                QWidget#settings QPushButton#support_me_button:pressed {
-                                    background-color: rgb(225, 225, 225);
-                                    color: rgb(65, 65, 65);
-                                }
                                 """
 
         MessageBoxStyle = """
@@ -153,6 +134,7 @@ class Styles:
                             padding: 5px;
                             padding-left: 15px;
                             padding-right: 15px;
+                            border-radius: 2px;
                             background-color: rgb(25, 25, 25);
                             border: 1px solid rgb(191, 191, 191);
                             color: rgb(191, 191, 191);
@@ -218,25 +200,22 @@ class Styles:
                                     color: rgb(191, 191, 191);
                                 }
 
-                                QWidget#settings QPushButton#support_me_button {
-                                    background-color: rgb(0, 15, 10);
-                                    border: 1px solid rgb(63, 63, 63);
-                                    color: rgb(191, 191, 191);
-                                    padding: 2px;
-                                    border-radius: 2px;
+                                QWidget#settings QWidget#option_box QLineEdit{
+                                    color: white;
+                                    background-color: #1e1e1e;
+                                    border: 1px solid #3f3f3f;
                                 }
 
-                                QWidget#settings QPushButton#support_me_button:hover {
-                                    background-color: rgb(0, 15, 10);
-                                    border: 1px solid rgb(41, 41, 41);
-                                    color: rgb(159,159,159);
-                                    text-decoration: underline;
+                                QWidget#settings QWidget#option_box QCheckBox::indicator{
+                                    background-color: #1e1e1e;
+                                    border: 1px solid #3f3f3f;
                                 }
 
-                                QWidget#settings QPushButton#support_me_button:pressed {
-                                    background-color: rgb(0, 15, 10);
-                                    color: rgb(128, 128, 128);
+                                QWidget#settings QWidget#option_box QCheckBox::indicator:checked{
+                                    background-color: #3f3f3f;
+                                    border: 1px solid rgb(191, 191, 191);
                                 }
+
                                 """
 
         MessageBoxStyle = """
@@ -245,12 +224,12 @@ class Styles:
                             }
 
                             QMessageBox#msgbox QPushButton {
-                            padding: 5px;
-                            padding-left: 15px;
-                            padding-right: 15px;
-                            background-color: rgb(25, 25, 25);
-                            border: 1px solid rgb(191, 191, 191);
-                            color: rgb(191, 191, 191);
+                                padding: 5px;
+                                padding-left: 15px;
+                                padding-right: 15px;
+                                background-color: rgb(25, 25, 25);
+                                border: 1px solid rgb(191, 191, 191);
+                                color: rgb(191, 191, 191);
                             }
 
                             QMessageBox#msgbox QPushButton:hover {
