@@ -10,7 +10,6 @@ class Autoplayer(QThread):
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
 
-
     def run(self):
         self.autoplayer_process = ProcessWithException(target=autoplayer.main.start, args=(self.parent().scroll_delay, self.parent().video_check_delay, self.parent().page_loading_delay))
         self.autoplayer_process.start()
@@ -18,7 +17,7 @@ class Autoplayer(QThread):
         while True:
             exception = self.autoplayer_process.catch_exception()
 
-            if is_pressed(self.parent().shortcut):
+            if self.isInterruptionRequested() or is_pressed(self.parent().shortcut):
                 self.autoplayer_process.terminate()
                 self.stopped_signal.emit()
                 break
@@ -27,4 +26,7 @@ class Autoplayer(QThread):
                 self.autoplayer_process.terminate()
                 self.exception_signal.emit(exception)
                 break
+
+    def stop_autoplayer(self):
+        self.requestInterruption()
 

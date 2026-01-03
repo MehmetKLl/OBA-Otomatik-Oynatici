@@ -48,6 +48,8 @@ class MainWindow(QWidget):
         self.video_check_delay = Player.VIDEO_CHECK_DELAY
         self.page_loading_delay = Player.PAGE_LOADING_DELAY
 
+        self.autoplayer_thread = None
+
     def place_footer(self):
         self.footer = QWidget()
         self.footer.setObjectName("footer")
@@ -61,13 +63,13 @@ class MainWindow(QWidget):
         self.settings_button.clicked.connect(self.open_settings)
         self.version_text = QLabel(text=f"v{VERSION}")
         self.version_text.setObjectName("version_text")
-        self.support_me_button = QPushButton(text="Bana destek ol!")
-        self.support_me_button.setObjectName("support_me_button")
-        self.support_me_button.clicked.connect(self.open_support_me)
+        self.feedback_button = QPushButton(text="Geri bildirim gönder!")
+        self.feedback_button.setObjectName("feedback_button")
+        self.feedback_button.clicked.connect(self.open_feedback)
 
         footer_layout.addWidget(self.start_button,1,Qt.AlignLeft)
         footer_layout.addWidget(self.settings_button,1,Qt.AlignLeft)
-        footer_layout.addWidget(self.support_me_button,7,Qt.AlignRight)
+        footer_layout.addWidget(self.feedback_button,7,Qt.AlignRight)
         footer_layout.addWidget(self.version_text,1,Qt.AlignRight)
 
         self.footer.setLayout(footer_layout)
@@ -93,12 +95,17 @@ class MainWindow(QWidget):
         self.main_layout.addWidget(self.footer,0,Qt.AlignBottom)
         self.setLayout(self.main_layout)
 
-    def open_support_me(self):
-        QDesktopServices.openUrl(QUrl(GitHub.SUPPORT_ME_URL))
+    def open_feedback(self):
+        QDesktopServices.openUrl(QUrl(GitHub.FEEDBACK_URL))
         self.showMinimized()
 
     def open_settings(self):
-        self.settings_window = SettingsWindow(parent=self)
+        if self.autoplayer_thread:
+            if self.autoplayer_thread.isRunning():
+                DialogBox(GUI.TITLE, "Otomatik oynatma mekanizması çalışıyor. Ayarları düzenleyebilmek için öncelikle programı durdurup ayarlar sekmesini tekrar açmayı deneyin.", QMessageBox.Warning, self.icon).exec_()
+                return
+
+        self.settings_window = SettingsWindow(parent=self)            
         self.settings_window.show()
 
     def check_is_shortcut_valid(self):
@@ -111,14 +118,11 @@ class MainWindow(QWidget):
 
     def start_autoplayer(self):
         if not self.check_is_shortcut_valid():
-            invalid_shortcut_msgbox = DialogBox(GUI.TITLE, "Kısayol tuşu geçersiz.", QMessageBox.Critical, self.icon)
-            invalid_shortcut_msgbox.exec_()
+            DialogBox(GUI.TITLE, "Kısayol tuşu geçersiz.", QMessageBox.Critical, self.icon).exec_()
             return
-        
+           
         if check_is_first_use():
-            firstuse_msgbox = DialogBox(GUI.TITLE, GUI.TUTORIAL_TEXT, QMessageBox.Warning, self.icon)
-            firstuse_msgbox.exec_()
-            delete_first_use_key()
+            DialogBox(GUI.TITLE, GUI.TUTORIAL_TEXT, QMessageBox.Warning, self.icon).exec_()
 
         self.autoplayer_thread = Autoplayer(parent=self)
         self.autoplayer_thread.started.connect(self.autoplayer_startedEvent)
@@ -126,9 +130,15 @@ class MainWindow(QWidget):
         self.autoplayer_thread.exception_signal.connect(self.autoplayer_exceptionEvent)
         self.autoplayer_thread.stopped_signal.connect(self.autoplayer_stoppedEvent)
         self.autoplayer_thread.start()
+    
+    def stop_autoplayer(self):
+        self.autoplayer_thread.stop_autoplayer()
 
     def autoplayer_startedEvent(self):
-        self.start_button.setEnabled(False)
+        self.start_button.clicked.disconnect()
+        self.start_button.clicked.connect(self.stop_autoplayer)
+        self.start_button.setText("Durdur")
+
         windll.kernel32.SetThreadExecutionState(0x80000002)
 
         if self.autoclose:
@@ -136,23 +146,40 @@ class MainWindow(QWidget):
 
         self.setWindowTitle(f"{GUI.TITLE} - Çalışıyor...")
 
+        self.exception_dialogbox = None
+        self.stopped_dialogbox = None
+        self.feedback_dialog = None
+
     def autoplayer_finishedEvent(self):
         if self.autoclose:
             self.setWindowOpacity(1)
 
-        self.start_button.setEnabled(True)
+        self.start_button.clicked.disconnect()
+        self.start_button.clicked.connect(self.start_autoplayer)
+        self.start_button.setText("Başlat")
+
         windll.kernel32.SetThreadExecutionState(0x80000000)
 
         self.setWindowTitle(GUI.TITLE)
+        
+        if self.stopped_dialogbox: self.stopped_dialogbox.exec_()
+        if self.exception_dialogbox: self.exception_dialogbox.exec_()
+
+        if check_is_first_use():
+            self.feedback_dialog = DialogBox(GUI.TITLE, GUI.FEEDBACK_TEXT, QMessageBox.Warning, self.icon)
+            feedback_button = QPushButton(text="Geri bildirim gönder!")
+            feedback_button.setObjectName("feedback_button")
+            feedback_button.clicked.connect(self.open_feedback)
+            self.feedback_dialog.addButton(feedback_button, QMessageBox.HelpRole)
+            self.feedback_dialog.exec_()
+            delete_first_use_key()
 
     def autoplayer_stoppedEvent(self):
-        DialogBox(GUI.TITLE, "Program sonlandırıldı.", QMessageBox.Information, self.icon).exec_()
-
-        self.autoplayer_finishedEvent()
+        self.stopped_dialogbox = DialogBox(GUI.TITLE, "Program sonlandırıldı.", QMessageBox.Information, self.icon)
 
     def autoplayer_exceptionEvent(self, exception):
         if self.dev_mode:
-            error_string = f"Hata yakalandı:\n\n{exception[1]}"
+            error_string = f"Hata yakalandı (Hata dökümünü seçip kopyalayabilirsiniz.):\n\n{exception[1]}"
 
         elif isinstance(exception[0], BorderNotFoundException):
             error_string = "Oynatılacak videonun kenarlıkları bulunamadı. Programı belirtildiği kısımda çalıştırdığınızdan emin olun."
@@ -169,11 +196,8 @@ class MainWindow(QWidget):
         else:
             error_string = "Hata oluştu ve program sonlandırıldı. Detaylı hata bilgisi almak için geliştirici modunu açıp tekrar deneyebilirsiniz."
 
-        exception_dialogbox = DialogBox(GUI.TITLE, error_string, QMessageBox.Critical, self.icon)
-        exception_dialogbox.setTextInteractionFlags(Qt.TextSelectableByMouse)
-        exception_dialogbox.exec_()
-
-        self.autoplayer_finishedEvent()
+        self.exception_dialogbox = DialogBox(GUI.TITLE, error_string, QMessageBox.Critical, self.icon)
+        self.exception_dialogbox.setTextInteractionFlags(Qt.TextSelectableByMouse)
 
 
 
@@ -203,8 +227,7 @@ class SettingsWindow(QWidget):
             change_window_theme = windll.dwmapi.DwmSetWindowAttribute(int(self.window_handle), 20, byref(c_bool(True)), sizeof(wintypes.BOOL))
 
             if change_window_theme:
-                windll.dwmapi.DwmSetWindowAttribute(int(self.window_handle), 19, byref(c_bool(True)), sizeof(wintypes.BOOL))
-
+                windll.dwmapi.DwmSetWindowAttribute(int(self.window_handle), 19, byref(c_bool(True)), sizeof(wintypes.BOOL))     
 
     def closeEvent(self,event):
         return super().closeEvent(event)
@@ -341,7 +364,7 @@ class SettingsWindow(QWidget):
         self.page_loading_delay_widget_layout.addLayout(self.page_loading_delay_entry_layout)
         self.page_loading_delay_widget.setLayout(self.page_loading_delay_widget_layout)
         self.page_loading_delay_widget.setFixedSize(self.page_loading_delay_widget.sizeHint().width(),self.page_loading_delay_widget.sizeHint().height())
-
+        
         self.main_layout.addWidget(self.shortcut_widget)
         self.main_layout.addWidget(self.autoclose_widget)
         self.main_layout.addWidget(self.dev_mode_widget)

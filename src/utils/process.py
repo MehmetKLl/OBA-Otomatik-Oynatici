@@ -33,10 +33,10 @@ def process_list():
     return [" ".join([i.decode("utf-8") for i in x.split()[:-5]]) for x in check_output(["tasklist"],shell=False,creationflags=CREATE_NO_WINDOW).split(b"\r\n")[3:-1]]
 
 def start(executable):
-    return Popen([path.basename(executable)],shell=True,creationflags=CREATE_NO_WINDOW,cwd=path.dirname(executable), stdout=PIPE, stderr=PIPE)
+    return Popen([path.basename(executable)], shell = True, creationflags = CREATE_NO_WINDOW, cwd = path.dirname(executable), stdout = PIPE, stderr = PIPE)
 
-def run(cmd):
-    return Popen(cmd,shell=False,creationflags=CREATE_NO_WINDOW)
+def run_cmd(cmd):
+    return Popen(cmd, shell = True, creationflags = CREATE_NO_WINDOW, stdout = PIPE, stderr = PIPE)
 
 def kill(process):
-    return Popen(["taskkill","-f","-im",process,"-t"],shell=False,creationflags=CREATE_NO_WINDOW)
+    return Popen(["taskkill", "-f", "-im", process, "-t"], shell = False, creationflags = CREATE_NO_WINDOW)

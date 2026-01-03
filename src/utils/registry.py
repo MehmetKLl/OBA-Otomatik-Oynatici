@@ -19,6 +19,7 @@ def check_key_exists(hkey,key_location,value_name):
     try:
         with OpenKeyEx(hkey,key_location,0,KEY_READ) as key:
             QueryValueEx(key,value_name)
+            
     except FileNotFoundError:
         return False
 

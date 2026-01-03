@@ -1,10 +1,11 @@
-from zipfile import ZipFile
 from os import path, makedirs, rmdir, remove, listdir
+from distutils.dir_util import copy_tree
+from zipfile import ZipFile
 from shutil import rmtree
 
 
-def extract(file,destination):
-    with ZipFile(file,"r") as zip_file:
+def extract(file, destination):
+    with ZipFile(file, "r") as zip_file:
         zip_file.extractall(destination)
 
 def remove_all(target_path):
@@ -29,10 +30,13 @@ def remove_folder(folder):
     rmdir(folder)
 
 def create_folder(folder):
-    return makedirs(folder, exist_ok=True)
+    return makedirs(folder, exist_ok = True)
 
-def write_byte(file,bytes_:bytes):
-    with open(file,"wb") as file_io:
+def copy_directory(directory, destination):
+    return copy_tree(directory, destination)
+
+def write_byte(file, bytes_: bytes):
+    with open(file, "wb") as file_io:
         file_io.write(bytes_)
 
 

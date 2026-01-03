@@ -12,7 +12,7 @@ import utils.file
 import errno as error_codes
 
 verify_ssl = True
-dedicated_termination = False
+intentional_termination = False
 
 def get_version_data():
     global verify_ssl
@@ -23,7 +23,7 @@ def get_version_data():
     except exceptions.SSLError:
         utils.log.log.write(f"An error occured due to SSL certificate authentication:\n{format_exc()}\n")
 
-        ask_no_ssl_verify = utils.dialogs.ask_error("SSL doğrulaması başarısız oldu. SSL doğrumasını es geçip gene de devam etmek istiyor musunuz?\n(Bu yöntem güvenlik açıklarına sebep olacağından tavsiye edilmez.)",InstallerDialogs.UPDATER_TITLE)        
+        ask_no_ssl_verify = utils.dialogs.ask_warning("Sürüm bilgisi alınırken SSL doğrulaması başarısız oldu. SSL doğrulamasını es geçip yine de devam etmek istiyor musunuz?\n\nBu durum kurumsal ağlarda ağ güvenlik politikaları doğrultusunda yapılan uygulamalardan dolayı beklenen bir durumdur. *Ancak*, SSL doğrulamanın kapatılması sonucunda ağ yöneticisi ya da internet sağlayıcısı uygulamanın ağ trafiğini izleyebilir, ya da kötü amaçlı kişiler tarafından sunucudan gelen içerik daha bilgisayarınıza gelmeden değiştirilip zararlı yazılımlar yüklenmesine sebep olabilir. Bu sebeplerden ötürü doğrulamayı kapatmak halka açık ortak ağlarda kesinlikle tavsiye edilmez.",InstallerDialogs.UPDATER_TITLE)        
         if ask_no_ssl_verify:
             verify_ssl = False
             return get_version_data()
@@ -51,8 +51,8 @@ def set_registry_values(mode):
         utils.registry.create_key(HKEY_CURRENT_USER,Registry.KEY_PATH,Registry.FIRSTUSE_KEY_NAME,"")
 
     utils.log.log.write(f"Creating \"{Registry.LASTCRASH_KEY_NAME}\" registry key at: \"{Registry.LASTCRASH_FULL_KEY_PATH}\"")
-
     utils.log.log.write(f"{'Updating' if mode == 'update' else 'Creating'} registry value at: \"{Registry.VERSION_FULL_KEY_PATH}\"")
+
     try:
         utils.registry.create_key(HKEY_CURRENT_USER,Registry.KEY_PATH,Registry.VERSION_KEY_NAME,utils.github.get_version(verify=verify_ssl))
         utils.registry.create_key(HKEY_CURRENT_USER,Registry.KEY_PATH,Registry.LASTCRASH_KEY_NAME,"-1")
@@ -60,7 +60,7 @@ def set_registry_values(mode):
     except exceptions.SSLError:
         utils.log.log.write(f"An error occured due to SSL certificate authentication:\n{format_exc()}\n")
 
-        ask_no_ssl_verify = utils.dialogs.ask_error("Sürüm bilgisi alınırken SSL doğrulaması başarısız oldu. SSL doğrulamasını es geçip gene de devam etmek istiyor musunuz?\n(Bu yöntem güvenlik açıklarına sebep olacağından tavsiye edilmez.)",InstallerDialogs.INSTALLER_TITLE if mode == 'install' else InstallerDialogs.UPDATER_TITLE)        
+        ask_no_ssl_verify = utils.dialogs.ask_warning("Sürüm bilgisi alınırken SSL doğrulaması başarısız oldu. SSL doğrulamasını es geçip yine de devam etmek istiyor musunuz?\n\nBu durum kurumsal ağlarda ağ güvenlik politikaları doğrultusunda yapılan uygulamalardan dolayı beklenen bir durumdur. *Ancak*, SSL doğrulamanın kapatılması sonucunda ağ yöneticisi ya da internet sağlayıcısı uygulamanın ağ trafiğini izleyebilir, ya da kötü amaçlı kişiler tarafından sunucudan gelen içerik daha bilgisayarınıza gelmeden değiştirilip zararlı yazılımlar yüklenmesine sebep olabilir. Bu sebeplerden ötürü doğrulamayı kapatmak halka açık ortak ağlarda kesinlikle tavsiye edilmez.",InstallerDialogs.INSTALLER_TITLE if mode == 'install' else InstallerDialogs.UPDATER_TITLE)        
         if ask_no_ssl_verify:
             verify_ssl = False
             return set_registry_values(mode)
@@ -81,6 +81,9 @@ def set_registry_values(mode):
 
     except OSError as exc:
         error_code = exc.errno
+        exc_tb = format_exc()
+
+        utils.log.log.write(f"An OS related error occured while setting registry values:\n{exc_tb}")
 
         if error_code == error_codes.ENOENT:
             utils.dialogs.show_error("Aranılan dosya ya da dizin bulunamadı.", dialog_title)
@@ -89,9 +92,14 @@ def set_registry_values(mode):
             utils.dialogs.show_error("Yetki hatası oluştu. Programı yönetici olarak çalıştırmayı deneyin.", dialog_title)
 
         else:
-            exc_tb = format_exc()
             utils.dialogs.show_error(f"Çözümlenemeyen bir sebepten işletim sistemi hatası oluştu:\n\n{exc_tb}", dialog_title)
 
+        return 1
+    
+    except Exception as exc:
+        exc_tb = format_exc()
+        utils.log.log.write(f"An unexpected error occured while setting registry keys:\n{exc_tb}")
+        utils.dialogs.show_error(f"Kayıt defteri değerleri oluşturulup yazılırken beklenmedik bir hata oluştu:\n\n{exc_tb}", dialog_title)
         return 1
 
     utils.log.log.write(f"{'Updated' if mode == 'update' else 'Created'} registry value at: \"{Registry.VERSION_FULL_KEY_PATH}\"")
@@ -105,18 +113,19 @@ def check_is_installed():
 
     except OSError as exc:
         error_code = exc.errno
+        exc_tb = format_exc()
 
         if error_code in (error_codes.EPERM, error_codes.EACCES):
             utils.dialogs.show_error("Kayıt defteri değeri okunurken yetki hatası oluştu. Programı yönetici olarak çalıştırmayı deneyin.", dialog_title)
 
         else:
-            exc_tb = format_exc()
             utils.dialogs.show_error(f"Kayıt defteri değeri okunurken çözümlenemeyen bir sebepten işletim sistemi hatası oluştu:\n\n{exc_tb}", dialog_title)
 
         exit(1)
 
     except Exception as exc:
         exc_tb = format_exc()
+        utils.log.log.write(f"An unexpected error occured while checking registry keys:\n{exc_tb}")
         utils.dialogs.show_error(f"Kayıt defteri değeri okunurken beklenmedik bir hata oluştu:\n\n{exc_tb}", dialog_title)
         exit(1)
 
@@ -128,22 +137,25 @@ def check_is_app_running():
 
     except OSError as exc:
         error_code = exc.errno
+        exc_tb = format_exc()
+
+        utils.log.log.write(f"An OS related error occured while checking if the app is currently working or not:\n{exc_tb}")
 
         if error_code in (error_codes.EPERM, error_codes.EACCES):
             utils.dialogs.show_error("Çalışan işlemler alınırken yetki hatası oluştu. Programı yönetici olarak çalıştırmayı deneyin.", dialog_title)
 
         else:
-            exc_tb = format_exc()
             utils.dialogs.show_error(f"Çalışan işlemler alınırken çözümlenemeyen bir sebepten işletim sistemi hatası oluştu:\n\n{exc_tb}", dialog_title)
 
         return (1, None)
 
     except Exception as exc:
         exc_tb = format_exc()
-        utils.dialogs.show_error(f"Kayıt defteri değeri okunurken beklenmedik bir hata oluştu:\n\n{exc_tb}", dialog_title)
+        utils.log.log.write(f"An unexpected error occured while getting currently running processes:\n{exc_tb}")
+        utils.dialogs.show_error(f"Çalışan işlemler alınırken beklenmedik bir hata oluştu:\n\n{exc_tb}", dialog_title)
         return (1, None)
 
-def install_program_contents(content_bytes,mode):
+def install_program_contents(content_bytes, mode):
     global verify_ssl
 
     if mode not in ["update","install"]:
@@ -183,6 +195,9 @@ def install_program_contents(content_bytes,mode):
 
     except OSError as exc:
         error_code = exc.errno
+        exc_tb = format_exc()
+
+        utils.log.log.write(f"An OS related error occured while installing app contents:\n{exc_tb}")
 
         if error_code == error_codes.ENOENT:
             utils.dialogs.show_error("Aranılan dosya ya da dizin bulunamadı.", dialog_title)
@@ -197,20 +212,20 @@ def install_program_contents(content_bytes,mode):
             utils.dialogs.show_error("Yetki hatası oluştu. Programı yönetici olarak çalıştırmayı deneyin.", dialog_title)
 
         else:
-            exc_tb = format_exc()
             utils.dialogs.show_error(f"Çözümlenemeyen bir sebepten işletim sistemi hatası oluştu:\n\n{exc_tb}", dialog_title)
 
         return 1
 
     except Exception as exc:
         exc_tb = format_exc()
-        utils.dialogs.show_error(f"Beklenmedik bir hata oluştu:\n\n{exc_tb}", dialog_title)
+        utils.log.log.write(f"An unexpected error occured while installing app contents:\n{exc_tb}")
+        utils.dialogs.show_error(f"Uygulama dizine kurulurken beklenmedik bir hata oluştu:\n\n{exc_tb}", dialog_title)
         return 1
 
     return 0
 
 
-def download_program_contents(mode):
+def download_program_contents(version = "latest", mode = None):
     global verify_ssl
 
     if mode not in ["update","install"]:
@@ -218,14 +233,15 @@ def download_program_contents(mode):
 
     utils.log.log.write("Getting app contents from Github...")
     try:
-        return (0, utils.github.get_program_contents(timeout=3,verify=verify_ssl))
+        return (0, utils.github.get_program_contents(version, timeout=3, verify=verify_ssl))
+    
     except exceptions.SSLError:
         utils.log.log.write(f"An error occured due to SSL certificate authentication:\n{format_exc()}\n")
 
-        ask_no_ssl_verify = utils.dialogs.ask_error("SSL doğrulaması başarısız oldu. SSL doğrulamasını es geçip gene de devam etmek istiyor musunuz?\n(Bu yöntem güvenlik açıklarına sebep olacağından tavsiye edilmez.)",InstallerDialogs.INSTALLER_TITLE if mode == 'install' else InstallerDialogs.UPDATER_TITLE)        
+        ask_no_ssl_verify = utils.dialogs.ask_warning("Program indirilirken SSL doğrulaması başarısız oldu. SSL doğrulamasını es geçip yine de devam etmek istiyor musunuz?\n\nBu durum kurumsal ağlarda ağ güvenlik politikaları doğrultusunda yapılan uygulamalardan dolayı beklenen bir durumdur. *Ancak*, SSL doğrulamanın kapatılması sonucunda ağ yöneticisi ya da internet sağlayıcısı uygulamanın ağ trafiğini izleyebilir, ya da kötü amaçlı kişiler tarafından sunucudan gelen içerik daha bilgisayarınıza gelmeden değiştirilip zararlı yazılımlar yüklenmesine sebep olabilir. Bu sebeplerden ötürü doğrulamayı kapatmak halka açık ortak ağlarda kesinlikle tavsiye edilmez.",InstallerDialogs.INSTALLER_TITLE if mode == 'install' else InstallerDialogs.UPDATER_TITLE)        
         if ask_no_ssl_verify:
            verify_ssl = False
-           return download_program_contents(mode)
+           return download_program_contents(version, mode)
 
         else:
             return (1, None)
@@ -233,7 +249,7 @@ def download_program_contents(mode):
     except (exceptions.ConnectTimeout, exceptions.ReadTimeout):
         utils.log.log.write(f"Connection timed out:\n{format_exc()}\n")
 
-        utils.dialogs.show_error("Sunucuya gönderilen istek zaman aşımına uğradı.",InstallerDialogs.INSTALLER_TITLE if mode == 'install' else InstallerDialogs.UPDATER_TITLE)
+        utils.dialogs.show_error("Programı indirmek için sunucuya gönderilen istek zaman aşımına uğradı.",InstallerDialogs.INSTALLER_TITLE if mode == 'install' else InstallerDialogs.UPDATER_TITLE)
         return (1, None)
 
     except exceptions.ConnectionError:
@@ -261,7 +277,7 @@ def start_installer():
 
 
 def start_updater():
-    global dedicated_termination
+    global intentional_termination
 
     utils.log.log.write(f"Reading registry value at: \"{Registry.VERSION_FULL_KEY_PATH}\"")
     local_version = utils.registry.read_key(HKEY_CURRENT_USER,Registry.KEY_PATH,Registry.VERSION_KEY_NAME)
@@ -291,14 +307,14 @@ def start_updater():
         if is_app_running:
             utils.log.log.write("Terminating working app...")
             kill("oba_gui.exe")
-            dedicated_termination = True
+            intentional_termination = True
 
         ask_for_update = utils.dialogs.ask_info(f"Programın yeni bir sürümü mevcut. Programı yeni sürüme güncellemek ister misiniz?\n\nBilgisayarda yüklü olan sürüm: {local_version}\nSon sürüm: {main_version}",InstallerDialogs.UPDATER_TITLE)
         if not ask_for_update:
             utils.log.log.close()
             return
 
-        is_error_occured, content_bytes = download_program_contents(mode="update")
+        is_error_occured, content_bytes = download_program_contents(main_version, mode="update")
         if is_error_occured:
             utils.log.log.close()
             exit(1)
@@ -323,7 +339,9 @@ def start_troubleshooter():
 
     utils.log.log.write("Starting auto-repair process...")
 
-    is_error_occured, content_bytes = download_program_contents(mode="install")
+    local_version = utils.registry.read_key(HKEY_CURRENT_USER,Registry.KEY_PATH,Registry.VERSION_KEY_NAME)
+
+    is_error_occured, content_bytes = download_program_contents(local_version, mode="install")
     if is_error_occured:
         utils.log.log.close()
         utils.dialogs.show_error("Otomatik tamir işlemi başarısız oldu. Programı yeniden çalıştırmayı deneyin.", InstallerDialogs.TROUBLESHOOTER_TITLE)
@@ -342,9 +360,17 @@ def start_troubleshooter():
     utils.log.log.write("Auto-repair process completed without any issues.")
     utils.log.log.close()
 
+def show_license_agreement():
+    return utils.dialogs.ask_no_icon(InstallerDialogs.LICENSE_TEXT, InstallerDialogs.LICENSE_TITLE)
+
 
 def main():
     if not check_is_installed():
+        is_license_agreed = show_license_agreement()
+
+        if not is_license_agreed:
+            exit(0)
+
         utils.log.create_log("log","Installer")
         start_installer()
     else:
@@ -357,7 +383,7 @@ def main():
 
     return_bytes, return_code = gui_process.communicate(), gui_process.returncode
 
-    if all((return_bytes[1] or return_code, not dedicated_termination)):
+    if all((return_bytes[1] or return_code, not intentional_termination)):
         if utils.registry.read_key(HKEY_CURRENT_USER,Registry.KEY_PATH,Registry.LASTCRASH_KEY_NAME) == "1":
             utils.log.create_log("log","Troubleshooter")
             start_troubleshooter()

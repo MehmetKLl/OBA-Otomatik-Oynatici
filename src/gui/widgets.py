@@ -25,7 +25,6 @@ class TextBox(QVBoxLayout):
 class DialogBox(QMessageBox):
     def __init__(self, title, text, msg_icon, window_icon):
         super().__init__()
-
         self.setWindowFlags(Qt.WindowStaysOnTopHint | Qt.WindowCloseButtonHint)
         self.setWindowIcon(window_icon)
         self.setIcon(msg_icon)

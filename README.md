@@ -1,5 +1,5 @@
 <h2> ÖBA Otomatik Oynatıcı </h2>
-<b> Sürüm 1.5.0 </b>
+<b> Sürüm 1.6.0 </b>
 <br><br>
 <i>Uğraşmak yerine, dosyayı direkt <a href="https://github.com/MehmetKLl/OBA-Otomatik-Oynatici/releases/latest/download/oba_otomatik_oynatma.zip" >buradan</a> indirebilirsiniz.</i>
 <br><br>
@@ -116,6 +116,7 @@
 
 |Sürüm|Notlar|
 |-|-|
+|1.6.0|Arayüzde önemli geliştirmeler yapıldı. Feedback sistemi eklendi ve proje topluluğa açıldı. Güncelleme sistemi yenilendi. Eski sürümlerin güncelleme ile uyumlu çalışabilmesi için geriye dönük uyumluluk yöneticisi eklendi. Yükleyici programın mekanizması geliştirildi.|
 |1.5.0|Uygulama algoritması yeni ÖBA arayüzü ile çalışacak biçimde düzenlendi. Arayüzde geliştirilme yapıldı. Otomatik tamir sisteminin hatalı çalışmasına sebep olan hata giderildi.|
 |1.4.10|Program hataları giderildi.|
 |1.4.9|Arayüz geliştirildi.|

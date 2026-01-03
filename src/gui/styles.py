@@ -13,13 +13,13 @@ try:
 except FileNotFoundError:
     SYSTEM_THEME = "LIGHT"
 
+
 class Styles:
     if SYSTEM_THEME == "LIGHT":
         MainWindowStyle = """
                         QWidget#main {
                             background-color: #e1e1e1;
                         }
-
 
                         QLabel#textbox_title{
                             padding: 2px;
@@ -64,7 +64,7 @@ class Styles:
                             color: rgb(96, 96, 96);
                         }
 
-                        QWidget#footer QPushButton#support_me_button {
+                        QWidget#footer QPushButton#feedback_button {
                             background-color: rgb(225, 225, 225);
                             border: 1px solid rgb(192, 192, 192);
                             color: rgb(0, 0, 0);
@@ -72,14 +72,14 @@ class Styles:
                             border-radius: 2px;
                         }
 
-                        QWidget#footer QPushButton#support_me_button:hover {
+                        QWidget#footer QPushButton#feedback_button:hover {
                             background-color: rgb(225, 225, 225);
                             border: 1px solid rgb(214, 214, 214);
                             color: rgb(22, 22, 22);
                             text-decoration: underline;
                         }
 
-                        QWidget#footer QPushButton#support_me_button:pressed {
+                        QWidget#footer QPushButton#feedback_button:pressed {
                             background-color: rgb(225, 225, 225);
                             color: rgb(65, 65, 65);
                         }
@@ -93,14 +93,39 @@ class Styles:
 
                                 QWidget#settings QWidget#option_box {
                                     border: 1px solid #c0c0c0;
+                                    border-radius: 3px;
                                     background-color: #fff0f5;
                                     padding: 5px;
                                 }
                                 """
 
         MessageBoxStyle = """
+                            QMessageBox#msgbox QPushButton {
+                                padding: 5px;
+                                padding-left: 15px;
+                                padding-right: 15px;
+                                border-radius: 2px;
+                                background-color: rgb(230, 230, 230);
+                                border: 1px solid rgb(64, 64, 64);
+                                color: rgb(64, 64, 64);
+                            }
 
-                        """
+                            QMessageBox#msgbox QPushButton:hover {
+                                background-color: rgb(230, 230, 230);
+                                border: 1px solid rgb(96, 96, 96);
+                                color: rgb(96, 96, 96);
+                            }
+
+                            QMessageBox#msgbox QPushButton:pressed {
+                                background-color:rgb(205, 205, 205);
+                                border: 1px solid rgb(128, 128, 128);
+                                color: rgb(128, 128, 128);
+                            }
+
+                            QMessageBox#msgbox QPushButton#feedback_button:hover {
+                                text-decoration: underline;
+                            }
+                          """
 
     elif SYSTEM_THEME == "DARK":
         MainWindowStyle = """
@@ -118,6 +143,7 @@ class Styles:
                             background-color: black;
                             color: rgb(191, 191, 191);
                             padding: 5px;
+                            border: 1px solid #3f3f3f;
                             border-radius: 3px;
                         }
 
@@ -158,7 +184,7 @@ class Styles:
                             color: rgb(159, 159, 159);
                         }
 
-                        QWidget#footer QPushButton#support_me_button {
+                        QWidget#footer QPushButton#feedback_button {
                             background-color: rgb(30, 30, 30);
                             border: 1px solid rgb(63, 63, 63);
                             color: rgb(191, 191, 191);
@@ -166,14 +192,14 @@ class Styles:
                             border-radius: 2px;
                         }
 
-                        QWidget#footer QPushButton#support_me_button:hover {
+                        QWidget#footer QPushButton#feedback_button:hover {
                             background-color: rgb(30, 30, 30);
                             border: 1px solid rgb(41, 41, 41);
                             color: rgb(159,159,159);
                             text-decoration: underline;
                         }
 
-                        QWidget#footer QPushButton#support_me_button:pressed {
+                        QWidget#footer QPushButton#feedback_button:pressed {
                             background-color: rgb(30, 30, 30);
                             color: rgb(128, 128, 128);
                         }
@@ -188,6 +214,7 @@ class Styles:
 
                                 QWidget#settings QWidget#option_box {
                                     border: 1px solid #3f3f3f;
+                                    border-radius: 3px;
                                     background-color: #000f0a;
                                     padding: 5px;
                                 }
@@ -200,12 +227,6 @@ class Styles:
                                     color: rgb(191, 191, 191);
                                 }
 
-                                QWidget#settings QWidget#option_box QLineEdit{
-                                    color: white;
-                                    background-color: #1e1e1e;
-                                    border: 1px solid #3f3f3f;
-                                }
-
                                 QWidget#settings QWidget#option_box QCheckBox::indicator{
                                     background-color: #1e1e1e;
                                     border: 1px solid #3f3f3f;
@@ -214,6 +235,12 @@ class Styles:
                                 QWidget#settings QWidget#option_box QCheckBox::indicator:checked{
                                     background-color: #3f3f3f;
                                     border: 1px solid rgb(191, 191, 191);
+                                }
+
+                                QWidget#settings QWidget#option_box QLineEdit{
+                                    color: white;
+                                    background-color: #1e1e1e;
+                                    border: 1px solid #3f3f3f;
                                 }
 
                                 """
@@ -229,6 +256,7 @@ class Styles:
                                 padding-right: 15px;
                                 background-color: rgb(25, 25, 25);
                                 border: 1px solid rgb(191, 191, 191);
+                                border-radius: 2px;
                                 color: rgb(191, 191, 191);
                             }
 
@@ -242,6 +270,10 @@ class Styles:
                                 background-color:rgb(40, 40, 40);
                                 border: 1px solid rgb(128, 128, 128);
                                 color: rgb(128, 128, 128);
+                            }
+
+                            QMessageBox#msgbox QPushButton#feedback_button:hover {
+                                text-decoration: underline;
                             }
 
                             QMessageBox#msgbox QLabel {
