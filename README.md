@@ -1,10 +1,11 @@
 <h2> ÖBA Otomatik Oynatıcı </h2>
-<b> Sürüm 1.6.0 </b>
+<b> Sürüm 1.6.1 </b>
 <br><br>
 <i>Uğraşmak yerine, dosyayı direkt <a href="https://github.com/MehmetKLl/OBA-Otomatik-Oynatici/releases/latest/download/oba_otomatik_oynatma.zip" >buradan</a> indirebilirsiniz.</i>
 <br><br>
 
-<i>Program hakkında destek almak için <a href="https://www.technopat.net/sosyal/konu/uzman-oegretmenlik-icerikleri-icin-oynatici-oba-otomatik-oynatici.2164134/">bu konuya</a> ya da <a href="https://forum.donanimarsivi.com/konu/oeba-otomatik-oynatici.584854/">bu konuya</a> mesaj gönderebilirsiniz.</i>
+<i>Program hakkında destek almak için <a href="https://forum.donanimarsivi.com/konu/oeba-otomatik-oynatici.584854/">bu konuya</a> mesaj gönderebilir ya da programa geri bildirim göndermek için <a href="https://forms.gle/6o3kqXHRJ2iXEqs36">bu formu</a> doldurabilirsiniz.
+Programa katkıda bulunma rehberine <a href="https://forms.gle/6o3kqXHRJ2iXEqs36">buradan</a> ulaşabilirsiniz.</i>
 <br><br><br>
 
 <picture>
@@ -38,8 +39,8 @@
 - Program ilk çalıştırıldığı vakit kurulması gereken dosyaları internetten indirdiğinden program ilk çalıştırıldığı vakit internet gerektirmektedir.
 - Arayüz ekrana gelmeden önce sürüm denetleyicisi çalıştırıldığından arayüzün ekrana gelmesi bazı etkenlere bağlı olarak değişebilir.
 - Program kurulduktan sonra aynı dosyayla kuruluma gerek olmadan tekrar çalıştırılabilir.
-- <b><ins>Program videoların izlendiği kısımdan itibaren başlatılmalıdır (Site boyutu %100 olmak şartıyla)</ins></b>. Aksi takdirde program doğru <b>çalışmayacaktır</b>.
-- <b><ins>Program çalışırken fare ile oynanmamalı</ins></b> ve program durdurulmak isteniyorsa <b><ins>sadece kısayol tuşuyla kapatılmalıdır</ins></b>, aksi takdirde program çökebilir. 
+- <b><u>Program videoların izlendiği kısımdan itibaren başlatılmalıdır (Site boyutu %100 olmak şartıyla)</u></b>. Aksi takdirde program doğru <b>çalışmayacaktır</b>.
+- <b><u>Program çalışırken fare ile oynanmamalı</u></b> ve program durdurulmak isteniyorsa <b><u>sadece kısayol tuşuyla kapatılmalıdır</u></b>, aksi takdirde program çökebilir. 
 
 ---------------------------------
 
@@ -116,6 +117,7 @@
 
 |Sürüm|Notlar|
 |-|-|
+|1.6.1|Arayüz görünümünü iyileştirecek geliştirmeler yapıldı.|
 |1.6.0|Arayüzde önemli geliştirmeler yapıldı. Feedback sistemi eklendi ve proje topluluğa açıldı. Güncelleme sistemi yenilendi. Eski sürümlerin güncelleme ile uyumlu çalışabilmesi için geriye dönük uyumluluk yöneticisi eklendi. Yükleyici programın mekanizması geliştirildi.|
 |1.5.0|Uygulama algoritması yeni ÖBA arayüzü ile çalışacak biçimde düzenlendi. Arayüzde geliştirilme yapıldı. Otomatik tamir sisteminin hatalı çalışmasına sebep olan hata giderildi.|
 |1.4.10|Program hataları giderildi.|
