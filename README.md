@@ -5,7 +5,7 @@
 <br><br>
 
 <i>Program hakkında destek almak için <a href="https://forum.donanimarsivi.com/konu/oeba-otomatik-oynatici.584854/">bu konuya</a> mesaj gönderebilir ya da programa geri bildirim göndermek için <a href="https://forms.gle/6o3kqXHRJ2iXEqs36">bu formu</a> doldurabilirsiniz.
-Programa katkıda bulunma rehberine <a href="https://forms.gle/6o3kqXHRJ2iXEqs36">buradan</a> ulaşabilirsiniz.</i>
+Programa katkıda bulunma rehberine <a href="CONTRIBUTING.md">buradan</a> ulaşabilirsiniz.</i>
 <br><br><br>
 
 <picture>
