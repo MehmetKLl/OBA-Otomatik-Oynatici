@@ -7,7 +7,6 @@
 <br>
 <b> • </b><code><a href="run.py">run.py</a></code>: oba_otomatik_oynatma.exe dosyasının kaynak kodudur.<br>
 <b> • </b><code><a href="main.py">main.py</a></code>: Programın arayüzünün kaynak kodudur.<br>
-<b> • </b><code><a href="stub.py">stub.py</a></code>: Programın eski yükleyicisinin uyumluluk yöneticisinin kaynak kodudur.<br>
 <b> • </b><code><a href="autoplayer/main.py">autoplayer/main.py</a></code>: Otomatik oynatma mekanizmasının kaynak kodudur.<br><br>
 <b> • </b><code><a href="install-dependencies.ps1">install-dependencies.ps1</a></code>:  <code>*.py</code> dosyalarının direkt 
 çalıştırılabilmesi için gerekli Python yorumlayıcısı ve kütüphanelerini indiren PowerShell betiği.<br>
