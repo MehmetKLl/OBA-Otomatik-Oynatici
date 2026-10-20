@@ -1,12 +1,15 @@
 <h2> ÖBA Otomatik Oynatıcı </h2>
-<b> Sürüm 1.6.1 </b>
-<br><br>
-<i>Uğraşmak yerine, dosyayı direkt <a href="https://github.com/MehmetKLl/OBA-Otomatik-Oynatici/releases/latest/download/oba_otomatik_oynatma.zip" >buradan</a> indirebilirsiniz.</i>
-<br><br>
 
-<i>Program hakkında destek almak için <a href="https://forum.donanimarsivi.com/konu/oeba-otomatik-oynatici.584854/">bu konuya</a> mesaj gönderebilir ya da programa geri bildirim göndermek için <a href="https://forms.gle/6o3kqXHRJ2iXEqs36">bu formu</a> doldurabilirsiniz.
-Programa katkıda bulunma rehberine <a href="CONTRIBUTING.md">buradan</a> ulaşabilirsiniz.</i>
-<br><br><br>
+
+<i>Maalesef, artık zaman bulamadığımdan programı uzun süredir güncelleyemiyorum ve süreç içinde programı ayakta tutmaya yardım edecek kimseyi de bulamadığım için sonunda projeyi arşivlemeye karar verdim. Eğer ki sonradan görüp katkıda bulunmak isterseniz depoyu çatallayabilirsiniz. Yıllardır bu projeye olan ilginizden dolayı teşekkür ederim.</i>
+
+<br>
+
+<i>Bana ulaşmak isterseniz <b><a href="mailto:mehmetkll.vastly970&#64;passinbox.com">bu adres</a></b> üzerinden e-posta gönderebilirsiniz.</i>
+
+<br>
+
+---------------------------------
 
 <picture>
 <a href="https://youtu.be/eZo2jmeZ7BU"><img src="https://img.youtube.com/vi/eZo2jmeZ7BU/0.jpg"></img></a>
